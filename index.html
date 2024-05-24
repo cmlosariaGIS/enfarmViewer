@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang=en> <head><meta charset=UTF-8><meta name=viewport content="width=device-width, initial-scale=1.0"><title>enfarm Deployed Devices Web Map</title><!-- Favicon --><link rel=icon href=https://i.ibb.co/tQDxF41/enfarm-favicon.png type=image/png><link rel=stylesheet href=./leaflet.css><link rel=stylesheet href=./style.css><link rel=stylesheet href=./userlocation.css><link rel=stylesheet href=./search.css><link rel=stylesheet href=./rainviewer.css><link rel=stylesheet href=./mapbox3Dterrain.css><!-- Leaflet --><script src=https://unpkg.com/leaflet/dist/leaflet.js></script><!--<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />--><!-- Leaflet Marker Cluster--><script src=https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js></script><link rel=stylesheet href=https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css><link rel=stylesheet href=https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css><!-- Google Fonts --><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel=stylesheet><link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel=stylesheet><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel=stylesheet><!-- D3.js and TopoJSON.js --><script src=https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js></script><!-- Leaflet.GlobeMiniMap --><script src=https://syonfox.github.io/leaflet-globe-minimap/dist/Control.GlobeMiniMap.min.js></script><!-- Mapbox GL JS--><link href=https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css rel=stylesheet><script src=https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js></script><style>
+
+    </style></head> <body> <div id=map></div> <div class=menu-bar> <div class=left-section> <a href=https://enfarm.com/ target=_blank> <img src=https://enfarm.com/fd57352e4cea98b4c1fb.jpg class=company-logo alt="enFarm Logo"> </a> <div class=project-title> <span>Deployed Devices Web Map</span> </div> </div> <div class=middle-section> </div> <div class=right-section> <div class=search-bar> <input type=text id=searchInput placeholder="Search customers..."> <button id=searchButton style="color: #919191;"><span class=material-symbols-outlined>search</span></button> </div> </div> </div> <!--Info button and info box--> <button class=info-button onclick=toggleInfo()> <span class=material-icons-outlined>info</span> </button> <div class=info-box> <div class=info-content> <div class=info-image></div> <p>About</p> <div class=info-logo> <img src=https://enfarm.com/fd57352e4cea98b4c1fb.jpg alt="enFarm Logo" style="width: 80px; height: auto;"> </div> <p> Map application to track and visualize deployed enfarm devices</p> <button class=dismiss-button onclick=toggleInfo()>Dismiss</button> </div> </div> <!--Locate user--> <button class=userlocation-button onclick=locateUser()> <span class=material-icons-outlined>my_location</span> </button> <!--Mapbox 3D terrain--> <button class=mapbox3Dterrain-button onclick=call3Dmap()> <span class=material-icons-outlined>landscape</span> </button> <!-- Common parent container for buttons --> <div class=leaflet-control-rainviewer-buttons> <!-- Next button --> <span class="leaflet-control-rainviewer-next leaflet-bar-part btn"> <span class=material-icons-outlined>arrow_forward_ios</span> </span> <!-- Previous button --> <span class="leaflet-control-rainviewer-prev leaflet-bar-part btn"> <span class=material-icons-outlined>arrow_back_ios</span> </span> </div> <!-- Statistics Dashboard --> <button class=stats-button onclick=toggleSlideMenuStats()> <span class=material-icons-outlined>donut_large</span> </button> <div id=slideMenuStats class=slideMenuStats> <div class=slideMenuStats-content> <span class="material-icons-outlined slideMenuStats-close" onclick=toggleSlideMenuStats()>close</span> <h2 class=dashboard-title>Dashboard</h2> <div class=device-count id=totalDevicesCount></div> <div class=section-title>Devices deployed</div> <div class=divider></div> <!-- Divider line --> </div> </div> <script src=map.js></script> <script src=search.js></script> <script src=infobox.js></script> <script src=userlocation.js></script> <script src=rainviewer.js></script> <script src=mapbox3Dterrain.js></script> <script src=globeminimap.js></script> <script>
+       
+
+        // Toggle slide menu stats
+        function toggleSlideMenuStats() {
+            const slideMenuStats = document.getElementById('slideMenuStats');
+            slideMenuStats.classList.toggle('active');
+        }
+
+        var rainviewer = L.control.rainviewer({
+            position: 'bottomleft',
+            nextButtonText: '›',
+            playStopButtonText: 'Start/Stop',
+            prevButtonText: '‹',
+            positionSliderLabelText: "🕐 Adjust time:",
+            opacitySliderLabelText: "🌧️ Adjust layer opacity:",
+            animationInterval: 500,
+            opacity: 0.5
+        });
+        rainviewer.addTo(map);
+
+
+        function call3Dmap() {
+            window.location.href = 'mapbox3D.html';
+        }
+
+    </script> </body> </html>

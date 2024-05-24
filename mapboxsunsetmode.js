@@ -1,0 +1,2 @@
+let isSunsetMode=false;function toggleSunsetEffect(){const button=document.querySelector('.sunsetToggle-button');const nightButton=document.querySelector('.nightToggle-button');isSunsetMode=!isSunsetMode;if(isSunsetMode){if(isNightMode){toggleNightEffect();}
+map.setFog({'range':[-1,2],'horizon-blend':0.3,'color':'rgba(255, 224, 102, 0.5)','high-color':'rgba(255, 165, 0, 0.5)','space-color':'rgba(255, 99, 71, 0.8)','star-intensity':0.1});button.style.backgroundColor='#FFD53D';}else{map.setFog(null);button.style.backgroundColor='';}}

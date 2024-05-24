@@ -1,0 +1,3 @@
+let isRotating=false;let rotationInterval;function toggleRotation(iconElement){if(!isRotating){startRotation();iconElement.innerHTML='<span class="material-icons-outlined" style="color: white;">stop_circle</span>';iconElement.style.backgroundColor='#FF2768';}else{stopRotation();iconElement.innerHTML='<span class="material-icons-outlined">play_circle</span>';iconElement.style.backgroundColor='#ffffff';}}
+function startRotation(){rotationInterval=setInterval(()=>{map.easeTo({bearing:map.getBearing()+1,duration:1000,easing:t=>t});},100);isRotating=true;}
+function stopRotation(){clearInterval(rotationInterval);isRotating=false;}
