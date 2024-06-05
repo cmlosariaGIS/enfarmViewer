@@ -624,6 +624,90 @@ body {
 }
 
 
+/* Farm Grid Layout */
+.farm-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Farm Pair */
+.farm-pair {
+    width: 23%;
+    /* Adjust as needed */
+    margin-bottom: 20px;
+    /* Adjust spacing between pairs */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Farm Count */
+.coffeefarms-count,
+.durianfarms-count,
+.pepperfarms-count,
+.teafarms-count {
+    font-size: 30px;
+    /* Adjust font size */
+    font-weight: bold;
+    /* Adjust font weight */
+    margin-bottom: 10px;
+    /* Adjust spacing between count and title */
+    text-align: center;
+    color: #545454;
+}
+
+/* Section Title */
+.section-title {
+    font-size: 12px;
+    /* Adjust font size */
+    text-align: center;
+    margin-bottom: -2px;
+    /* Adjust spacing between title and next element */
+    margin-top: -15px;
+}
+
+/* Farm Icon */
+.farm-icon {
+    width: 50px;
+    /* Adjust icon width */
+    height: 50px;
+    /* Adjust icon height */
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+    /* Adjust spacing between icon and count */
+}
+
+
+/* Coffee Farm Icon */
+.coffeefarms-icon {
+    background-image: url('https://i.ibb.co/7XCkdBx/icons8-coffee-beans-96.png');
+    margin-bottom: -2px;
+    margin-top: -20px;
+}
+
+/* Durian Farm Icon */
+.durianfarms-icon {
+    background-image: url('https://i.ibb.co/6Jw8jjP/icons8-durian-96.png');
+    margin-bottom: -2px;
+    margin-top: -20px;
+}
+
+/* Pepper Farm Icon */
+.pepperfarms-icon {
+    background-image: url('https://i.ibb.co/WxVZrLN/icons8-pepper-96.png');
+    margin-bottom: -2px;
+    margin-top: -20px;
+}
+
+/* Tea Farm Icon */
+.teafarms-icon {
+    background-image: url('https://i.ibb.co/DGScVH9/icons8-tea-leaves-64.png');
+    margin-bottom: -2px;
+    margin-top: -20px;
+}
+
 
 
 /*Historical Soil Data Line Chart pop up*/
