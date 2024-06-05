@@ -21,44 +21,34 @@
 
     <style>
         /*North Arrow*/
-        .north-arrow {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 99999;
-        }
-
-        .north-arrow-icon {
-            font-size: 48px;
-            text-shadow: 0 0 5px rgba(109, 109, 109, 0.9);
-            color: rgb(56, 56, 56);
-        }
-
-        .north-text {
-            position: absolute;
-            top: 40px;
-            left: 15px;
-            font-size: 20px;
-            font-weight: bolder;
-            color: rgb(255, 0, 0);
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
-        }
-        
-        .totalfarmarea-sum {
-    font-size: 60px;
-    color: #545454;
-    margin-top: 0px;
-    font-weight: 900;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    margin-top: -40px;
+ .north-arrow {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
 }
 
+.north-arrow-icon {
+    font-size: 48px;
+    text-shadow: 0 0 5px rgba(109, 109, 109, 0.9);
+    color: rgb(56, 56, 56);
+}
+
+.north-text {
+    position: absolute;
+    top: 40px;
+    left: 15px;
+    font-size: 20px;
+    font-weight: bolder;
+    color: rgb(255, 0, 0);
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
+}
     </style>
 </head>
 
@@ -276,19 +266,29 @@
             slideMenuStats.classList.toggle('active');
         }
 
+        //Filtered Device/Farm Count
         // Fetch the data from the API
         fetch('https://api-ma.enfarm.com/api/v1/ma/get-install-locations', {
             headers: { 'accept': 'application/json' }
         })
             .then(response => response.json())
             .then(data => {
-                // Initialize total device count
-                var totalDevicesCount = data.content.length;
+                // Keyword filtering
+                const excludedWords = ["toàn", "test", "enfarm", "koko"];
+                const filteredLocations = data.content.filter(location => {
+                    const farmNameContainsExcludedWord = excludedWords.some(word => location.farmname.toLowerCase().includes(word.toLowerCase()));
+                    const regionNameContainsExcludedWord = excludedWords.some(word => location.region_name.toLowerCase().includes(word.toLowerCase()));
+                    return !(farmNameContainsExcludedWord || regionNameContainsExcludedWord);
+                });
+
+                // Initialize total device count based on filtered locations
+                var totalDevicesCount = filteredLocations.length;
 
                 // Display total device count
                 document.getElementById('totalDevicesCount').innerText = totalDevicesCount;
             })
             .catch(error => console.error('Error fetching data:', error));
+
 
 
 

@@ -116,6 +116,14 @@ axios.all([
     .then(response => response.json())
     .then(async data => {
         data.content.forEach(async location => {
+            // Keyword filtering
+            const excludedWords = ["toàn", "test", "enfarm", "koko"];
+            const farmNameContainsExcludedWord = excludedWords.some(word => location.farmname.toLowerCase().includes(word.toLowerCase()));
+            const regionNameContainsExcludedWord = excludedWords.some(word => location.region_name.toLowerCase().includes(word.toLowerCase()));
+            if (farmNameContainsExcludedWord || regionNameContainsExcludedWord) {
+                return; // Skip this location if it contains excluded keywords
+            }
+
             const elevation = await getElevation(location.long, location.lat);
             const prefix = '(';
             const suffix = ')';
