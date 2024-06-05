@@ -1,4 +1,25 @@
-<!DOCTYPE html><html> <head><meta charset=utf-8><title>enfarm 3D viewer</title><meta name=viewport content="initial-scale=1,maximum-scale=1,user-scalable=no"><link href=https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css rel=stylesheet><script src=https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js></script><link rel=stylesheet href=./mapbox3Dterrain.css><!-- Google Fonts --><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel=stylesheet><link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel=stylesheet><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel=stylesheet><!--Axios--><script src=https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js></script><style>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>enfarm 3D viewer</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+
+    <link rel="stylesheet" href="./mapbox3Dterrain.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        rel="stylesheet">
+
+    <!--Axios-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <style>
         /*North Arrow*/
         .north-arrow {
             position: absolute;
@@ -28,7 +49,214 @@
             color: rgb(255, 0, 0);
             text-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
         }
-    </style></head> <body> <div id=map> <canvas id=rainCanvas></canvas> <div id=inset-map></div> </div> <a href=https://enfarm.com/ target=_blank> <img src=https://i.ibb.co/LdXsHXJ/enfarm-logo.png class=company-logo3D alt="enfarm Logo"> </a> <div class=search-container> <input type=text class=search-input placeholder=Search... oninput=searchFeatures(this.value) id=searchInput> <button class=clear-button onclick=clearSearch() style="display: none;"> <span class=material-icons-outlined>close</span> </button> </div> <button class=mapbox3Dterrain-button onclick=switchBasemap()> <span class=material-icons-outlined>landscape</span> </button> <!--Info button and info box--> <button class=info-button onclick=toggleInfo()> <span class=material-icons-outlined>info</span> </button> <div class=info-box> <div class=info-content> <div class=info-image></div> <p>About</p> <div class=info-logo> <img src=https://enfarm.com/fd57352e4cea98b4c1fb.jpg alt="enFarm Logo" style="width: 80px; height: auto;"> </div> <p> Map application to track and visualize deployed enfarm devices</p> <button class=dismiss-button onclick=toggleInfo()>Dismiss</button> </div> </div> <!--Simulation Panel--> <button class=simulationToggle-button onclick=toggleSimulationPanel()> <span class=material-symbols-outlined>token</span> </button> <div class=simulation-buttons-container> <button class=animateRotate-button onclick=toggleRotation(this)> <span id=icon class=material-icons-outlined>play_circle</span> </button> <button class=weatherToggle-button onclick=toggleRainEffect()> <span class=material-symbols-outlined>rainy</span> </button> <button class=nightToggle-button onclick=toggleNightEffect()> <span class=material-symbols-outlined>nights_stay</span> </button> <button class=sunsetToggle-button onclick=toggleSunsetEffect()> <span class=material-symbols-outlined>wb_twilight</span> </button> <div class=simulation-panel> <span class="material-symbols-outlined icon">token</span> <h3 class=simulate-text>Simulate</h3> <div class=bottom-animatetext> <span>animate</span> </div> <div class=bottom-raintext> <span>rain</span> </div> <div class=bottom-nighttext> <span>night</span> </div> <div class=bottom-sunsettext> <span>sunset</span> </div> </div> </div> <!-- Statistics Dashboard --> <button class=stats-button onclick=toggleSlideMenuStats()> <span class=material-icons-outlined>donut_large</span> </button> <div id=slideMenuStats class=slideMenuStats> <div class=slideMenuStats-content> <span class="material-icons-outlined slideMenuStats-close" onclick=toggleSlideMenuStats()>close</span> <h2 class=dashboard-title>Dashboard</h2> <div class=device-count id=totalDevicesCount></div> <div class=section-title>Devices deployed</div> <div class=divider></div> <!-- Divider line --> </div> </div> <script src=mapbox3Dterrain.js></script> <script src=mapbox3Dsearch.js></script> <script src=infobox.js></script> <script src=mapboxrotation.js></script> <script src=mapboxraineffect.js></script> <script src=mapboxnightmode.js></script> <script src=mapboxsunsetmode.js></script> <script src=mapboxnortharrow.js></script> <script src=mapboxsimulationspanel.js></script> <script>
+    </style>
+</head>
+
+<body>
+    <div id="map">
+        <canvas id="rainCanvas"></canvas>
+        <div id="inset-map"></div>
+
+    </div>
+
+    <a href="https://enfarm.com/" target="_blank">
+        <img src="https://i.ibb.co/LdXsHXJ/enfarm-logo.png" class="company-logo3D" alt="enfarm Logo">
+    </a>
+
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search..." oninput="searchFeatures(this.value)"
+            id="searchInput">
+        <button class="clear-button" onclick="clearSearch()" style="display: none;">
+            <span class="material-icons-outlined">close</span>
+        </button>
+    </div>
+
+    <button class="mapbox3Dterrain-button" onclick="switchBasemap()">
+        <span class="material-icons-outlined">landscape</span>
+    </button>
+
+    <!--Info button and info box-->
+    <button class="info-button" onclick="toggleInfo()">
+        <span class="material-icons-outlined">info</span>
+    </button>
+
+
+    <div class="info-box">
+        <div class="info-content">
+            <div class="info-image"></div>
+            <p>About</p>
+            <div class="info-logo">
+                <img src="https://enfarm.com/fd57352e4cea98b4c1fb.jpg" alt="enFarm Logo"
+                    style="width: 80px; height: auto;">
+            </div>
+            <p> Map application to track and visualize deployed enfarm devices</p>
+            <button class="dismiss-button" onclick="toggleInfo()">Dismiss</button>
+        </div>
+    </div>
+
+
+    <!--Simulation Panel-->
+    <button class="simulationToggle-button" onclick="toggleSimulationPanel()">
+        <span class="material-symbols-outlined">token</span>
+    </button>
+
+    <div class="simulation-buttons-container">
+        <button class="animateRotate-button" onclick="toggleRotation(this)">
+            <span id="icon" class="material-icons-outlined">play_circle</span>
+        </button>
+
+        <button class="weatherToggle-button" onclick="toggleRainEffect()">
+            <span class="material-symbols-outlined">rainy</span>
+        </button>
+
+        <button class="nightToggle-button" onclick="toggleNightEffect()">
+            <span class="material-symbols-outlined">nights_stay</span>
+        </button>
+
+        <button class="sunsetToggle-button" onclick="toggleSunsetEffect()">
+            <span class="material-symbols-outlined">wb_twilight</span>
+        </button>
+
+        <div class="simulation-panel">
+            <span class="material-symbols-outlined icon">token</span>
+            <h3 class="simulate-text">Simulate</h3>
+            <div class="bottom-animatetext">
+                <span>animate</span>
+            </div>
+            <div class="bottom-raintext">
+                <span>rain</span>
+            </div>
+            <div class="bottom-nighttext">
+                <span>night</span>
+            </div>
+            <div class="bottom-sunsettext">
+                <span>sunset</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Dashboard 
+    <button class="stats-button" onclick="toggleSlideMenuStats()">
+        <span class="material-icons-outlined">donut_large</span>
+    </button>
+    <div id="slideMenuStats" class="slideMenuStats">
+        <div class="slideMenuStats-content">
+            <span class="material-icons-outlined slideMenuStats-close" onclick="toggleSlideMenuStats()">close</span>
+            <h2 class="dashboard-title">Dashboard</h2>
+            <div class="device-count" id="totalDevicesCount"></div>
+            <div class="section-title">Devices deployed</div>
+            <div class="divider"></div>
+        </div>
+    </div>-->
+
+
+    <!-- Statistics Dashboard -->
+    <button class="stats-button" onclick="toggleSlideMenuStats()">
+        <span class="material-icons-outlined">donut_large</span>
+    </button>
+    <div id="slideMenuStats" class="slideMenuStats">
+        <div class="slideMenuStats-content">
+            <span class="material-icons-outlined slideMenuStats-close" onclick="toggleSlideMenuStats()">close</span>
+            <h2 class="dashboard-title">Dashboard</h2>
+            <div class="device-count" id="totalDevicesCount"></div>
+            <div class="section-title">farms</div>
+            <br>
+            <div class="divider"></div> <!-- Divider line -->
+            <br>
+            <div style="display: flex; align-items: center;">
+                <img src="https://i.ibb.co/0QhPSvr/icons8-land-plot-64.png" alt="Farm Icon"
+                    style="width: 60px; height: 60px; margin-right: 8px; margin-top: -30px; color: #545454;">
+                <div class="totalfarmarea-sum" id="totalFarmAreaSum" style="padding-bottom: 5px;"></div>
+            </div>
+            <div class="section-title">total hectares</div>
+            <br>
+            <div class="divider"></div> <!-- Divider line -->
+            <br>
+
+
+            <div class="farm-grid">
+                <div class="farm-pair">
+                    <div class="farm-icon coffeefarms-icon"></div>
+                    <div class="coffeefarms-count" id="totalcoffeefarmsCount"></div>
+                    <div class="section-title">Coffee cultivation</div>
+                </div>
+                <div class="farm-pair">
+                    <div class="farm-icon durianfarms-icon"></div>
+                    <div class="durianfarms-count" id="totaldurianfarmsCount"></div>
+                    <div class="section-title">Durian cultivation</div>
+                </div>
+                <div class="farm-pair">
+                    <div class="farm-icon pepperfarms-icon"></div>
+                    <div class="pepperfarms-count" id="totalpepperfarmsCount"></div>
+                    <div class="section-title">Pepper cultivation</div>
+                </div>
+                <div class="farm-pair">
+                    <div class="farm-icon teafarms-icon"></div>
+                    <div class="teafarms-count" id="totalteafarmsCount"></div>
+                    <div class="section-title">Tea cultivation</div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <canvas id="treeTypeChart" width="200" height="300"></canvas>
+
+
+        </div>
+    </div>
+
+    <!--Historical Soil Data Line Chart pop up-->
+
+    <div class="popup-historicalsoildata">
+        <div class="header">
+            <h4 class="title"><span class="material-symbols-outlined"
+                    style="margin-top: 3px;">history</span>&nbsp;&nbsp;Historical
+                Soil Data</h4>
+            <button class="close-btn">&times;</button>
+        </div>
+        <div class="divider"></div> <!-- Divider line -->
+        <div class="headerNPK">
+            <h5 class="title"><span class="material-symbols-outlined"
+                    style="margin-top: 3px;">bubble_chart</span>&nbsp;&nbsp;Latest NPK
+            </h5>
+        </div>
+        <br>
+        <canvas id="npkChart"></canvas>
+        <div class="headerMoist">
+            <h5 class="title"><span class="material-symbols-outlined"
+                    style="margin-top: 3px;">humidity_mid</span>&nbsp;&nbsp;Latest Moisture</h5>
+        </div>
+        <br>
+        <canvas id="moistChart"></canvas>
+        <div class="headerpH">
+            <h5 class="title"><span class="material-symbols-outlined"
+                    style="margin-top: 3px;">water_ph</span>&nbsp;&nbsp;Latest pH
+            </h5>
+        </div>
+        <br>
+        <canvas id="phChart"></canvas>
+        <br>
+        <div class="headerTemp">
+            <h5 class="title"><span class="material-symbols-outlined"
+                    style="margin-top: 3px;">device_thermostat</span>&nbsp;&nbsp;Latest Temp</h5>
+        </div>
+        <br>
+        <canvas id="tempChart"></canvas>
+        <br>
+    </div>
+
+    <script src="mapbox3Dterrain.js"></script>
+    <script src="mapbox3Dsearch.js"></script>
+    <script src="mapboxpopup.js"></script>
+    <script src="infobox.js"></script>
+    <script src="mapboxrotation.js"></script>
+    <script src="mapboxraineffect.js"></script>
+    <script src="mapboxnightmode.js"></script>
+    <script src="mapboxsunsetmode.js"></script>
+    <script src="mapboxnortharrow.js"></script>
+    <script src="mapboxsimulationspanel.js"></script>
+    <script src="linecharthistoricaldata.js"></script>
+
+
+    <script>
 
         // Toggle slide menu stats
         function toggleSlideMenuStats() {
@@ -52,4 +280,7 @@
 
 
 
-    </script> </body> </html>
+    </script>
+</body>
+
+</html>
