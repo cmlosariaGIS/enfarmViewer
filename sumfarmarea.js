@@ -1,0 +1,5 @@
+async function fetchFarmData(userId){try{const response=await axios.post('https://api-router.enfarm.com/api/v3/farm/total-farms-per-user',{user_id:userId},{headers:{'Accept':'application/json','Content-Type':'application/json'}});return response.data.content.data;}catch(error){console.error(`There has been a problem with your fetch operation for user ${userId}:`,error);}}
+function calculateTotalFarmArea(data){let totalArea=0;data.forEach(farm=>{if(farm.farm_area){totalArea+=farm.farm_area;}});return totalArea;}
+async function updateTotalFarmArea(){const users=[236,260];let totalArea=0;for(const userId of users){const farms=await fetchFarmData(userId);if(farms){totalArea+=calculateTotalFarmArea(farms);}}
+document.getElementById('totalFarmAreaSum').innerText=totalArea;}
+window.onload=updateTotalFarmArea;
