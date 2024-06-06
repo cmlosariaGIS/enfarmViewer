@@ -5,7 +5,7 @@ const elevation=await getElevation(location.long,location.lat);const prefix='(';
                     <b style="font-size: 16px; text-shadow: 1px 1px 1px rgba(0,0,0,0.2);">${location.farmname}</b><br>
                     <span class="material-symbols-outlined" style="font-size: 10px; margin-right: 4px;">location_on</span>
                     <span style="font-size: 10px;">${farmAddress}</span><br>
-                    <img src="${imageUrl}" alt="Farm Image" style="width:100%; height:fit-content; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius: 3px; margin: 4px 0;" />
+                    <img src="${imageUrl}" alt="Farm Image" style="width:100%; height:120px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius: 3px; margin: 4px 0;" />
                 </div>`;if(farmDetails){const matchingCultivates=farmDetails.cultivates.filter(cultivate=>cultivate.name===location.region_name);if(matchingCultivates.length>0){popupContent+=`
 <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">grid_on</span> <b>Farm Area:</b> ${farmDetails.farm_area} ha.
 <!--Cultivate IDs: ${matchingCultivates.map(cultivate => cultivate.cultivate_id).join(', ')}-->`;const cultivateDetailsPromises=matchingCultivates.map(async cultivate=>{popupContent+=`
@@ -26,7 +26,7 @@ const elevation=await getElevation(location.long,location.lat);const prefix='(';
                             <br>
                             <br>
                         `;const nutritionDataPromises=cultivateDetails.softids.map(async softid=>{try{const nutritionData=await fetch(`https://api-router.enfarm.com/api/v3/charts/retrieve-nutrition-chart-old`,{method:'POST',headers:{'accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({region_id:cultivateDetails.region_id})}).then(response=>response.json()).then(data=>{const matchingValues=data.content.find(item=>item.in_depth===softid.in_depth)?.values;if(matchingValues){const latestIndex=matchingValues.created_at.length-1;return{npk:matchingValues.npk[latestIndex],moist:matchingValues.moist[latestIndex],pH:matchingValues.pH[latestIndex],t:matchingValues.t[latestIndex],created_at:matchingValues.created_at[latestIndex],}}
-return null}).catch(error=>{console.error(`Error fetching nutrition data for region_id ${cultivateDetails.region_id} and in_depth ${softid.in_depth}:`,error);return null});if(nutritionData){popupContent+=`
+return null}).catch(error=>{console.error(`Error fetching nutrition data for region_id ${cultivateDetails.region_id} and in_depth ${softid.in_depth}:`,error);return null});if(nutritionData){const circleColorTemp=nutritionData.t<20?"#BA0F30":(nutritionData.t<=30?"#18A558":"#BA0F30");const circleColorpH=nutritionData.pH<7?"#BA0F30":(nutritionData.pH===7?"#18A558":"#BA0F30");const circleColorMoist=(nutritionData.moist<=22.5||nutritionData.moist>55)?"#BA0F30":(nutritionData.moist<=55?"#18A558":"#BA0F30");const npkQuotient=nutritionData.npk/300;const circleColorNPK=npkQuotient<0.5?"#BA0F30":(npkQuotient<=1?"#18A558":"#BA0F30");popupContent+=`
                                         <div style="position: relative; display: flex; align-items: center;">
                                             In Depth: ${softid.in_depth} (${softid.in_depth_label})
                                             <span class="material-symbols-outlined chevron-forward" style="position: absolute; right: 0; font-size: 12px; cursor: pointer;">chevron_forward</span>
@@ -34,15 +34,15 @@ return null}).catch(error=>{console.error(`Error fetching nutrition data for reg
                                         <div style="display: flex; flex-wrap: wrap;">
                                             <div style="flex: 1 1 50%;">
                                                 <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px;">bubble_chart</span>
-                                                <b>NPK:</b> ${nutritionData.npk}<br>
+                                                <b>NPK:</b> ${nutritionData.npk}&nbsp;&nbsp;<i class="fas fa-circle" style="color: ${circleColorNPK}; font-size: 9px;"></i><br>
                                                 <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px;">humidity_mid</span>
-                                                <b>Moist:</b> ${nutritionData.moist}<br>
+                                                <b>Moist:</b> ${nutritionData.moist}&nbsp;&nbsp;<i class="fas fa-circle" style="color: ${circleColorMoist}; font-size: 9px;"></i><br>
                                             </div>
                                             <div style="flex: 1 1 50%;">
                                                 <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px; margin-left: 7px;">water_ph</span>
-                                                <b>pH:</b> ${nutritionData.pH}<br>    
+                                                <b>pH:</b> ${nutritionData.pH}&nbsp;&nbsp;<i class="fas fa-circle" style="color: ${circleColorpH}; font-size: 9px;"></i><br>    
                                                 <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px; margin-left: 7px;">device_thermostat</span>
-                                                <b>Temp:</b> ${nutritionData.t}<br>
+                                                <b>Temp:</b> ${nutritionData.t}&nbsp;&nbsp;<i class="fas fa-circle" style="color: ${circleColorTemp}; font-size: 9px;"></i><br>
                                             </div>
                                         </div>
                                         <span style="font-size: 10px;">
