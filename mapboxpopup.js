@@ -18,7 +18,7 @@ const elevation=await getElevation(location.long,location.lat);const prefix='(';
                             <!--Region ID: ${cultivateDetails.region_id}<br>-->
                             <!--Softids:<br>-->
                             <br>
-                            <span class="soildata-pill" style="background-color: #4CAF50; color: white; padding: 3px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; height: 25px; float: right; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);" onclick="toggleSoilData(this)">
+                            <span class="soildata-pill" style="background-color: #4CAF50; color: white; padding: 3px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; height: 25px; float: right; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: background-color 0.3s;" onclick="toggleSoilData(this)" onmouseover="this.style.backgroundColor='#006400'" onmouseout="this.style.backgroundColor='#4CAF50'">
                             <i class="material-symbols-outlined" style="margin-right: 3px; font-size: 16px;">science</i>
                             <span class="toggle-text" style="white-space: nowrap;">View soil data</span>
                         </span>                
