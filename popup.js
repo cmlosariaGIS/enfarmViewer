@@ -22,9 +22,13 @@ axios.all([axios.post('https://api-router.enfarm.com/api/v3/farm/total-farms-per
                                             <!--Region ID: ${cultivateDetails.region_id}<br>-->
                                             <!--Softids:<br>-->
                                             <br>
-                                            <span class="view-in-3D" style="background-color: #ffffff; color: #000000; padding: 3px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; height: 25px; float: left; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-left: 90px;" onclick="logLatLong(${location.lat}, ${location.long})" onmouseover="this.style.backgroundColor='#f0f0f0'" onmouseout="this.style.backgroundColor='#ffffff'">
-                                            3D
+                                            
+                                            <span class="view-in-3D" style="background-color: #ffffff; color: #000000; padding: 3px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; height: 25px; float: left; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-left: 90px;" onmouseover="showIcon(this); this.style.backgroundColor='#f0f0f0'" onmouseout="hideIcon(this); this.style.backgroundColor='#ffffff'" onclick="logLatLong(${location.lat}, ${location.long})">
+                                            <span class="material-symbols-outlined" id="icon" style="display: none; font-size: 16px;">elevation</span>
+                                            <span id="text">3D</span>
                                         </span>
+
+                                        
                                             <span class="soildata-pill" style="background-color: #4CAF50; color: white; padding: 3px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; height: 25px; float: right; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: background-color 0.3s;" onclick="toggleSoilData(this)" onmouseover="this.style.backgroundColor='#006400'" onmouseout="this.style.backgroundColor='#4CAF50'">
                                               <i class="material-symbols-outlined" style="margin-right: 3px; font-size: 16px;">science</i>
                                               <span class="toggle-text" style="white-space: nowrap;">View soil data</span>
@@ -74,3 +78,5 @@ return popupContent});Promise.all(cultivateDetailsPromises).then(cultivateDetail
 if(inDepthMatch){inDepth=inDepthMatch[1];inDepthLabel=inDepthMatch[2]}else{console.log('In Depth not found in the button container.')}
 console.log('region_id:',regionId);console.log('depth_id:',inDepth);const event=new CustomEvent('soilDataRequested',{detail:{regionId:regionId,depthId:inDepth}});window.dispatchEvent(event);const popupHistoricalSoilData=document.querySelector('.popup-historicalsoildata');popupHistoricalSoilData.style.display='block'}})(index))})})}).catch(error=>{console.error('Error fetching cultivate details:',error)})}else{popupContent+=`<i>No matching cultivate details found</i><br>`;popupContent+='</p>';marker.bindPopup(popupContent)}}else{popupContent+=`<br><i>Farm details not found</i><br>`;popupContent+='</p>';marker.bindPopup(popupContent)}
 markers.addLayer(marker)});map.addLayer(markers);document.getElementById('totalDevicesCount').innerText=totalDevicesCount}).catch(error=>console.error('Error fetching data:',error))})).catch(error=>console.error('Error fetching farm details:',error));function toggleSoilData(element){var soilDataDiv=element.nextElementSibling;var toggleText=element.querySelector('.toggle-text');if(soilDataDiv.style.display==="none"){soilDataDiv.style.display="block";toggleText.textContent="Hide soil data"}else{soilDataDiv.style.display="none";toggleText.textContent="View soil data"}}
+function showIcon(element){var icon=element.querySelector('#icon');if(icon){icon.style.display='inline-flex'}}
+function hideIcon(element){var icon=element.querySelector('#icon');if(icon){icon.style.display='none'}}
