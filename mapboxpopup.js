@@ -26,38 +26,38 @@ const elevation=await getElevation(location.long,location.lat);const prefix='(';
                             <br>
                             <br>
                             <br>
-                        `;const nutritionDataPromises=cultivateDetails.softids.map(async softid=>{try{const nutritionData=await fetch(`https://api-router.enfarm.com/api/v3/charts/retrieve-nutrition-chart-old`,{method:'POST',headers:{'accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({region_id:cultivateDetails.region_id})}).then(response=>response.json()).then(data=>{const matchingValues=data.content.find(item=>item.in_depth===softid.in_depth)?.values;if(matchingValues){const latestIndex=matchingValues.created_at.length-1;return{npk:matchingValues.npk[latestIndex],moist:matchingValues.moist[latestIndex],pH:matchingValues.pH[latestIndex],t:matchingValues.t[latestIndex],created_at:matchingValues.created_at[latestIndex],}}
+                        `;const nutritionDataPromises=cultivateDetails.softids.map(async softid=>{try{const nutritionData=await fetch(`https://api-router.enfarm.com/api/v3/charts/retrieve-nutrition-chart-old`,{method:'POST',headers:{'accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({region_id:cultivateDetails.region_id})}).then(response=>response.json()).then(data=>{const matchingValues=data.content.find(item=>item.in_depth===softid.in_depth)?.values;if(matchingValues){const combinedValues=matchingValues.created_at.map((createdAt,index)=>({created_at:new Date(createdAt),npk:matchingValues.npk[index],moist:matchingValues.moist[index],pH:matchingValues.pH[index],t:matchingValues.t[index]}));combinedValues.sort((a,b)=>b.created_at-a.created_at);const latestData=combinedValues[0];return{npk:latestData.npk,moist:latestData.moist,pH:latestData.pH,t:latestData.t,created_at:latestData.created_at.toISOString(),}}
 return null}).catch(error=>{console.error(`Error fetching nutrition data for region_id ${cultivateDetails.region_id} and in_depth ${softid.in_depth}:`,error);return null});if(nutritionData){const circleColorTemp=nutritionData.t<20?"#BA0F30":(nutritionData.t<=30?"#18A558":"#BA0F30");const circleColorpH=nutritionData.pH<7?"#BA0F30":(nutritionData.pH===7?"#18A558":"#BA0F30");const circleColorMoist=(nutritionData.moist<=22.5||nutritionData.moist>55)?"#BA0F30":(nutritionData.moist<=55?"#18A558":"#BA0F30");const npkQuotient=nutritionData.npk/300;const circleColorNPK=npkQuotient<0.5?"#BA0F30":(npkQuotient<=1?"#18A558":"#BA0F30");const roundedValue=(value)=>value!==null?value.toFixed(2):'null';popupContent+=`
-        <div style="position: relative; display: flex; align-items: center;">
-            In Depth: ${softid.in_depth} (${softid.in_depth_label})
-            <span class="material-symbols-outlined showHistoricalSoilData-btn" style="position: absolute; right: 0; font-size: 12px; cursor: pointer;" data-region-id="${cultivateDetails.region_id}" data-in-depth="${softid.in_depth}">chevron_forward</span>
-        </div>
-    
-        <div style="display: flex; flex-wrap: wrap;">
-            <div style="flex: 1 1 50%;">
-                <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px;">bubble_chart</span>
-                <b>NPK:</b> ${roundedValue(nutritionData.npk)}&nbsp;&nbsp;${nutritionData.npk !== null ? `<i class="fas fa-circle" style="color: ${circleColorNPK}; font-size: 9px; ${circleColorNPK === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}"></i>` : ''}<br>
-                <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px;">humidity_mid</span>
-                <b>Moist:</b> ${roundedValue(nutritionData.moist)}&nbsp;&nbsp;${nutritionData.moist !== null ? `<i class="fas fa-circle" style="color: ${circleColorMoist}; font-size: 9px; ${circleColorMoist === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}"></i>` : ''}<br>
-            </div>
-            <div style="flex: 1 1 50%;">
-                <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px; margin-left: 7px;">water_ph</span>
-                <b>pH:</b> ${roundedValue(nutritionData.pH)}&nbsp;&nbsp;${nutritionData.pH !== null ? `<i class="fas fa-circle" style="color: ${circleColorpH}; font-size: 9px; ${circleColorpH === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}"></i>` : ''}<br>    
-                <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px; margin-left: 7px;">device_thermostat</span>
-                <b>Temp:</b> ${roundedValue(nutritionData.t)}&nbsp;&nbsp;${nutritionData.t !== null ? `<i class="fas fa-circle" style="color: ${circleColorTemp}; font-size: 9px; ${circleColorTemp === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}"></i>` : ''}<br>
-            </div>
-        </div>
-        <span style="font-size: 10px;">
-            <i class="material-symbols-outlined" style="vertical-align: middle; font-size: 12px;">schedule</i>
-            <i style="vertical-align: middle;">last update: ${nutritionData.created_at}</i>
-        </span><br><br>
-        <style>
-            @keyframes glowRed {
-                0% { color: #BA0F30; text-shadow: 0 0 5px #e86161, 0 0 10px #e86161, 0 0 15px #e86161; }
-                50% { color: #e86161; text-shadow: 0 0 10px #e86161, 0 0 20px #e86161, 0 0 30px #e86161; }
-                100% { color: #BA0F30; text-shadow: 0 0 5px #e86161, 0 0 10px #e86161, 0 0 15px #e86161; }
-            }
-        </style>
-    `}else{popupContent+=`<br><i>No nutrition data found</i>`}}catch(error){console.error(`Error processing nutrition data for softid ${softid.in_depth}:`,error)}});await Promise.all(nutritionDataPromises);popupContent+=`</div></div>`}else{popupContent+=`<br><i>Error fetching cultivate details</i>`}
+                <div style="position: relative; display: flex; align-items: center;">
+                    In Depth: ${softid.in_depth} (${softid.in_depth_label})
+                    <span class="material-symbols-outlined showHistoricalSoilData-btn" style="position: absolute; right: 0; font-size: 12px; cursor: pointer;" data-region-id="${cultivateDetails.region_id}" data-in-depth="${softid.in_depth}">chevron_forward</span>
+                </div>
+
+                <div style="display: flex; flex-wrap: wrap;">
+                    <div style="flex: 1 1 50%;">
+                        <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px;">bubble_chart</span>
+                        <b>NPK:</b> ${roundedValue(nutritionData.npk)}&nbsp;&nbsp;${nutritionData.npk !== null ? `<i class="fas fa-circle" style="color: ${circleColorNPK}; font-size: 9px; ${circleColorNPK === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}"></i>` : ''}<br>
+                        <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px;">humidity_mid</span>
+                        <b>Moist:</b> ${roundedValue(nutritionData.moist)}&nbsp;&nbsp;${nutritionData.moist !== null ? `<i class="fas fa-circle" style="color: ${circleColorMoist}; font-size: 9px; ${circleColorMoist === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}"></i>` : ''}<br>
+                    </div>
+                    <div style="flex: 1 1 50%;">
+                        <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px; margin-left: 7px;">water_ph</span>
+                        <b>pH:</b> ${roundedValue(nutritionData.pH)}&nbsp;&nbsp;${nutritionData.pH !== null ? `<i class="fas fa-circle" style="color: ${circleColorpH}; font-size: 9px; ${circleColorpH === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}"></i>` : ''}<br>    
+                        <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px; margin-left: 7px;">device_thermostat</span>
+                        <b>Temp:</b> ${roundedValue(nutritionData.t)}&nbsp;&nbsp;${nutritionData.t !== null ? `<i class="fas fa-circle" style="color: ${circleColorTemp}; font-size: 9px; ${circleColorTemp === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}"></i>` : ''}<br>
+                    </div>
+                </div>
+                <span style="font-size: 10px;">
+                    <i class="material-symbols-outlined" style="vertical-align: middle; font-size: 12px;">schedule</i>
+                    <i style="vertical-align: middle;">last update: ${nutritionData.created_at}</i>
+                </span><br><br>
+                <style>
+                    @keyframes glowRed {
+                        0% { color: #BA0F30; text-shadow: 0 0 5px #e86161, 0 0 10px #e86161, 0 0 15px #e86161; }
+                        50% { color: #e86161; text-shadow: 0 0 10px #e86161, 0 0 20px #e86161, 0 0 30px #e86161; }
+                        100% { color: #BA0F30; text-shadow: 0 0 5px #e86161, 0 0 10px #e86161, 0 0 15px #e86161; }
+                    }
+                </style>
+            `}else{popupContent+=`<br><i>No nutrition data found</i>`}}catch(error){console.error(`Error processing nutrition data for softid ${softid.in_depth}:`,error)}});await Promise.all(nutritionDataPromises);popupContent+=`</div></div>`}else{popupContent+=`<br><i>Error fetching cultivate details</i>`}
 return popupContent});await Promise.all(cultivateDetailsPromises)}else{popupContent+=`<i>No matching cultivate details found</i><br>`}}else{popupContent+=`<i>Farm details not found</i><br>`}
 const popup=new mapboxgl.Popup().setHTML(popupContent);const marker=new mapboxgl.Marker(markerElement).setLngLat([location.long,location.lat]).setPopup(popup).addTo(map);popup.on('open',function(){const showHistoricalSoilDataBtns=this._content.querySelectorAll('.showHistoricalSoilData-btn');if(showHistoricalSoilDataBtns){showHistoricalSoilDataBtns.forEach(btn=>{if(!btn.getAttribute('data-event-added')){const handleClick=function(){const regionId=this.getAttribute('data-region-id');const inDepth=this.getAttribute('data-in-depth');console.log("region_id:",regionId);console.log("depth_id:",inDepth);fetchData(regionId,inDepth);updateLineChart(regionId,inDepth);const popupHistoricalSoilData=document.getElementById('popup-historicalsoildata');popupHistoricalSoilData.style.display='block'};btn.addEventListener('click',handleClick);btn.setAttribute('data-event-added','true')}})}})})}).catch(error=>console.error('Error fetching installation locations:',error))})).catch(error=>console.error('Error fetching farm details:',error));function toggleSoilData(element){var soilDataDiv=element.nextElementSibling;var toggleText=element.querySelector('.toggle-text');if(soilDataDiv.style.display==="none"){soilDataDiv.style.display="block";toggleText.textContent="Hide soil data"}else{soilDataDiv.style.display="none";toggleText.textContent="View soil data"}}
