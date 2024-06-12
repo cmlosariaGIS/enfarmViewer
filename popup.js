@@ -3,12 +3,19 @@ axios.all([axios.post('https://api-router.enfarm.com/api/v3/farm/total-farms-per
     <div class="marker2D-label">${location.farmname}</div>
     <img src="${customIcon.options.iconUrl}" class="marker-icon"/>`});var marker=L.marker([location.lat,location.long],{icon:customMarker});var popupContent=`
                     <div style="position: relative; padding: 0; margin: 0;">
-                    <img src="${randomImage}" alt="Farm Image" style="width: 303px; height: 150px; margin-left: -8.4%; margin-top: -15px; border-top-left-radius: 6px; border-top-right-radius: 6px;" />
-                    <div style="position: absolute; top: 10px; left: 0px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                    <div style="overflow: hidden; width: 303px; height: 150px; position: relative; margin-left: -8.4%; margin-top: -15px; border-top-left-radius: 6px; border-top-right-radius: 6px;" onmouseover="this.querySelector('.parallax-img').style.transform = 'scale(1.1)'" onmouseout="this.querySelector('.parallax-img').style.transform = 'scale(1)'">
+                    <img src="${randomImage}" alt="Farm Image" style="width: 303px; height: 150px; position: absolute; top: 0; left: 0; transition: transform 0.3s ease;" class="parallax-img" />
+                </div>
+
+
+                
+                
+    
+                    <div style="position: absolute; top: 30px; left: 0px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
                         <span class="material-symbols-outlined" style="font-size: 16px; margin-right: 2px; color: white;">psychiatry</span>
-                        <b style="font-size: 16px; color: white;">${location.farmname}</b><br>
+                        <b style="font-size: 18px; color: white;">${location.farmname}</b><br>
                         <span class="material-symbols-outlined" style="font-size: 10px; margin-right: 4px; color: white;">location_on</span>
-                        <span style="font-size: 10px; color: white;">${farmDetails ? farmDetails.farm_address || 'N/A' : 'N/A'}</span><br>
+                        <span style="font-size: 12px; color: white;">${farmDetails ? farmDetails.farm_address || 'N/A' : 'N/A'}</span><br>
                     </div>
                 </div>
                 
