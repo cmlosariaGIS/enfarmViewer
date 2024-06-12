@@ -2,12 +2,19 @@ var images=['https://i.ibb.co/jLBvcbF/OIG2-1.jpg','https://i.ibb.co/Wxhg96g/OIG2
 axios.all([axios.post('https://api-router.enfarm.com/api/v3/farm/total-farms-per-user',{user_id:236},{headers:{'accept':'application/json','Content-Type':'application/json'}}),axios.post('https://api-router.enfarm.com/api/v3/farm/total-farms-per-user',{user_id:260},{headers:{'accept':'application/json','Content-Type':'application/json'}})]).then(axios.spread((response236,response260)=>{const farms236=response236.data.content.data;const farms260=response260.data.content.data;const farmNames260=farms260.map(farm=>farm.farm_name);const filteredFarms236=farms236.filter(farm=>!farmNames260.includes(farm.farm_name));fetch('https://api-ma.enfarm.com/api/v1/ma/get-install-locations',{headers:{'accept':'application/json'}}).then(response=>response.json()).then(data=>{const filteredLocations=data.content.filter(location=>{return!(/toàn|test|enfarm|koko/i.test(location.farmname)||/toàn|test|enfarm|koko/i.test(location.region_name))});var totalDevicesCount=filteredLocations.length;var markers=L.markerClusterGroup();filteredLocations.forEach(location=>{var randomImage=images[Math.floor(Math.random()*images.length)];const farmDetails260=farms260.find(farm=>farm.farm_name===location.farmname);const farmDetails=farmDetails260;var customMarker=L.divIcon({className:'custom-marker',html:`
     <div class="marker2D-label">${location.farmname}</div>
     <img src="${customIcon.options.iconUrl}" class="marker-icon"/>`});var marker=L.marker([location.lat,location.long],{icon:customMarker});var popupContent=`
-<br><div style="padding-bottom: 20px; top-padding 0px">
-    <span class="material-symbols-outlined" style="font-size: 16px; margin-right: 2px;">psychiatry</span>
-    <b style="font-size: 16px; text-shadow: 1px 1px 1px rgba(0,0,0,0.2);">${location.farmname}</b><br>
-    <span class="material-symbols-outlined" style="font-size: 10px; margin-right: 4px;">location_on</span>
-    <span style="font-size: 10px;">${farmDetails ? farmDetails.farm_address || 'N/A' : 'N/A'}</span><br>
-    <img src="${randomImage}" alt="Farm Image" style="width:250px; height:100px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius: 3px; margin: 4px 0;" />
+                    <div style="position: relative; padding: 0; margin: 0;">
+                    <img src="${randomImage}" alt="Farm Image" style="width: 303px; height: 150px; margin-left: -8.4%; margin-top: -15px; border-top-left-radius: 6px; border-top-right-radius: 6px;" />
+                    <div style="position: absolute; top: 10px; left: 0px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                        <span class="material-symbols-outlined" style="font-size: 16px; margin-right: 2px; color: white;">psychiatry</span>
+                        <b style="font-size: 16px; color: white;">${location.farmname}</b><br>
+                        <span class="material-symbols-outlined" style="font-size: 10px; margin-right: 4px; color: white;">location_on</span>
+                        <span style="font-size: 10px; color: white;">${farmDetails ? farmDetails.farm_address || 'N/A' : 'N/A'}</span><br>
+                    </div>
+                </div>
+                
+<div style="padding-bottom: 30px; top-padding 0px"><div>
+
+    
     <!--Farm ID: ${farmDetails ? farmDetails.farm_id : 'N/A'}<br>-->
     <!--Region name: ${location.region_name}<br>-->`;if(farmDetails){const matchingCultivates=farmDetails.cultivates.filter(cultivate=>{return cultivate.name===location.region_name});if(matchingCultivates.length>0){popupContent+=`
         <br><span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">grid_on</span> <b>Farm Area:</b> ${farmDetails.farm_area} ha.
@@ -23,7 +30,7 @@ axios.all([axios.post('https://api-router.enfarm.com/api/v3/farm/total-farms-per
                                             <!--Softids:<br>-->
                                             <br>
                                             
-                                            <span class="view-in-3D" style="background-color: #ffffff; color: #000000; padding: 3px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; height: 25px; float: left; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-left: 90px;" onmouseover="showIcon(this); this.style.backgroundColor='#f0f0f0'" onmouseout="hideIcon(this); this.style.backgroundColor='#ffffff'" onclick="logLatLong(${location.lat}, ${location.long})">
+                                            <span class="view-in-3D" style="background-color: #ffffff; color: #000000; padding: 3px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; height: 25px; float: left; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-left: 95px;" onmouseover="showIcon(this); this.style.backgroundColor='#f0f0f0'" onmouseout="hideIcon(this); this.style.backgroundColor='#ffffff'" onclick="logLatLong(${location.lat}, ${location.long})">
                                             <span class="material-symbols-outlined" id="icon" style="display: none; font-size: 16px;">elevation</span>
                                             <span id="text">3D</span>
                                         </span>
