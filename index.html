@@ -191,7 +191,6 @@
 <body>
     <div id="map">
 
-
         <button class="needs-attention">
             <div id="lottie-container" style="width: 24px; height: 24px;"></div>
             <span class="attention-text">Attention</span>
@@ -223,6 +222,7 @@
             <span class="tooltip-bottom">Show Tea farms</span>
         </button>
 
+        <div id="inset-map"></div>
 
     </div>
 
@@ -365,45 +365,7 @@
     </div>
 
 
-    <!--Historical Soil Data Line Chart pop up
-
-    <div class="popup-historicalsoildata">
-        <div class="header">
-            <h4 class="title"><span class="material-symbols-outlined"
-                    style="margin-top: 3px;">history</span>&nbsp;&nbsp;Historical
-                Soil Data</h4>
-            <button class="close-btn">&times;</button>
-        </div>
-        <div class="divider"></div>
-        <div class="headerNPK">
-            <h5 class="title"><span class="material-symbols-outlined"
-                    style="margin-top: 3px;">bubble_chart</span>&nbsp;&nbsp;Latest NPK
-            </h5>
-        </div>
-        <br>
-        <canvas id="npkChart"></canvas>
-        <div class="headerMoist">
-            <h5 class="title"><span class="material-symbols-outlined"
-                    style="margin-top: 3px;">humidity_mid</span>&nbsp;&nbsp;Latest Moisture</h5>
-        </div>
-        <br>
-        <canvas id="moistChart"></canvas>
-        <div class="headerpH">
-            <h5 class="title"><span class="material-symbols-outlined"
-                    style="margin-top: 3px;">water_ph</span>&nbsp;&nbsp;Latest pH
-            </h5>
-        </div>
-        <br>
-        <canvas id="phChart"></canvas>
-        <br>
-        <div class="headerTemp">
-            <h5 class="title"><span class="material-symbols-outlined"
-                    style="margin-top: 3px;">device_thermostat</span>&nbsp;&nbsp;Latest Temp</h5>
-        </div>
-        <br>
-        <canvas id="tempChart"></canvas>
-        <br>
-    </div>-->
+    <!--Historical Soil Data Line Chart pop up-->
 
     <div id="popup-historicalsoildata" class="popup-historicalsoildata" style="display: none;">
         <div class="header">
@@ -463,6 +425,8 @@
     <script src="sealevelmap.js"></script>
     <script src="treetypecount.js"></script>
     <script src="sumfarmarea.js"></script>
+    <script src="inset.js"></script>
+
 
 
     <script>
