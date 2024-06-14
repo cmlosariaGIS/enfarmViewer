@@ -186,59 +186,32 @@
             padding-left: 20px;
         }*/
 
-        
-
-            /* Define glowing animation */
-    @keyframes glowing {
-      0% { box-shadow: 0 0 5px 3px rgba(255, 0, 0, 0.7); }
-      50% { box-shadow: 0 0 20px 10px rgba(255, 0, 0, 0.7); }
-      100% { box-shadow: 0 0 5px 3px rgba(255, 0, 0, 0.7); }
-    }
-
-     /* Additional styling for the custom marker */
-     .custom-div-icon {
-      width: 30px;
-      height: 42px;
-      margin-top: -42px;
-      margin-left: -15px;
-      text-align: center;
-      line-height: 42px;
-    }
-
-    .marker-pin {
-      width: 18px;
-      height: 18px;
-      border-radius: 50% 50% 50% 0;
-      background: #d00;
-      position: absolute;
-      transform: rotate(-45deg);
-      left: 50%;
-      top: 50%;
-      margin-left: -9px;
-      margin-top: -9px;
-    }
-
+    
     </style>
 </head>
 
 <body>
     <div id="map">
 
+        <div class="floating-pill">All Farms</div>
+
+
+
         <button class="needs-attention">
             <div id="lottie-container" style="width: 24px; height: 24px;"></div>
             <span class="attention-text">Attention</span>
-            <span class="tooltip-right">Show farms needing attention</span>
+            <span class="tooltip-bottom">Show farms needing attention</span>
         </button>
 
 
         <button class="durianTrees-filter">
-            <img src="https://i.ibb.co/6Jw8jjP/icons8-durian-96.png" alt="Durian Fruit Icon" class="durian-icon">
+            <img src="https://i.ibb.co/nnrMSMd/durian-removebg-preview.png" alt="Durian Fruit Icon" class="durian-icon">
             <span class="durian-text">Durian</span>
             <span class="tooltip-bottom">Show Durian farms</span>
         </button>
 
         <button class="coffeeTrees-filter">
-            <img src="https://i.ibb.co/7XCkdBx/icons8-coffee-beans-96.png" alt="Coffee Beans Icon" class="coffee-icon">
+            <img src="https://i.ibb.co/FnNySKq/bean-removebg-preview.png" alt="Coffee Beans Icon" class="coffee-icon">
             <span class="coffee-text">Coffee</span>
             <span class="tooltip-bottom">Show Coffee farms</span>
         </button>
@@ -453,7 +426,7 @@
     <script src="infobox.js"></script>
     <script src="userlocation.js"></script>
     <script src="rainviewer.js"></script>
-    <script src="mapbox3Dterrain.js"></script>
+    <!--<script src="mapbox3Dterrain.js"></script>-->
     <!--<script src="globeminimap.js"></script>-->
     <script src="sealevelmap.js"></script>
     <script src="treetypecount.js"></script>
