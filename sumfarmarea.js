@@ -1,6 +1,6 @@
- // Sum Total Farm Area
+// Sum Total Farm Area
 
- async function fetchFarmData(userId) {
+async function retrieveFarmData(userId) {
     try {
         const response = await axios.post('https://api-router.enfarm.com/api/v3/farm/total-farms-per-user', {
             user_id: userId
@@ -27,11 +27,12 @@ function calculateTotalFarmArea(data) {
 }
 
 async function updateTotalFarmArea() {
-    const users = [236, 260];
+    //const userID = [236, 260, 261, 990];
+    const userID = authenticatedUserIDs;
     let totalArea = 0;
 
-    for (const userId of users) {
-        const farms = await fetchFarmData(userId);
+    for (const userId of userID) {
+        const farms = await retrieveFarmData(userId);
         if (farms) {
             totalArea += calculateTotalFarmArea(farms);
         }
