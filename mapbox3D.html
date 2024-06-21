@@ -9,6 +9,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
 
     <link rel="stylesheet" href="./mapbox3Dterrain.css">
+    <link rel="stylesheet" href="./farmlist.css">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -27,6 +28,10 @@
     <!--Font Awesome-->
     <script src="https://kit.fontawesome.com/0eb73cfc5c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    
+    <!--Flat Icon UI-->
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css'>
 
     <style>
         /*North Arrow*/
@@ -166,60 +171,125 @@
         </div>
     </div>-->
 
+    <!-- Statistics Dashboard -->
+    <button class="stats-button" onclick="toggleSlideMenuStats()">
+        <span class="material-icons-outlined">donut_large</span>
+        <span class="tooltip-left">Show Dashboard</span>
+    </button>
+    <div id="slideMenuStats" class="slideMenuStats">
+        <div class="slideMenuStats-content">
+            <span class="material-icons-outlined slideMenuStats-close" onclick="toggleSlideMenuStats()">close</span>
+            <h2 class="dashboard-title">Dashboard</h2>
+            <div class="device-count" id="totalDevicesCount"></div>
+            <div class="section-title">farm cultivates</div>
+            <div class="divider"></div> <!-- Divider line -->
 
-   <!-- Statistics Dashboard -->
-   <button class="stats-button" onclick="toggleSlideMenuStats()">
-    <span class="material-icons-outlined">donut_large</span>
-    <span class="tooltip-left">Show Dashboard</span>
-</button>
-<div id="slideMenuStats" class="slideMenuStats">
-    <div class="slideMenuStats-content">
-        <span class="material-icons-outlined slideMenuStats-close" onclick="toggleSlideMenuStats()">close</span>
-        <h2 class="dashboard-title">Dashboard</h2>
-        <div class="device-count" id="totalDevicesCount"></div>
-        <div class="section-title">farms</div>
-        <br>
-        <div class="divider"></div> <!-- Divider line -->
-        <br>
-        <div style="display: flex; align-items: center;">
-            <img src="https://i.ibb.co/0QhPSvr/icons8-land-plot-64.png" alt="Farm Icon"
-                style="width: 60px; height: 60px; margin-right: 8px; margin-top: -30px; color: #545454;">
-            <div class="totalfarmarea-sum" id="totalFarmAreaSum" style="padding-bottom: 5px;"></div>
+            <!--Counter Land Area in hectares-->
+            <br>
+            <div class="section-title" style="text-align: center;">Land Area (Total)</div>
+            <br>
+            <div style="display: flex; align-items: center;">
+                <img src="https://i.ibb.co/0QhPSvr/icons8-land-plot-64.png" alt="Farm Icon"
+                    style="width: 60px; height: 60px; margin-right: 8px; margin-top: -30px; color: #545454;">
+                <div class="totalfarmarea-sum" id="totalFarmAreaSum" style="padding-bottom: 5px;"></div>
+                <div class="section-title">&nbsp;&nbsp;ha.</div>
+            </div>
+            <div class="divider"></div> <!-- Divider line -->
+
+            <!--Counter Farms Needing Attention-->
+            <br>
+            <div class="section-title">farm cultivates needing attention</div>
+            <br>
+            <div style="display: flex; align-items: center;">
+                <img src="https://i.ibb.co/Q9mfK1v/icons8-alert-96.png" alt="Farm Icon"
+                    style="width: 60px; height: 60px; margin-right: 8px; margin-top: -30px; color: #545454;">
+                <div class="needattention-sum" id="needAttentionSum" style="padding-bottom: 5px;"></div>
+                <div class="section-title">&nbsp;&nbsp;/</div>
+                <div class="section-title" id="totalDevicesCountFraction"></div>
+                <div class="section-title">&nbsp;&nbsp;farm(s)</div>
+            </div>
+            <div class="divider"></div> <!-- Divider line -->
+
+            <!--Counter Total Productivity-->
+            <br>
+            <div class="section-title" style="text-align: center;">Productivity (Total)</div>
+            <br>
+            <br>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <!-- Left section -->
+                <div style="display: flex; align-items: center;">
+                    <span class="material-symbols-outlined"
+                        style="font-size: 40px; color: #545454; margin-right: 0px; margin-top: -30px;">
+                        weight
+                    </span>
+                    <div class="currentproductivity-sum" id="currentProductivitySum" style="padding-bottom: -10px;">
+                    </div>
+                    <div class="section-title">&nbsp;&nbsp;t</div>
+                </div>
+
+                <!-- Add a 50px gap -->
+                <div style="width: 20px;"></div>
+
+                <!-- Right section -->
+                <div style="display: flex; align-items: center;">
+                    <span class="material-icons-outlined"
+                        style="font-size: 20px; color: #545454; margin-right: 0px; margin-top: -30px;">
+                        north_east
+                    </span>
+                    <span class="material-symbols-outlined"
+                        style="font-size: 40px; color: #545454; margin-left: -5px; margin-top: -30px;">
+                        weight
+                    </span>
+                    <div class="expectedproductivity-sum" id="expectedProductivitySum" style="padding-bottom: 5px;">
+                    </div>
+                    <div class="section-title">&nbsp;&nbsp;t</div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between;">
+                <!-- Left section title -->
+                <div class="section-title" style="text-align: left;">Current Prod.</div>
+
+                <!-- Add a 50px gap -->
+                <div style="width: 50px;"></div>
+
+                <!-- Right section title -->
+                <div class="section-title" style="text-align: left;">Expected Prod.</div>
+            </div>
+            <div class="divider"></div> <!-- Divider line -->
+
+
+
+
+
+            <br>
+
+            <div class="farm-grid">
+                <div class="farm-pair">
+                    <div class="farm-icon coffeefarms-icon"></div>
+                    <div class="coffeefarms-count" id="totalcoffeefarmsCount"></div>
+                    <div class="section-title">Coffee cultivation</div>
+                </div>
+                <div class="farm-pair">
+                    <div class="farm-icon durianfarms-icon"></div>
+                    <div class="durianfarms-count" id="totaldurianfarmsCount"></div>
+                    <div class="section-title">Durian cultivation</div>
+                </div>
+                <div class="farm-pair">
+                    <div class="farm-icon pepperfarms-icon"></div>
+                    <div class="pepperfarms-count" id="totalpepperfarmsCount"></div>
+                    <div class="section-title">Pepper cultivation</div>
+                </div>
+                <div class="farm-pair">
+                    <div class="farm-icon teafarms-icon"></div>
+                    <div class="teafarms-count" id="totalteafarmsCount"></div>
+                    <div class="section-title">Tea cultivation</div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <canvas id="treeTypeChart" width="200" height="300"></canvas>
         </div>
-        <div class="section-title">total hectares</div>
-        <br>
-        <div class="divider"></div> <!-- Divider line -->
-        <br>
-
-
-        <div class="farm-grid">
-            <div class="farm-pair">
-                <div class="farm-icon coffeefarms-icon"></div>
-                <div class="coffeefarms-count" id="totalcoffeefarmsCount"></div>
-                <div class="section-title">Coffee cultivation</div>
-            </div>
-            <div class="farm-pair">
-                <div class="farm-icon durianfarms-icon"></div>
-                <div class="durianfarms-count" id="totaldurianfarmsCount"></div>
-                <div class="section-title">Durian cultivation</div>
-            </div>
-            <div class="farm-pair">
-                <div class="farm-icon pepperfarms-icon"></div>
-                <div class="pepperfarms-count" id="totalpepperfarmsCount"></div>
-                <div class="section-title">Pepper cultivation</div>
-            </div>
-            <div class="farm-pair">
-                <div class="farm-icon teafarms-icon"></div>
-                <div class="teafarms-count" id="totalteafarmsCount"></div>
-                <div class="section-title">Tea cultivation</div>
-            </div>
-        </div>
-        <div class="divider"></div>
-        <canvas id="treeTypeChart" width="200" height="300"></canvas>
-
-
     </div>
-</div>
 
     <!--Historical Soil Data Line Chart pop up-->
 
@@ -243,34 +313,59 @@
         </div>
         <div class="divider"></div> <!-- Divider line -->
         <div class="headerNPK">
-            <h5 class="title"><span class="material-symbols-outlined"
-                    style="margin-top: 3px;">bubble_chart</span>
+            <h5 class="title"><span class="material-symbols-outlined" style="margin-top: 3px;">bubble_chart</span>
             </h5>
         </div>
         <br>
         <canvas id="npkChart"></canvas>
         <div class="headerMoist">
-            <h5 class="title"><span class="material-symbols-outlined"
-                    style="margin-top: 3px;">humidity_mid</span></h5>
+            <h5 class="title"><span class="material-symbols-outlined" style="margin-top: 3px;">humidity_mid</span></h5>
         </div>
         <br>
         <canvas id="moistChart"></canvas>
         <div class="headerpH">
-            <h5 class="title"><span class="material-symbols-outlined"
-                    style="margin-top: 3px;">water_ph</span>
+            <h5 class="title"><span class="material-symbols-outlined" style="margin-top: 3px;">water_ph</span>
             </h5>
         </div>
         <br>
         <canvas id="phChart"></canvas>
         <br>
         <div class="headerTemp">
-            <h5 class="title"><span class="material-symbols-outlined"
-                    style="margin-top: 3px;">device_thermostat</span>
-                </h5>
+            <h5 class="title"><span class="material-symbols-outlined" style="margin-top: 3px;">device_thermostat</span>
+            </h5>
         </div>
         <br>
         <canvas id="tempChart"></canvas>
         <br>
+    </div>
+
+    <!--Show Managed Farm List-->
+    <button class="farmlist-button" onclick="toggleFarmList()">
+        <span class="material-symbols-outlined">list</span>
+        <span class="tooltip-right">See farm lists</span>
+    </button>
+
+    <div id="popup-farmlist" class="popup-farmlist">
+        <button class="close-farmlist-btn" onclick="hideFarmList()" style="color: #555;">&times;</button>
+        <div class="farmlist-header">
+            <h3>Managed Farms</h3>
+            <div class="sort-dropdown">
+                <button id="sort-button" class="sortButton">
+                    Sort By &nbsp;
+                    <i class="fi fi-ts-angle-small-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#" onclick="sortFarmList('status')">Status</a>
+                    <a href="#" onclick="sortFarmList('size')">Farm size</a>
+                    <a href="#" onclick="sortFarmList('lastUpdated')">Last updated</a>
+                    <a href="#" onclick="sortFarmList('name')">Name</a>
+                </div>
+            </div>
+        </div>
+        <div id="farm-list-container" class="farm-list-container">
+            <div class="fetching-data">Fetching data...</div>
+            <div class="sorting-message"></div>
+        </div>
     </div>
 
 
@@ -290,7 +385,7 @@
     <script src="mapboxlinecharthistoricaldata.js"></script>
     <script src="treetypecount.js"></script>
     <script src="sumfarmarea.js"></script>
-
+    <script src="mapboxfarmlist.js"></script>
     <!--<script src="popup.js"></script>-->
 
 

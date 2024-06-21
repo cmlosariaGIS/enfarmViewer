@@ -133,7 +133,7 @@
     box-shadow: none !important; /* Force remove any box shadow */
     position: absolute;
     bottom: 100px;
-    left: 10px;
+    left: 1px;
 }
 
 .leaflet-control-rainviewer a.leaflet-control-rainviewer-button:focus,

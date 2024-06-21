@@ -583,8 +583,8 @@ body {
     position: absolute;
     top: 810px;
     left: 22px;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: none;
     background-color: #ffffff;
@@ -700,8 +700,8 @@ body {
     position: absolute;
     top: 300px;
     left: 22px;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: none;
     background-color: #ffffff;
@@ -746,7 +746,7 @@ body {
 }
 
 .slideMenuStats.active {
-    width: 300px;
+    width: 350px;
 }
 
 .slideMenuStats-content {
@@ -772,7 +772,7 @@ body {
     color: rgb(65, 65, 65);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
-    margin-top: 80px;
+    margin-top: 20px;
 }
 
 .device-count {
@@ -887,7 +887,6 @@ body {
     border-radius: 10px;
     z-index: 9999999;
     overflow-y: auto;
-
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -951,6 +950,9 @@ h5.title {
 }
 
 .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     background: none;
     border: none;
     font-size: 24px;
@@ -1024,3 +1026,26 @@ h5.title {
 .timeTrend-buttons button:active {
     transform: translateY(0);
 }
+
+
+.needattention-sum {
+    font-size: 60px;
+    color: #fc2a2a;
+    margin-top: 0px;
+    font-weight: 900;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: -40px;
+}
+
+
+.currentproductivity-sum, .expectedproductivity-sum  {
+    font-size: 25px;
+    color: #545454;
+    margin-top: 0px;
+    font-weight: 900;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: -40px;
+}
+
+
+

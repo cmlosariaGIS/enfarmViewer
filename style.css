@@ -73,7 +73,8 @@ html {
     content: "";
     position: absolute;
     top: 50%;
-    left: -10px; /* Adjust this value as needed */
+    left: -10px;
+    /* Adjust this value as needed */
     transform: translateY(-50%);
     border-width: 5px;
     border-style: solid;
@@ -205,8 +206,8 @@ html {
     position: absolute;
     top: 210px;
     left: 22px;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: none;
     background-color: #ffffff;
@@ -305,6 +306,18 @@ html {
     margin-top: -40px;
 }
 
+.currentproductivity-sum,
+.expectedproductivity-sum {
+    font-size: 25px;
+    color: #545454;
+    margin-top: 0px;
+    font-weight: 900;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: -40px;
+}
+
+
+
 .section-title {
     font-size: 14px;
     color: #777;
@@ -315,7 +328,7 @@ html {
 /* Divider style */
 .divider {
     width: 50%;
-    border-top: 1px solid rgb(239, 239, 239);
+    border-top: 1px solid rgb(248, 248, 248);
     margin: 20px 0;
 }
 
@@ -468,10 +481,10 @@ html {
 /*start app info button related*/
 .info-button {
     position: absolute;
-    top: 170px;
+    top: 160px;
     left: 22px;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: none;
     background-color: #ffffff;
@@ -606,9 +619,11 @@ html {
     flex-direction: column;
     gap: 10px;
     color: #555;
-    width: 400px; /* Set the desired width */
-    height: 80%; /* Set the desired height */
-    
+    width: 400px;
+    /* Set the desired width */
+    height: 80%;
+    /* Set the desired height */
+
 }
 
 .popup-historicalsoildata::-webkit-scrollbar {
@@ -666,6 +681,9 @@ h5.title {
 }
 
 .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     background: none;
     border: none;
     font-size: 24px;
@@ -691,7 +709,8 @@ h5.title {
 }
 
 .popup-historicalsoildata canvas {
-    margin-bottom: 15px; /* Add bottom margin of 15px */
+    margin-bottom: 15px;
+    /* Add bottom margin of 15px */
 }
 
 
@@ -701,8 +720,8 @@ h5.title {
     position: absolute;
     bottom: 240px;
     right: 22px;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: none;
     background-color: #ffffff;
@@ -727,6 +746,40 @@ h5.title {
 }
 
 .userlocation-button span {
+    line-height: 1;
+}
+
+/*Farm list Button*/
+.farmlist-button {
+    position: absolute;
+    top: 300px;
+    right: 22px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(54, 54, 54);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.farmlist-button:hover {
+    background-color: #c9c9c9;
+}
+
+.farmlist-button:hover .tooltip-right {
+    visibility: visible;
+    opacity: 1;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+.farmlist-button span {
     line-height: 1;
 }
 
@@ -769,7 +822,8 @@ h5.title {
 
 /*Style to replace 3D text wit elevation icon on hover*/
 .view-in-3D:hover #text {
-    display: none; /* Hide the text content when the button is hovered */
+    display: none;
+    /* Hide the text content when the button is hovered */
 }
 
 
@@ -841,8 +895,10 @@ h5.title {
 }
 
 .coffee-icon {
-    width: 25px; /* Adjust the size as needed */
-    height: 25px; /* Adjust the size as needed */
+    width: 25px;
+    /* Adjust the size as needed */
+    height: 25px;
+    /* Adjust the size as needed */
 }
 
 .coffee-text {
@@ -860,6 +916,7 @@ h5.title {
     opacity: 1;
     font-family: 'Be Vietnam', sans-serif;
 }
+
 .active-coffee {
     background-color: rgb(74, 0, 0);
     color: white;
@@ -886,8 +943,10 @@ h5.title {
 }
 
 .durian-icon {
-    width: 25px; /* Adjust the size as needed */
-    height: 25px; /* Adjust the size as needed */
+    width: 25px;
+    /* Adjust the size as needed */
+    height: 25px;
+    /* Adjust the size as needed */
 }
 
 .durian-text {
@@ -932,8 +991,10 @@ h5.title {
 }
 
 .pepper-icon {
-    width: 25px; /* Adjust the size as needed */
-    height: 25px; /* Adjust the size as needed */
+    width: 25px;
+    /* Adjust the size as needed */
+    height: 25px;
+    /* Adjust the size as needed */
 }
 
 .pepper-text {
@@ -946,7 +1007,7 @@ h5.title {
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-.pepperFarms-filter:hover  .tooltip-bottom {
+.pepperFarms-filter:hover .tooltip-bottom {
     visibility: visible;
     opacity: 1;
     font-family: 'Be Vietnam', sans-serif;
@@ -978,8 +1039,10 @@ h5.title {
 }
 
 .tea-icon {
-    width: 25px; /* Adjust the size as needed */
-    height: 25px; /* Adjust the size as needed */
+    width: 25px;
+    /* Adjust the size as needed */
+    height: 25px;
+    /* Adjust the size as needed */
 }
 
 .tea-text {
@@ -992,7 +1055,7 @@ h5.title {
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-.teaFarms-filter:hover  .tooltip-bottom {
+.teaFarms-filter:hover .tooltip-bottom {
     visibility: visible;
     opacity: 1;
     font-family: 'Be Vietnam', sans-serif;
@@ -1055,8 +1118,10 @@ h5.title {
 .timeTrend-buttons {
     margin-top: 10px;
     display: flex;
-    gap: 10px; /* Creates space between buttons */
+    gap: 10px;
+    /* Creates space between buttons */
 }
+
 .timeTrend-buttons button {
     padding: 10px 10px;
     border: none;
@@ -1067,15 +1132,18 @@ h5.title {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
 .timeTrend-buttons button:hover {
     background-color: #019d6b;
     color: #f1f1f1;
 }
+
 .timeTrend-buttons button:active,
 .timeTrend-buttons button.active {
     background-color: #019d6b;
     color: #f1f1f1;
 }
+
 .timeTrend-buttons button:active {
     transform: translateY(0);
 }
@@ -1102,26 +1170,27 @@ h5.title {
     overflow: hidden;
     transition-duration: .3s;
     background-color: var(--af-white);
-  }
-  
-  /* plus sign */
-  .sign {
+}
+
+/* plus sign */
+.sign {
     width: 100%;
     transition-duration: .3s;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .sign svg {
+}
+
+.sign svg {
     width: 17px;
-  }
-  
-  .sign svg path {
+}
+
+.sign svg path {
     fill: var(--night-rider);
-  }
-  /* text */
-  .text {
+}
+
+/* text */
+.text {
     position: absolute;
     right: 0%;
     width: 0%;
@@ -1130,30 +1199,33 @@ h5.title {
     font-size: 1.2em;
     font-weight: 600;
     transition-duration: .3s;
-  }
-  /* hover effect on button width */
-  .Btn:hover {
+}
+
+/* hover effect on button width */
+.Btn:hover {
     width: 125px;
     border-radius: 5px;
     transition-duration: .3s;
-  }
-  
-  .Btn:hover .sign {
+}
+
+.Btn:hover .sign {
     width: 13%;
     transition-duration: .3s;
     padding-left: 20px;
-  }
-  /* hover effect button's text */
-  .Btn:hover .text {
+}
+
+/* hover effect button's text */
+.Btn:hover .text {
     opacity: 1;
     width: 70%;
     transition-duration: .3s;
     padding-right: 10px;
-  }
-  /* button click effect*/
-  .Btn:active {
-    transform: translate(2px ,2px);
-  }
+}
+
+/* button click effect*/
+.Btn:active {
+    transform: translate(2px, 2px);
+}
 
 
 /* Recommendation Tooltip */
@@ -1171,20 +1243,23 @@ h5.title {
     z-index: 1000;
     transition: opacity 0.2s, transform 0.2s;
     opacity: 0;
-    transform: translateY(-15px); /* Adjust the translateY value as needed */
+    transform: translateY(-15px);
+    /* Adjust the translateY value as needed */
     pointer-events: none;
     font-family: 'Be Vietnam', sans-serif;
     font-weight: 200;
     width: 250px;
 }
 
-/* Hover Effect */
+/* Hover Effect  */
 .headerNPK:hover .tooltip,
 .headerMoist:hover .tooltip,
 .headerpH:hover .tooltip,
 .headerTemp:hover .tooltip {
     display: block;
     opacity: 1;
-    transform: translateY(5px); /* Adjust the translateY value opposite to the initial value */
+    transform: translateY(5px);
+    /* Adjust the translateY value opposite to the initial value */
     pointer-events: auto;
 }
+

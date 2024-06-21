@@ -764,6 +764,9 @@ const getRandomImageUrl = () => imageUrls[Math.floor(Math.random() * imageUrls.l
 
 */
 
+let totalCurrentProd = 0;
+let totalExpectedProd = 0;
+
 const fetchFarmData3D = async (userIds) => {
     try {
         const requests = userIds.map(userId =>
@@ -797,6 +800,9 @@ const fetchFarmData3D = async (userIds) => {
 
                 // Update totalDevicesCount with the length of associatedLocations array
                 var totalDevicesCount = associatedLocations.length;
+
+                // Variable for Farms needing attention
+                var farmsNeedingAttentionCount = 0;
 
 
                 associatedLocations.forEach(async location => {
@@ -836,7 +842,7 @@ const fetchFarmData3D = async (userIds) => {
                     pointCounter++;
 
                     // Update counter element text
-                    counterElement.innerHTML = `<span class="material-symbols-outlined" style="font-size: 40px;">psychiatry</span> ${pointCounter} farms`;
+                    counterElement.innerHTML = `<span class="material-symbols-outlined" style="font-size: 40px;">psychiatry</span> ${pointCounter} farm cultivates`;
 
                     let popupContent = `
                   <div style="position: relative; padding: 0; margin: 0; padding-bottom: 10px;">
@@ -908,6 +914,10 @@ const fetchFarmData3D = async (userIds) => {
                               <br>
                         `;
 
+                                    // Update the sums
+                                    totalCurrentProd += cultivateDetails.current_prod;
+                                    totalExpectedProd += cultivateDetails.expected_prod;
+
                                     const nutritionDataPromises = cultivateDetails.softids.map(async softid => {
                                         try {
                                             const nutritionData = await fetch(`https://api-router.enfarm.com/api/v3/charts/retrieve-nutrition-chart-old`, {
@@ -962,6 +972,11 @@ const fetchFarmData3D = async (userIds) => {
                                                 const circleColorNPK = npkQuotient < 0.5 ? "#BA0F30" : (npkQuotient <= 1 ? "#18A558" : "#BA0F30");
 
                                                 const roundedValue = (value) => value !== null ? value.toFixed(2) : 'null';
+
+                                                // Check if any of the soil data values are in the "needs attention" range
+                                                if (circleColorTemp === '#BA0F30' || circleColorpH === '#BA0F30' || circleColorMoist === '#BA0F30' || circleColorNPK === '#BA0F30') {
+                                                    farmsNeedingAttentionCount++;
+                                                }
 
                                                 popupContent += `
                                 <div style="position: relative; display: flex; align-items: center;">
@@ -1022,6 +1037,18 @@ const fetchFarmData3D = async (userIds) => {
 
                     // Display total device count
                     document.getElementById('totalDevicesCount').innerText = totalDevicesCount;
+
+                    // Update the needAttentionSum element with the count of farms needing attention
+                    document.getElementById('needAttentionSum').innerText = farmsNeedingAttentionCount;
+
+                    // Update the totalDevicesCountFraction element with the total devices count
+                    document.getElementById('totalDevicesCountFraction').innerText = totalDevicesCount;
+
+                    // Update the current productivity sum element in tonnes
+                    document.getElementById('currentProductivitySum').innerText = totalCurrentProd.toFixed(2);
+
+                    // Update the expected productivity sum element in tonnes
+                    document.getElementById('expectedProductivitySum').innerText = totalExpectedProd.toFixed(2);
 
                     const popup = new mapboxgl.Popup().setHTML(popupContent);
                     const marker = new mapboxgl.Marker(markerElement)
@@ -1100,7 +1127,7 @@ let pointCounter = 0;
 // Create a div element for the counter
 const counterElement = document.createElement('div');
 counterElement.className = 'point-counter';
-counterElement.textContent = `${pointCounter} farms`;
+counterElement.textContent = `${pointCounter} farm cultivates`;
 map.getContainer().appendChild(counterElement);
 
 
