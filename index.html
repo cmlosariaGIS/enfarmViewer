@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>enfarm Deployed Devices Web Map</title>
+    <title>enfarm Enterprise Platform</title>
 
     <!-- Favicon -->
     <link rel="icon" href="https://i.ibb.co/tQDxF41/enfarm-favicon.png" type="image/png">
@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="./search.css">
     <link rel="stylesheet" href="./rainviewer.css">
     <link rel="stylesheet" href="./farmlist.css">
+    <link rel="stylesheet" href="./filters.css">
     <!--<link rel="stylesheet" href="./mapbox3Dterrain.css"-->
 
     <!-- Leaflet -->
@@ -63,6 +64,7 @@
 
     <!--Flat Icon UI-->
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-thin-rounded/css/uicons-thin-rounded.css'>
 
 
 
@@ -187,7 +189,7 @@
 
         <button class="needs-attention">
             <div id="lottie-container" style="width: 24px; height: 24px;"></div>
-            <span class="attention-text">Attention</span>
+            <span class="attention-text">Alert</span>
             <span class="tooltip-bottom">Show farms needing attention</span>
         </button>
 
@@ -226,13 +228,16 @@
     <!--Show Managed Farm List-->
     <button class="farmlist-button" onclick="toggleFarmList()">
         <span class="material-symbols-outlined">list</span>
-        <span class="tooltip-right">See farm lists</span>
+        <span class="tooltip-right">See lists of managed farms</span>
     </button>
 
     <div id="popup-farmlist" class="popup-farmlist">
         <button class="close-farmlist-btn" onclick="hideFarmList()" style="color: #555;">&times;</button>
         <div class="farmlist-header">
-            <h3>Managed Farms</h3>
+            <div style="display: flex; align-items: center;">
+                <span class="material-symbols-outlined" style="margin-right: 4px;">psychiatry</span>
+                <h3 style="margin: 0;">Managed Farms</h3>
+            </div>
             <div class="sort-dropdown">
                 <button id="sort-button" class="sortButton">
                     Sort By &nbsp;
@@ -247,7 +252,7 @@
             </div>
         </div>
         <div id="farm-list-container" class="farm-list-container">
-            <div class="fetching-data">Fetching data...</div>
+            <div class="fetching-data">Fetching farm data...</div>
             <div class="sorting-message"></div>
         </div>
     </div>
@@ -259,7 +264,7 @@
                 <img src="https://enfarm.com/fd57352e4cea98b4c1fb.jpg" class="company-logo" alt="enFarm Logo">
             </a>
             <div class="project-title">
-                <span>Deployed Devices Web Map</span>
+                <span>Enterprise Platform</span>
             </div>
         </div>
         <div class="middle-section">
@@ -272,14 +277,15 @@
             </div>
 
 
-            <button class="Btn">
-
-                <div class="sign"><svg viewBox="0 0 512 512">
+            <button class="Btn" onclick="location.href='logout.html';">
+                <div class="sign">
+                    <svg viewBox="0 0 512 512">
                         <path
                             d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
                         </path>
-                    </svg></div>
-                <div class="text">Logout</div>
+                    </svg>
+                </div>
+                <div class="text">&nbsp;Logout</div>
             </button>
 
 
@@ -329,6 +335,12 @@
         <span class="tooltip-right">Locate User</span>
     </button>
 
+    <!--Full screen button-->
+    <button class="fullscreen-button" onclick="fullscreen()">
+        <span class="material-symbols-outlined">fullscreen</span>
+        <span class="tooltip-right">Toggle fullscreen</span>
+    </button>
+
     <!--Sea level rise
     <button class="sealevelrise-button" onclick="seaLevelRise()">
         <span class="material-icons-outlined">water</span>
@@ -344,7 +356,7 @@
     <!--Mapbox 3D terrain-->
     <button class="mapbox3Dterrain-button" onclick="call3Dmap()">
         <span class="material-icons-outlined">landscape</span>
-        <span class="tooltip-right">Launch 3D Map View</span>
+        <span class="tooltip-right">Switch to 3D Map View</span>
     </button>
 
 
@@ -370,25 +382,49 @@
         <div class="slideMenuStats-content">
             <span class="material-icons-outlined slideMenuStats-close" onclick="toggleSlideMenuStats()">close</span>
             <h2 class="dashboard-title">Dashboard</h2>
-            <div class="device-count" id="totalDevicesCount"></div>
-            <div class="section-title">farm cultivates</div>
-            <div class="divider"></div> <!-- Divider line -->
 
-            <!--Counter Land Area in hectares-->
-            <br>
-            <div class="section-title" style="text-align: center;">Land Area (Total)</div>
-            <br>
-            <div style="display: flex; align-items: center;">
-                <img src="https://i.ibb.co/0QhPSvr/icons8-land-plot-64.png" alt="Farm Icon"
-                    style="width: 60px; height: 60px; margin-right: 8px; margin-top: -30px; color: #545454;">
-                <div class="totalfarmarea-sum" id="totalFarmAreaSum" style="padding-bottom: 5px;"></div>
-                <div class="section-title">&nbsp;&nbsp;ha.</div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 30px; width: 100%;">
+                <!-- First Section -->
+                <div style="display: flex; align-items: center; flex-direction: column;">
+                    <div style="display: flex; align-items: center;">
+                        <img src="https://i.ibb.co/0QhPSvr/icons8-land-plot-64.png" alt="Farm Icon"
+                            style="width: 50px; height: 50px;">
+                        <div class="farm-count" id="totalfarmCount" style="margin-top: -10px; margin-left: 10px;"></div>
+                    </div>
+                    <div class="section-title" style="text-align: center; margin-top: -10px;">farms</div>
+                </div>
+
+                <!-- Second Section -->
+                <div style="display: flex; align-items: center; flex-direction: column;">
+                    <div style="display: flex; align-items: center;">
+                        <img src="https://i.ibb.co/qkqGjtM/icons8-rhomboid-shape-100.png" alt="Farm Icon"
+                            style="width: 40px; height: 40px;">
+                        <div class="totalfarmarea-sum" id="totalFarmAreaSum"
+                            style="margin-top: -10px; margin-left: 10px;"></div>
+                        <div class="section-title" style="margin-top: 10px; margin-left: 5px;">ha.</div>
+                    </div>
+                    <div class="section-title" style="text-align: center; margin-top: -10px;">Land Area (Total)</div>
+                </div>
             </div>
             <div class="divider"></div> <!-- Divider line -->
 
+
+
+
+            <div style="display: flex; align-items: center; flex-direction: column;">
+                <div style="display: flex; align-items: center;">
+                    <img src="https://i.ibb.co/1dggvZL/icons8-rfid-sensor-96.png" alt="RFID Sensor Icon"
+                        style="width: 50px; height: 50px;">
+                    <div class="device-count" id="totalDevicesCount" style="margin-top: -10px; margin-left: 10px;">
+                    </div>
+                </div>
+                <div class="section-title" style="text-align: center; margin-top: -10px;">enfarm devices deployed</div>
+            </div>
+
+            <div class="divider"></div> <!-- Divider line -->
+
+
             <!--Counter Farms Needing Attention-->
-            <br>
-            <div class="section-title">farm cultivates needing attention</div>
             <br>
             <div style="display: flex; align-items: center;">
                 <img src="https://i.ibb.co/Q9mfK1v/icons8-alert-96.png" alt="Farm Icon"
@@ -398,6 +434,7 @@
                 <div class="section-title" id="totalDevicesCountFraction"></div>
                 <div class="section-title">&nbsp;&nbsp;farm(s)</div>
             </div>
+            <div class="section-title">farms needing attention</div>
             <div class="divider"></div> <!-- Divider line -->
 
             <!--Counter Total Productivity-->
@@ -447,13 +484,7 @@
                 <div class="section-title" style="text-align: left;">Expected Prod.</div>
             </div>
             <div class="divider"></div> <!-- Divider line -->
-
-
-
-
-
             <br>
-
             <div class="farm-grid">
                 <div class="farm-pair">
                     <div class="farm-icon coffeefarms-icon"></div>
@@ -477,6 +508,8 @@
                 </div>
             </div>
             <div class="divider"></div>
+            <div class="section-title">cultivate distribution</div>
+            <p></p>
             <canvas id="treeTypeChart" width="200" height="300"></canvas>
         </div>
     </div>
@@ -582,7 +615,10 @@
     <script src="treetypecount.js"></script>
     <script src="sumfarmarea.js"></script>
     <script src="inset.js"></script>
+    <script src="filters.js"></script>
     <script src="farmlist.js"></script>
+    <script src="fullscreen.js"></script>
+
     <!--<script type="module" src="./userIds.js"></script>-->
     <!--<script src="fetchFarmData.js"></script>-->
 
@@ -629,6 +665,7 @@
             autoplay: true,
             path: 'https://lottie.host/41453d5b-98f5-4478-ae32-24ffb6f5ff63/wN5fPgSl5x.json' // Lottie animation URL
         });
+
 
 
 

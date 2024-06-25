@@ -1,0 +1,68 @@
+<!DOCTYPE html><html> <head><link rel=stylesheet href=./login.css><title>Login</title><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;700&display=swap"><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"><!-- Firebase --><script type=module>
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+
+        // Initialize Firebase with your project credentials
+        const firebaseConfig = {
+            apiKey: "AIzaSyAf2PXXQYtiDf7P8bfkm4c7SWWARziSNC8",
+            authDomain: "encity-project-sheet-tracker.firebaseapp.com",
+            projectId: "encity-project-sheet-tracker",
+            storageBucket: "encity-project-sheet-tracker.appspot.com",
+            messagingSenderId: "849371984466",
+            appId: "1:849371984466:web:010a05c06bd5266699658b",
+            measurementId: "G-X3P0YX9EMT"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Function to handle email login
+        window.loginWithEmail = function () {
+            const email = document.querySelector('.input[name="email"]').value;
+            const password = document.querySelector('.input[name="password"]').value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Login successful
+                    const user = userCredential.user;
+                    console.log('Logged in with email:', user);
+                    // Redirect to index.html
+                    window.location.href = 'enCity_projects.html';
+                })
+                .catch((error) => {
+                    // Handle errors here
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    if (errorCode === 'auth/invalid-login-credentials') {
+                        // Display wrong credentials message
+                        document.getElementById('error-message').textContent = '❌ Wrong credentials';
+                    } else {
+                        console.error('Error logging in:', errorMessage);
+                    }
+                });
+        }
+    </script><style>
+        .company-logo {
+            display: block;
+            margin: 0 auto 20px;
+            height: 80px;
+        }
+    </style></head> <body> <div class=form-container> <img src=https://enfarm.com/fd57352e4cea98b4c1fb.jpg alt="enCity Logo" class=company-logo> <p class=title>Welcome</p> <h6 class=sub-title>Login to access the enfarm Enterprise Platform </h6> <!-- Updated title --> <form class=form onsubmit="event.preventDefault(); loginWithEmail();"> <input type=email class=input name=email placeholder=Email> <div class=password-input-container> <input type=password class="input password-input" name=password placeholder=Password> <span class=password-toggle-icon> <i class=material-icons-outlined>visibility_off</i> </span> </div> <p class=page-link> <a href=forgetPassword.html class=page-link-label>Forgot Password?</a> </p> <p id=error-message class=error-message></p> <!-- Display error message --> <button type=submit class=form-btn>Log in</button> </form> <p class=sign-up-label> Don't have an account?<span class=sign-up-link>Sign up</span> </p> </div> <script>
+        const passwordInput = document.querySelector('.password-input');
+        const passwordToggleIcon = document.querySelector('.password-toggle-icon i');
+
+        passwordToggleIcon.addEventListener('click', () => {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggleIcon.textContent = 'visibility';
+            } else {
+                passwordInput.type = 'password';
+                passwordToggleIcon.textContent = 'visibility_off';
+            }
+        });
+
+        const signUpLink = document.querySelector('.sign-up-link');
+        signUpLink.addEventListener('click', () => {
+            window.location.href = 'signup.html';
+        });
+    </script> </body> </html>

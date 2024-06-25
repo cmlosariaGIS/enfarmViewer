@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang=en> <head><meta charset=UTF-8><meta name=viewport content="width=device-width, initial-scale=1.0"><title>Logged Out</title><script src=https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js></script><style>
+        body {
+            background-image: url('https://images.pexels.com/photos/1556665/pexels-photo-1556665.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Be Vietnam', sans-serif;
+        }
+        .container {
+            background-color: rgba(255, 255, 255);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            width: 400px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .logo {
+            width: 160px;
+            margin: 0 auto;
+        }
+        #lottie-animation {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+        h2 {
+            color: #333;
+            margin: 0.5rem 0;
+            font-size: 1.5rem;
+        }
+        p {
+            color: #666;
+            margin: 0 0 1rem;
+            font-size: 0.9rem;
+        }
+        .login-btn {
+            background-color: #2a9191;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+            font-size: 0.9rem;
+            display: block;
+            width: 300px;
+            margin: 0.5rem auto 0;
+            box-sizing: border-box;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+        .login-btn:hover {
+            background-color: #048484;
+        }
+        
+    </style></head> <body> <div class=container> <img src=https://enfarm.com/fd57352e4cea98b4c1fb.jpg alt="enFarm Logo" class=logo> <div id=lottie-animation></div> <h2>You've Been Logged Out</h2> <p>Thank you for using our enfarm.</p> <a href=login.html class=login-btn>Log In Again</a> </div> <script>
+        lottie.loadAnimation({
+            container: document.getElementById('lottie-animation'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://lottie.host/5bb5c934-99a8-405b-a946-12cf297c3621/9Gn4KJdO4Z.json'
+        });
+    </script> </body> </html>

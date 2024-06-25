@@ -1,155 +1,6 @@
-let currentFarmData = []; // Store the current farm data for sorting
-var images = [
-    'https://i.ibb.co/jLBvcbF/OIG2-1.jpg',
-    'https://i.ibb.co/Wxhg96g/OIG2-3.jpg',
-    'https://i.ibb.co/Wxhg96g/OIG2-3.jpg',
-    'https://i.ibb.co/WWpWVdX/OIG4.jpg'
-];
-
-// Function to toggle the visibility of the farm list popup
-const toggleFarmList = () => {
-    const farmListPopup = document.getElementById('popup-farmlist');
-    farmListPopup.classList.toggle('show');
-    if (farmListPopup.classList.contains('show')) {
-        fetchFarmListData(authenticatedUserIDs);
-    }
-};
-
-// Function to hide the farm list popup
-const hideFarmList = () => {
-    document.getElementById('popup-farmlist').classList.remove('show');
-};
-
-// Function to fly to the farm location and zoom to the center of the map display (Leaflet)
-const flyToFarmLocation = async (farmName) => {
-    try {
-        const response = await fetch('https://api-ma.enfarm.com/api/v1/ma/get-install-locations', {
-            headers: { 'accept': 'application/json' },
-        });
-        const { content: locations } = await response.json();
-        const farmLocation = locations.find(location => location.farmname === farmName);
-
-        if (farmLocation) {
-            const latLng = L.latLng(farmLocation.lat, farmLocation.long);
-            const zoomLevel = 18;
-            map.flyTo(latLng, zoomLevel, { animate: true, duration: 1 });
-
-            // Open the popup for any existing marker at the farm location
-            map.eachLayer(layer => {
-                if (layer instanceof L.Marker && layer.getLatLng().equals(latLng)) {
-                    layer.openPopup();
-                }
-            });
-        } else {
-            console.log(`Farm location not found for farm name: ${farmName}`);
-        }
-    } catch (error) {
-        console.error('Error fetching farm location:', error);
-    }
-};
-
-// Function to fetch farm list data
-const fetchFarmListData = async (userIds) => {
-    try {
-        const requests = userIds.map(userId =>
-            axios.post(
-                'https://api-router.enfarm.com/api/v3/farm/total-farms-per-user',
-                { user_id: userId },
-                { headers: { 'accept': 'application/json', 'Content-Type': 'application/json' } }
-            )
-        );
-
-        const responses = await axios.all(requests);
-        currentFarmData = responses.flatMap(response => response.data.content.data);
-
-        displayFarmList(currentFarmData);
-    } catch (error) {
-        console.error('Error fetching farm details:', error);
-    }
-};
-
-// Function to determine if a farm needs attention based on soil data
-const farmNeedsAttention = async (farm) => {
-    const cultivateDetailsPromises = farm.cultivates.map(async cultivate => {
-        const cultivateDetails = await fetch(`https://api-router.enfarm.com/api/v3/cultivate/retrieve-cultivate-tree`, {
-            method: 'POST',
-            headers: {
-                'accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ cultivate_id: cultivate.cultivate_id })
-        })
-            .then(response => response.json())
-            .then(data => data.content)
-            .catch(error => {
-                console.error(`Error fetching cultivate details for cultivate_id ${cultivate.cultivate_id}:`, error);
-                return null;
-            });
-
-        if (cultivateDetails) {
-            const nutritionDataPromises = cultivateDetails.softids.map(async softid => {
-                const nutritionData = await fetch(`https://api-router.enfarm.com/api/v3/charts/retrieve-nutrition-chart-old`, {
-                    method: 'POST',
-                    headers: {
-                        'accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ region_id: cultivateDetails.region_id })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        const matchingValues = data.content.find(item => item.in_depth === softid.in_depth)?.values;
-                        if (matchingValues) {
-                            // Find the index of the latest date
-                            const latestIndex = matchingValues.created_at
-                                .map((date, index) => ({ date: new Date(date), index }))
-                                .sort((a, b) => b.date - a.date)[0].index;
-
-                            return {
-                                npk: matchingValues.npk[latestIndex],
-                                moist: matchingValues.moist[latestIndex],
-                                pH: matchingValues.pH[latestIndex],
-                                t: matchingValues.t[latestIndex],
-                                created_at: matchingValues.created_at[latestIndex],
-                            };
-                        }
-                        return null;
-                    })
-                    .catch(error => {
-                        console.error(`Error fetching nutrition data for region_id ${cultivateDetails.region_id} and in_depth ${softid.in_depth}:`, error);
-                        return null;
-                    });
-
-                if (nutritionData) {
-                    const { t, pH, moist, npk } = nutritionData;
-                    const npkQuotient = npk / 300;
-                    return (
-                        t < 20 || t > 30 ||
-                        pH < 7 || pH > 7 ||
-                        moist <= 22.5 || moist > 55 ||
-                        npkQuotient < 0.5 || npkQuotient > 1
-                    );
-                }
-            });
-
-            const nutritionDataResults = await Promise.all(nutritionDataPromises);
-            return nutritionDataResults.some(result => result);
-        }
-        return false;
-    });
-
-    const cultivateDetailsResults = await Promise.all(cultivateDetailsPromises);
-    return cultivateDetailsResults.some(result => result);
-};
-
-// Helper function to create a farm item HTML
-const createFarmItem = async (farm) => {
-    const randomImage = images[Math.floor(Math.random() * images.length)];
-    const treeTypes = [...new Set(farm.cultivates.map(cultivate => cultivate.tree_type))];
-    const lastUpdateDate = new Date(Math.max(...farm.cultivates.map(cultivate => new Date(cultivate.last_update)))).toISOString().split('T')[0];
-    const needsAttention = await farmNeedsAttention(farm);
-
-    return `
+let currentFarmData=[];var images=['https://i.ibb.co/jLBvcbF/OIG2-1.jpg','https://i.ibb.co/Wxhg96g/OIG2-3.jpg','https://i.ibb.co/Wxhg96g/OIG2-3.jpg','https://i.ibb.co/WWpWVdX/OIG4.jpg'];const toggleFarmList=()=>{const farmListPopup=document.getElementById('popup-farmlist');farmListPopup.classList.toggle('show');if(farmListPopup.classList.contains('show')){fetchFarmListData(authenticatedUserIDs)}};const hideFarmList=()=>{document.getElementById('popup-farmlist').classList.remove('show')};const flyToFarmLocation=async(farmName)=>{try{const response=await fetch('https://api-ma.enfarm.com/api/v1/ma/get-install-locations',{headers:{'accept':'application/json'},});const{content:locations}=await response.json();const farmLocation=locations.find(location=>location.farmname===farmName);if(farmLocation){const latLng=L.latLng(farmLocation.lat,farmLocation.long);const zoomLevel=18;map.flyTo(latLng,zoomLevel,{animate:!0,duration:1});map.eachLayer(layer=>{if(layer instanceof L.Marker&&layer.getLatLng().equals(latLng)){layer.openPopup()}})}else{console.log(`Farm location not found for farm name: ${farmName}`)}}catch(error){console.error('Error fetching farm location:',error)}};const fetchFarmListData=async(userIds)=>{try{const requests=userIds.map(userId=>axios.post('https://api-router.enfarm.com/api/v3/farm/total-farms-per-user',{user_id:userId},{headers:{'accept':'application/json','Content-Type':'application/json'}}));const responses=await axios.all(requests);currentFarmData=responses.flatMap(response=>response.data.content.data);displayFarmList(currentFarmData)}catch(error){console.error('Error fetching farm details:',error)}};const farmNeedsAttention=async(farm)=>{const cultivateDetailsPromises=farm.cultivates.map(async cultivate=>{const cultivateDetails=await fetch(`https://api-router.enfarm.com/api/v3/cultivate/retrieve-cultivate-tree`,{method:'POST',headers:{'accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({cultivate_id:cultivate.cultivate_id})}).then(response=>response.json()).then(data=>data.content).catch(error=>{console.error(`Error fetching cultivate details for cultivate_id ${cultivate.cultivate_id}:`,error);return null});if(cultivateDetails){const nutritionDataPromises=cultivateDetails.softids.map(async softid=>{const nutritionData=await fetch(`https://api-router.enfarm.com/api/v3/charts/retrieve-nutrition-chart-old`,{method:'POST',headers:{'accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({region_id:cultivateDetails.region_id})}).then(response=>response.json()).then(data=>{const matchingValues=data.content.find(item=>item.in_depth===softid.in_depth)?.values;if(matchingValues){const latestIndex=matchingValues.created_at.map((date,index)=>({date:new Date(date),index})).sort((a,b)=>b.date-a.date)[0].index;return{npk:matchingValues.npk[latestIndex],moist:matchingValues.moist[latestIndex],pH:matchingValues.pH[latestIndex],t:matchingValues.t[latestIndex],created_at:matchingValues.created_at[latestIndex],}}
+return null}).catch(error=>{console.error(`Error fetching nutrition data for region_id ${cultivateDetails.region_id} and in_depth ${softid.in_depth}:`,error);return null});if(nutritionData){const{t,pH,moist,npk}=nutritionData;const npkQuotient=npk/300;return(t<20||t>30||pH<7||pH>7||moist<=22.5||moist>55||npkQuotient<0.5||npkQuotient>1)}});const nutritionDataResults=await Promise.all(nutritionDataPromises);return nutritionDataResults.some(result=>result)}
+return!1});const cultivateDetailsResults=await Promise.all(cultivateDetailsPromises);return cultivateDetailsResults.some(result=>result)};const createFarmItem=async(farm)=>{const randomImage=images[Math.floor(Math.random()*images.length)];const treeTypes=[...new Set(farm.cultivates.map(cultivate=>cultivate.tree_type))];const lastUpdateDate=new Date(Math.max(...farm.cultivates.map(cultivate=>new Date(cultivate.last_update)))).toISOString().split('T')[0];const needsAttention=await farmNeedsAttention(farm);return `
         <div class="farm-item" data-farm-name="${farm.farm_name}">
             <div class="farm-image-container" onmouseover="this.querySelector('.parallax-img').style.transform = 'scale(1.01)'" onmouseout="this.querySelector('.parallax-img').style.transform = 'scale(1)'">
                 <img src="${randomImage}" alt="Farm Image" class="parallax-img" />
@@ -157,11 +8,9 @@ const createFarmItem = async (farm) => {
             <div class="farm-details">
                 <div class="farm-title">
                     ${farm.farm_name}
-                    ${needsAttention ? `
-                        <div class="needs-attention-glow">
-                            <div class="tooltip-right">This farm needs attention</div>
+                    ${needsAttention ? `<div class="needs-attention-glow"><span class="tooltip-left">This farm needs attention</span></div>` : `<div class="dont-need-attention"><span class="tooltip-left">This farm's soil status is ok</span>
                         </div>
-                    ` : ''}
+                    `}
                 </div>
                 <div class="tree-types">
                     ${treeTypes.map(treeType => `
@@ -171,17 +20,17 @@ const createFarmItem = async (farm) => {
                     `).join('')}
                 </div>
                 <div class="farm-address">
-                <span class="material-symbols-outlined location-icon">location_on</span>
-                <span>${farm.farm_address || 'N/A'}</span>
-            </div>
-            <div class="farm-area">
-                <span class="material-symbols-outlined grid-icon">grid_on</span>
-                <span>${farm.farm_area} hectares</span>
-            </div>
-            <div class="farm-last-update">
-            <span class="material-symbols-outlined update-icon">update</span>
-            <span><i>Last updated: ${lastUpdateDate}</i></span>
-        </div>
+                    <span class="material-symbols-outlined location-icon">location_on</span>
+                    <span>${farm.farm_address || 'N/A'}</span>
+                </div>
+                <div class="farm-area">
+                    <span class="material-symbols-outlined grid-icon">grid_on</span>
+                    <span>${farm.farm_area} hectares</span>
+                </div>
+                <div class="farm-last-update">
+                    <span class="material-symbols-outlined update-icon">update</span>
+                    <span><i>Last updated: ${lastUpdateDate}</i></span>
+                </div>
             </div>
         </div>
     `;
@@ -201,7 +50,7 @@ const displayFarmList = async (farms) => {
         setTimeout(() => {
             item.style.opacity = '1';
             item.style.transform = 'translateY(0)';
-            item.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            item.style.transition = 'opacity 0.5s ease-out,transform 0.5s ease-out';
         }, (index + 1) * 300);
     });
 };
@@ -242,9 +91,4 @@ const sortFarmList = (sortBy) => {
             });
             displayFarmList(sortedFarms);
             break;
-        case 'name':
-            sortedFarms.sort((a, b) => a.farm_name.localeCompare(b.farm_name));
-            displayFarmList(sortedFarms);
-            break;
-    }
-};
+        case 'name':sortedFarms.sort((a,b)=>a.farm_name.localeCompare(b.farm_name));displayFarmList(sortedFarms);break}}
