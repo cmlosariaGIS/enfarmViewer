@@ -26,9 +26,11 @@ return!1});const cultivateDetailsResults=await Promise.all(cultivateDetailsPromi
                     <span>${farm.farm_area} hectares</span>
                 </div>
                 <div class="farm-last-update">
-                    <span class="material-symbols-outlined update-icon">update</span>
-                    <span><i>Last updated: ${lastUpdateDate}</i></span>
-                </div>
+                <span class="material-symbols-outlined update-icon">update</span>
+                <span data-translate="Last updated:"><i>Cập nhật lần cuối:</i></span>
+                <span class="last-update-date"><i>${lastUpdateDate}</i></span>
+            </div>
+            
             </div>
         </div>
     `;
