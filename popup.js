@@ -7,8 +7,8 @@ const fetchFarmData=async(userIds)=>{try{const requests=userIds.map(userId=>axio
         <img src="${customIcon.options.iconUrl}" class="marker-icon"/>
     `});var marker=L.marker([location.lat,location.long],{icon:customMarker,farmName:location.farmname,farmType:farmDetails?(farmDetails.cultivates[0].tree_type===0?'Coffee':'Durian'):'Unknown'});var popupContent=`
                     <div style="position: relative; padding: 0; margin: 0;">
-                    <div style="overflow: hidden; width: 303px; height: 150px; position: relative; margin-left: -8.4%; margin-top: -15px; border-top-left-radius: 6px; border-top-right-radius: 6px;" onmouseover="this.querySelector('.parallax-img').style.transform = 'scale(1.1)'" onmouseout="this.querySelector('.parallax-img').style.transform = 'scale(1)'">
-                    <img src="${randomImage}" alt="Farm Image" style="width: 303px; height: 150px; position: absolute; top: 0; left: 0; transition: transform 0.3s ease;" class="parallax-img" />
+                    <div style="overflow: hidden; width: 330px; height: 150px; position: relative; margin-left: -7.5%; margin-top: -15px; border-top-left-radius: 6px; border-top-right-radius: 6px;" onmouseover="this.querySelector('.parallax-img').style.transform = 'scale(1.1)'" onmouseout="this.querySelector('.parallax-img').style.transform = 'scale(1)'">
+                    <img src="${randomImage}" alt="Farm Image" style="width: 330px; height: 150px; position: absolute; top: 0; left: 0; transition: transform 0.3s ease;" class="parallax-img" />
                 </div>
 
                     <div style="position: absolute; top: 30px; left: 0px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
@@ -24,74 +24,77 @@ const fetchFarmData=async(userIds)=>{try{const requests=userIds.map(userId=>axio
     
     <!--Farm ID: ${farmDetails ? farmDetails.farm_id : 'N/A'}<br>-->
     <!--Region name: ${location.region_name}<br>-->`;if(farmDetails){const matchingCultivates=farmDetails.cultivates.filter(cultivate=>{return cultivate.name===location.region_name});if(matchingCultivates.length>0){popupContent+=`
-        <br><span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">grid_on</span> <b>Farm Area:</b> ${farmDetails.farm_area} ha.
-        <!--Cultivate IDs: ${matchingCultivates.map(cultivate => cultivate.cultivate_id).join(', ')}-->`;const cultivateDetailsPromises=matchingCultivates.map(async cultivate=>{popupContent+=`
-            <br>
-            <!--Completed: ${cultivate.is_completed || 'N/A'}<br>-->
-            <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;"><b>psychiatry</span> Tree Type:</b> ${cultivate.tree_type === 0 ? '<img src="https://i.ibb.co/n0wJnyq/icons8-coffee-beans-48.png" alt="Coffee Beans" style="width: 10px;"> Coffee' : (cultivate.tree_type === 1 ? '<img src="https://i.ibb.co/gV8W7kL/icons8-durian-64.png" alt="Durian" style="width: 10px;"> Durian' : 'N/A')}<br>
-            <!--Last Update: ${cultivate.last_update || 'N/A'}<br>-->`;const cultivateDetails=await fetch(`https://api-router.enfarm.com/api/v3/cultivate/retrieve-cultivate-tree`,{method:'POST',headers:{'accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({cultivate_id:cultivate.cultivate_id})}).then(response=>response.json()).then(data=>data.content).catch(error=>{console.error(`Error fetching cultivate details for cultivate_id ${cultivate.cultivate_id}:`,error);return null});if(cultivateDetails){popupContent+=`
-                                          <div>
-                                            <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">trending_flat</span><b> Current Prod: <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; position: relative; top: -2px;">weight</span></b>${cultivateDetails.current_prod} tonnes<br>
-                                            <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">trending_up</span><b> Expected Prod: <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; position: relative; top: -2px;">weight</span></b>${cultivateDetails.expected_prod} tonnes<br>
-                                            <!--Region ID: ${cultivateDetails.region_id}<br>-->
-                                            <!--Softids:<br>-->
-                                            <br>
-                                            
-                                            <span class="view-in-3D" style="background-color: #ffffff; color: #000000; padding: 3px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; height: 25px; float: left; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-left: 95px; position: relative;" onmouseover="showIcon(this); this.style.backgroundColor='#f0f0f0'" onmouseout="hideIcon(this); this.style.backgroundColor='#ffffff'" onclick="logLatLong(${location.lat}, ${location.long})">
-                                            <span class="material-symbols-outlined" id="icon" style="display: none; font-size: 16px;">elevation</span>
-                                            <span id="text">3D</span>
-                                            <span class="tooltip-bottom">Visualize farm in 3D</span>
-                                        </span>
+            <br><span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">grid_on</span> <b data-translate="Farm Area">Khu nông trại</b>: ${farmDetails.farm_area} ha.`;const cultivateDetailsPromises=matchingCultivates.map(async cultivate=>{popupContent+=`
+                <br>
+                <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;"><b>psychiatry</span> <span data-translate="Tree Type">Loại cây</span>:</b> ${cultivate.tree_type === 0 ?
+                                        '<img src="https://i.ibb.co/n0wJnyq/icons8-coffee-beans-48.png" alt="Coffee Beans" style="width: 10px;"> <span data-translate="Coffee">Cà phê</span>' :
+                                        (cultivate.tree_type === 1 ?
+                                            '<img src="https://i.ibb.co/gV8W7kL/icons8-durian-64.png" alt="Durian" style="width: 10px;"> <span data-translate="Durian">Sầu riêng</span>' :
+                                            'N/A')
+                                    }<br>`;const cultivateDetails=await fetch(`https://api-router.enfarm.com/api/v3/cultivate/retrieve-cultivate-tree`,{method:'POST',headers:{'accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({cultivate_id:cultivate.cultivate_id})}).then(response=>response.json()).then(data=>data.content).catch(error=>{console.error(`Error fetching cultivate details for cultivate_id ${cultivate.cultivate_id}:`,error);return null});if(cultivateDetails){popupContent+=`
+    <div>
+        <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">trending_flat</span><b> <span data-translate="Current Productivity">Năng suất hiện tại</span>: <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; position: relative; top: -2px;">weight</span></b>${cultivateDetails.current_prod} tonnes<br>
+        
+        <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">trending_up</span><b> <span data-translate="Expected Productivity">Năng suất dự kiến</span>: <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; position: relative; top: -2px;">weight</span></b>${cultivateDetails.expected_prod} tonnes<br>
+        <!--Region ID: ${cultivateDetails.region_id}<br>-->
+        <!--Softids:<br>-->
+        <br>
+        
+        <span class="view-in-3D" style="background-color: #ffffff; color: #000000; padding: 3px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; height: 25px; float: left; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-left: 120px; position: relative;" onmouseover="showIcon(this); this.style.backgroundColor='#f0f0f0'" onmouseout="hideIcon(this); this.style.backgroundColor='#ffffff'" onclick="logLatLong(${location.lat}, ${location.long})">
+            <span class="material-symbols-outlined" id="icon" style="display: none; font-size: 16px;">elevation</span>
+            <span id="text">3D</span>
+            <span class="tooltip-bottom" data-translate="Visualize farm in 3D">Visualize farm in 3D</span>
+        </span>
 
-                                        
-                                            <span class="soildata-pill" style="background-color: #4CAF50; color: white; padding: 3px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; height: 25px; float: right; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: background-color 0.3s;" onclick="toggleSoilData(this)" onmouseover="this.style.backgroundColor='#006400'" onmouseout="this.style.backgroundColor='#4CAF50'">
-                                              <i class="material-symbols-outlined" style="margin-right: 3px; font-size: 16px;">science</i>
-                                              <span class="toggle-text-container" style="position: relative; display: inline-block; cursor: pointer;">
-  <span class="toggle-text" style="white-space: nowrap;">View soil data</span>
-  <span class="tooltip-bottom">Detailed soil data available</span>
-</span>
-</span>
-<div class="soil-data" style="display:none;">
-<br>
-<br>
-<br>
+        <span class="soildata-pill" style="background-color: #4CAF50; color: white; padding: 3px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; height: 25px; float: right; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: background-color 0.3s;" onclick="toggleSoilData(this)" onmouseover="this.style.backgroundColor='#006400'" onmouseout="this.style.backgroundColor='#4CAF50'">
+            <i class="fi fi-rs-network-analytic" style="margin-right: 3px; font-size: 12px;"></i>
+            <span class="toggle-text-container" style="position: relative; display: inline-block; cursor: pointer;">
+                <span class="toggle-text" style="white-space: nowrap;" data-translate="View soil data">Xem dữ liệu đất</span>
+                <span class="tooltip-bottom" data-translate="See detailed soil data available">See detailed soil data available</span>
+            </span>
+        </span>
+    </div>
+    <div class="soil-data" style="display:none;">
+    <br>
+    <br>
+    <br>
 `;totalCurrentProd+=cultivateDetails.current_prod;totalExpectedProd+=cultivateDetails.expected_prod;const nutritionDataPromises=cultivateDetails.softids.map(async softid=>{const nutritionData=await fetch(`https://api-router.enfarm.com/api/v3/charts/retrieve-nutrition-chart-old`,{method:'POST',headers:{'accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({region_id:cultivateDetails.region_id})}).then(response=>response.json()).then(data=>{const matchingValues=data.content.find(item=>item.in_depth===softid.in_depth)?.values;if(matchingValues){const latestIndex=matchingValues.created_at.map((date,index)=>({date:new Date(date),index})).sort((a,b)=>b.date-a.date)[0].index;return{npk:matchingValues.npk[latestIndex],moist:matchingValues.moist[latestIndex],pH:matchingValues.pH[latestIndex],t:matchingValues.t[latestIndex],created_at:matchingValues.created_at[latestIndex],}}
 return null}).catch(error=>{console.error(`Error fetching nutrition data for region_id ${cultivateDetails.region_id} and in_depth ${softid.in_depth}:`,error);return null});if(nutritionData){const circleColorTemp=nutritionData.t<20?"#BA0F30":(nutritionData.t<=30?"#18A558":"#BA0F30");const circleColorpH=nutritionData.pH<7?"#BA0F30":(nutritionData.pH===7?"#18A558":"#BA0F30");const circleColorMoist=(nutritionData.moist<=22.5||nutritionData.moist>55)?"#BA0F30":(nutritionData.moist<=35?"#BA0F30":(nutritionData.moist<=55?"#18A558":"#BA0F30"));const npkQuotient=nutritionData.npk/300;const circleColorNPK=npkQuotient<0.5?"#BA0F30":(npkQuotient<=1?"#18A558":"#BA0F30");const roundedValue=(value)=>value!==null?value.toFixed(2):'null';if(circleColorTemp==='#BA0F30'||circleColorpH==='#BA0F30'||circleColorMoist==='#BA0F30'||circleColorNPK==='#BA0F30'){farmsNeedingAttention.add(location.farmname)}
 popupContent+=`
-                                                                <div style="position: relative; display: flex; align-items: center;">
-                                                                    In Depth: ${softid.in_depth} (${softid.in_depth_label})
-                                                                    <span class="showHistoricalSoilData-btn" style="position: absolute; right: 0; font-size: 8px; cursor: pointer; display: inline-block; position: absolute;">
-  <span class="material-symbols-outlined" data-region-id="${cultivateDetails.region_id}" data-in-depth="${softid.in_depth}">chevron_forward</span>
-  <span class="tooltip-left">Show historical soil data</span>
-</span>
-                                                                  </span>
+                                                            <div style="position: relative; display: flex; align-items: center;">
+                                                            <!--In Depth: ${softid.in_depth} (${softid.in_depth_label})-->
+                                                            <span data-translate="In Depth">Chiều sâu</span>: ${softid.in_depth} (${softid.in_depth_label})
+                                                                <span class="showHistoricalSoilData-btn" style="position: absolute; right: 0; font-size: 8px; cursor: pointer; display: inline-block; position: absolute;">
+                                                                    <span class="material-symbols-outlined" data-region-id="${cultivateDetails.region_id}" data-in-depth="${softid.in_depth}">chevron_forward</span>
+                                                                    <span class="tooltip-left" data-translate="Show historical soil data">Show historical soil data</span>
+                                                                </span>
+                                                            </div>
+                                                            <div style="display: flex; flex-wrap: wrap;">
+                                                                <div style="flex: 1 1 45%;">
+                                                                    <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px;">bubble_chart</span>
+                                                                    <b>NPK:</b> ${roundedValue(nutritionData.npk)}${nutritionData.npk !== null ? `&nbsp;<i class="fas fa-circle" style="color: ${circleColorNPK}; font-size: 9px; ${circleColorNPK === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}; margin-left: 0px;"></i>` : ''}<br>
+                                                                    <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px;">humidity_mid</span>
+                                                                    <b data-translate="Moisture">Độ ẩm</b>: ${roundedValue(nutritionData.moist)}${nutritionData.moist !== null ? `&nbsp;<i class="fas fa-circle" style="color: ${circleColorMoist}; font-size: 9px; ${circleColorMoist === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}; margin-left: 0px;"></i>` : ''}<br>
                                                                 </div>
-                                                                <div style="display: flex; flex-wrap: wrap;">
-                                                                    <div style="flex: 1 1 50%;">
-                                                                        <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px;">bubble_chart</span>
-                                                                        <b>NPK:</b> ${roundedValue(nutritionData.npk)}&nbsp;&nbsp;${nutritionData.npk !== null ? `<i class="fas fa-circle" style="color: ${circleColorNPK}; font-size: 9px; ${circleColorNPK === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}"></i>` : ''}<br>
-                                                                        <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px;">humidity_mid</span>
-                                                                        <b>Moist:</b> ${roundedValue(nutritionData.moist)}&nbsp;&nbsp;${nutritionData.moist !== null ? `<i class="fas fa-circle" style="color: ${circleColorMoist}; font-size: 9px; ${circleColorMoist === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}"></i>` : ''}<br>
-                                                                    </div>
-                                                                    <div style="flex: 1 1 50%;">
-                                                                        <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px; margin-left: 7px;">water_ph</span>
-                                                                        <b>pH:</b> ${roundedValue(nutritionData.pH)}&nbsp;&nbsp;${nutritionData.pH !== null ? `<i class="fas fa-circle" style="color: ${circleColorpH}; font-size: 9px; ${circleColorpH === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}"></i>` : ''}<br>    
-                                                                        <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px; margin-left: 7px;">device_thermostat</span>
-                                                                        <b>Temp:</b> ${roundedValue(nutritionData.t)}&nbsp;&nbsp;${nutritionData.t !== null ? `<i class="fas fa-circle" style="color: ${circleColorTemp}; font-size: 9px; ${circleColorTemp === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}"></i>` : ''}<br>
-                                                                    </div>
+                                                                <div style="flex: 1 1 55%;">
+                                                                    <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px; margin-left: 7px;">water_ph</span>
+                                                                    <b>pH:</b> ${roundedValue(nutritionData.pH)}${nutritionData.pH !== null ? `&nbsp;<i class="fas fa-circle" style="color: ${circleColorpH}; font-size: 9px; ${circleColorpH === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}; margin-left: 0px;"></i>` : ''}<br>    
+                                                                    <span class="material-symbols-outlined" style="font-size: 12px; margin-right: -1px; margin-left: 7px;">device_thermostat</span>
+                                                                    <b data-translate="Temperature">Nhiệt độ</b>: ${roundedValue(nutritionData.t)}${nutritionData.t !== null ? `&nbsp;<i class="fas fa-circle" style="color: ${circleColorTemp}; font-size: 9px; ${circleColorTemp === '#BA0F30' ? 'animation: glowRed 1s infinite;' : ''}; margin-left: 0px;"></i>` : ''}<br>
                                                                 </div>
-                                                                <span style="font-size: 10px;">
-                                                                    <i class="material-symbols-outlined" style="vertical-align: middle; font-size: 12px;">schedule</i>
-                                                                    <i style="vertical-align: middle;">last update: ${nutritionData.created_at}</i>
-                                                                </span><br><br>
-                                                                <style>
-                                                                    @keyframes glowRed {
-                                                                        0% { color: #BA0F30; text-shadow: 0 0 5px #e86161, 0 0 10px #e86161, 0 0 15px #e86161; }
-                                                                        50% { color: #e86161; text-shadow: 0 0 10px #e86161, 0 0 20px #e86161, 0 0 30px #e86161; }
-                                                                        100% { color: #BA0F30; text-shadow: 0 0 5px #e86161, 0 0 10px #e86161, 0 0 15px #e86161; }
-                                                                    }
-                                                                </style>
-                                                            `;Promise.all(nutritionDataPromises).then(nutritionDataArray=>{}).catch(error=>{console.error('Error processing nutrition data:',error)})}else{popupContent+=`
+                                                            </div>
+                                                            <span style="font-size: 10px;">
+                                                                <i class="material-symbols-outlined" style="vertical-align: middle; font-size: 12px;">schedule</i>
+                                                                <i style="vertical-align: middle;"><span data-translate="Last updated">Cập nhật mới nhất</span>: ${nutritionData.created_at}</i>
+                                                            </span><br><br>
+                                                            <style>
+                                                                @keyframes glowRed {
+                                                                    0% { color: #BA0F30; text-shadow: 0 0 5px #e86161, 0 0 10px #e86161, 0 0 15px #e86161; }
+                                                                    50% { color: #e86161; text-shadow: 0 0 10px #e86161, 0 0 20px #e86161, 0 0 30px #e86161; }
+                                                                    100% { color: #BA0F30; text-shadow: 0 0 5px #e86161, 0 0 10px #e86161, 0 0 15px #e86161; }
+                                                                }
+                                                            </style>
+                                                        `;Promise.all(nutritionDataPromises).then(nutritionDataArray=>{}).catch(error=>{console.error('Error processing nutrition data:',error)})}else{popupContent+=`
                                                     <!--&nbsp;&nbsp;&nbsp;&nbsp;Softid: ${softid.softid}<br>-->
                                                     <!--&nbsp;&nbsp;&nbsp;&nbsp;In Depth: ${softid.in_depth} (${softid.in_depth_label})<br>-->
                                                     <!--&nbsp;&nbsp;&nbsp;&nbsp;QR String: ${softid.qr_string}<br>-->
@@ -113,12 +116,12 @@ function createCustomMarker(farmName,iconUrl,position='top'){const labelPosition
                             </div>
                             <img src="${iconUrl}" class="marker-icon"/>
                         `})}
-const durianButton=document.querySelector('.durianTrees-filter');const coffeeButton=document.querySelector('.coffeeTrees-filter');const pepperButton=document.querySelector('.pepperFarms-filter');const teaButton=document.querySelector('.teaFarms-filter');toggleFarms(durianButton,'Durian','https://i.ibb.co/nnrMSMd/durian-removebg-preview.png','active-durian');toggleFarms(coffeeButton,'Coffee','https://i.ibb.co/L6cGsSX/bean-shadow.png','active-coffee');toggleFarms(pepperButton,'Pepper','https://i.ibb.co/WxVZrLN/icons8-pepper-96.png','active-pepper');toggleFarms(teaButton,'Tea','https://i.ibb.co/RCnz5gb/icons8-tea-leaves-64.png','active-tea');const needsAttentionButton=document.querySelector('.needs-attention');needsAttentionButton.addEventListener('click',function(){activeFilters.needsAttention=!activeFilters.needsAttention;this.classList.toggle('active-needs-attention');updateNeedsAttentionButtonAppearance();applyFilters()});function updateNeedsAttentionButtonAppearance(){if(activeFilters.needsAttention){needsAttentionButton.innerHTML='<div style="display: inline-block; position: relative;">'+'<i class="material-symbols-outlined" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 18px; color: white;">psychiatry</i>'+'<span style="padding-left: 20px;">Show all</span>'+'</div>';needsAttentionButton.style.padding='7px 10px'}else{needsAttentionButton.innerHTML=`
-                         <div id="lottie-container" style="width: 24px; height: 24px;"></div>
-                         <span class="attention-text">Alert</span>
-                         <span class="tooltip-bottom">Show farms needing attention</span>
-                         <span class="notification-circle"></span>
-                     `;lottie.loadAnimation({container:document.getElementById('lottie-container'),renderer:'svg',loop:!0,autoplay:!0,path:'https://lottie.host/41453d5b-98f5-4478-ae32-24ffb6f5ff63/wN5fPgSl5x.json'});updateNotificationCircle()}}}).catch(error=>console.error('Error fetching data:',error))}catch(error){console.error('Error fetching farm details:',error)}};function toggleSoilData(element){var soilDataDiv=element.nextElementSibling;var toggleText=element.querySelector('.toggle-text');if(soilDataDiv.style.display==="none"){soilDataDiv.style.display="block";toggleText.textContent="Hide soil data"}else{soilDataDiv.style.display="none";toggleText.textContent="View soil data"}}
+const durianButton=document.querySelector('.durianTrees-filter');const coffeeButton=document.querySelector('.coffeeTrees-filter');const pepperButton=document.querySelector('.pepperFarms-filter');const teaButton=document.querySelector('.teaFarms-filter');toggleFarms(durianButton,'Durian','https://i.ibb.co/nnrMSMd/durian-removebg-preview.png','active-durian');toggleFarms(coffeeButton,'Coffee','https://i.ibb.co/L6cGsSX/bean-shadow.png','active-coffee');toggleFarms(pepperButton,'Pepper','https://i.ibb.co/WxVZrLN/icons8-pepper-96.png','active-pepper');toggleFarms(teaButton,'Tea','https://i.ibb.co/RCnz5gb/icons8-tea-leaves-64.png','active-tea');const needsAttentionButton=document.querySelector('.needs-attention');needsAttentionButton.addEventListener('click',function(){activeFilters.needsAttention=!activeFilters.needsAttention;this.classList.toggle('active-needs-attention');updateNeedsAttentionButtonAppearance();applyFilters()});function updateNeedsAttentionButtonAppearance(){if(activeFilters.needsAttention){needsAttentionButton.innerHTML='<div style="display: inline-block; position: relative;">'+'<i class="material-symbols-outlined" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 18px; color: white;">psychiatry</i>'+`<span style="padding-left: 20px;" data-translate="Show all">${translations[currentLang]["Show all"]}</span>`+'</div>';needsAttentionButton.style.padding='7px 10px'}else{needsAttentionButton.innerHTML=`
+                            <div id="lottie-container" style="width: 24px; height: 24px;"></div>
+                            <span class="attention-text" data-translate="Alert">${translations[currentLang]["Alert"]}</span>
+                            <span class="tooltip-bottom" data-translate="Show farms needing attention">${translations[currentLang]["Show farms needing attention"]}</span>
+                            <span class="notification-circle"></span>
+                        `;lottie.loadAnimation({container:document.getElementById('lottie-container'),renderer:'svg',loop:!0,autoplay:!0,path:'https://lottie.host/41453d5b-98f5-4478-ae32-24ffb6f5ff63/wN5fPgSl5x.json'});updateNotificationCircle()}}}).catch(error=>console.error('Error fetching data:',error))}catch(error){console.error('Error fetching farm details:',error)}};function toggleSoilData(element){var soilDataDiv=element.closest('.leaflet-popup-content').querySelector('.soil-data');var toggleText=element.querySelector('.toggle-text');if(soilDataDiv&&toggleText){if(soilDataDiv.style.display==="none"){soilDataDiv.style.display="block";toggleText.setAttribute('data-translate','Hide soil data');toggleText.textContent=translations[currentLang]['Hide soil data']}else{soilDataDiv.style.display="none";toggleText.setAttribute('data-translate','View soil data');toggleText.textContent=translations[currentLang]['View soil data']}}else{console.error('Soil data div or toggle text not found')}}
 function showIcon(element){var icon=element.querySelector('#icon');if(icon){icon.style.display='inline-flex'}}
 function hideIcon(element){var icon=element.querySelector('#icon');if(icon){icon.style.display='none'}}
 function logLatLong(lat,long){console.log("Longitude:",long);console.log("Latitude:",lat);localStorage.setItem('mapboxLat',lat);localStorage.setItem('mapboxLong',long);window.open('mapbox3D.html','_blank')}
