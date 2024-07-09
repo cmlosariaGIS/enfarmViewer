@@ -1,76 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>enfarm Enterprise Platform</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="https://i.ibb.co/tQDxF41/enfarm-favicon.png" type="image/png">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="./leaflet.css">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./userlocation.css">
-    <link rel="stylesheet" href="./search.css">
-    <link rel="stylesheet" href="./rainviewer.css">
-    <link rel="stylesheet" href="./farmlist.css">
-    <link rel="stylesheet" href="./filters.css">
-    <!--<link rel="stylesheet" href="./mapbox3Dterrain.css"-->
-
-    <!-- Leaflet -->
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <!--<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>-->
-
-    <!-- Leaflet Marker Cluster-->
-    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-        rel="stylesheet">
-
-
-    <!-- D3.js and TopoJSON.js 
+<!DOCTYPE html><html lang=en> <head><meta charset=UTF-8><meta name=viewport content="width=device-width, initial-scale=1.0"><title>enfarm Enterprise Platform</title><!-- Favicon --><link rel=icon href=https://i.ibb.co/tQDxF41/enfarm-favicon.png type=image/png><!-- CSS --><link rel=stylesheet href=./leaflet.css><link rel=stylesheet href=./style.css><link rel=stylesheet href=./userlocation.css><link rel=stylesheet href=./search.css><link rel=stylesheet href=./rainviewer.css><link rel=stylesheet href=./farmlist.css><link rel=stylesheet href=./filters.css><!--<link rel="stylesheet" href="./mapbox3Dterrain.css"--><!-- Leaflet --><script src=https://unpkg.com/leaflet/dist/leaflet.js></script><!--<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>--><!-- Leaflet Marker Cluster--><script src=https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js></script><link rel=stylesheet href=https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css><link rel=stylesheet href=https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css><!-- Google Fonts --><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel=stylesheet><link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel=stylesheet><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel=stylesheet><!-- D3.js and TopoJSON.js 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script> -->
-
-    <!-- Leaflet.GlobeMiniMap -->
-    <!--<script src="https://syonfox.github.io/leaflet-globe-minimap/dist/Control.GlobeMiniMap.min.js"></script>-->
-
-    <!-- Mapbox GL JS
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script> --><!-- Leaflet.GlobeMiniMap --><!--<script src="https://syonfox.github.io/leaflet-globe-minimap/dist/Control.GlobeMiniMap.min.js"></script>--><!-- Mapbox GL JS
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>-->
-
-    <!--Axios-->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-    <!--ChartJS-->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.js" type="module"></script>-->
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"
-        integrity="sha256-8BDDxChCyYOB80/6VhOpmr7qI5EIDyDPzxsWePPFVfo=" crossorigin="anonymous"></script>
-
-
-    <!--Font Awesome (glowing status dots)-->
-    <script src="https://kit.fontawesome.com/0eb73cfc5c.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!--Lottie Files-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js"></script>
-
-    <!--Flat Icon UI-->
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css'>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-thin-rounded/css/uicons-thin-rounded.css'>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-straight/css/uicons-regular-straight.css'>
-
-
-
-    <style>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>--><!--Axios--><script src=https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js></script><!--ChartJS--><script src=https://cdn.jsdelivr.net/npm/chart.js></script><!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.js" type="module"></script>--><script src=https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js integrity="sha256-8BDDxChCyYOB80/6VhOpmr7qI5EIDyDPzxsWePPFVfo=" crossorigin=anonymous></script><!--Font Awesome (glowing status dots)--><script src=https://kit.fontawesome.com/0eb73cfc5c.js crossorigin=anonymous></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css><!--Lottie Files--><script src=https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js></script><!--Flat Icon UI--><link rel=stylesheet href=https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css><link rel=stylesheet href=https://cdn-uicons.flaticon.com/2.4.2/uicons-thin-rounded/css/uicons-thin-rounded.css><link rel=stylesheet href=https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-straight/css/uicons-regular-straight.css><style>
         .mapbox3Dterrain-button {
             position: absolute;
             top: 250px;
@@ -179,172 +111,7 @@
             transform: translateY(-50%);
             padding-left: 20px;
         }*/
-    </style>
-</head>
-
-<body>
-    <div id="map">
-        <div class="floating-pill" data-translate="All Farms">All Farms</div>
-        <button class="needs-attention">
-            <div id="lottie-container" style="width: 24px; height: 24px;"></div>
-            <span class="attention-text" data-translate="Alert">Alert</span>
-            <span class="tooltip-bottom" data-translate="Show farms needing attention">Show farms needing
-                attention</span>
-            <span class="notification-circle"></span>
-        </button>
-        <button class="durianTrees-filter">
-            <img src="https://i.ibb.co/nnrMSMd/durian-removebg-preview.png" alt="Durian Fruit Icon" class="durian-icon">
-            <span class="durian-text" data-translate="Durian">Durian</span>
-            <span class="tooltip-bottom" data-translate="Show Durian farms">Show Durian farms</span>
-        </button>
-        <button class="coffeeTrees-filter">
-            <img src="https://i.ibb.co/FnNySKq/bean-removebg-preview.png" alt="Coffee Beans Icon" class="coffee-icon">
-            <span class="coffee-text" data-translate="Coffee">Coffee</span>
-            <span class="tooltip-bottom" data-translate="Show Coffee farms">Show Coffee farms</span>
-        </button>
-        <button class="pepperFarms-filter">
-            <img src="https://i.ibb.co/WxVZrLN/icons8-pepper-96.png" alt="Pepper Icon" class="pepper-icon">
-            <span class="pepper-text" data-translate="Pepper">Pepper</span>
-            <span class="tooltip-bottom" data-translate="Show Pepper farms">Show Pepper farms</span>
-        </button>
-        <button class="teaFarms-filter">
-            <img src="https://i.ibb.co/DGScVH9/icons8-tea-leaves-64.png" alt="Tea Icon" class="tea-icon">
-            <span class="tea-text" data-translate="Tea">Tea</span>
-            <span class="tooltip-bottom" data-translate="Show Tea farms">Show Tea farms</span>
-        </button>
-    </div>
-
-
-
-
-
-    <div id="inset-map"></div>
-
-    </div>
-
-    <!-- Show Managed Farm List -->
-    <button class="farmlist-button" onclick="toggleFarmList()">
-        <span class="material-symbols-outlined">list</span>
-        <span class="tooltip-right" data-translate="See lists of managed farms">See lists of managed farms</span>
-    </button>
-
-    <div id="popup-farmlist" class="popup-farmlist">
-        <button class="close-farmlist-btn" onclick="hideFarmList()" style="color: #555;">&times;</button>
-        <div class="farmlist-header">
-            <div style="display: flex; align-items: center;">
-                <span class="material-symbols-outlined" style="margin-right: 4px;">psychiatry</span>
-                <h3 style="margin: 0;" data-translate="Managed Farms">Managed Farms</h3>
-            </div>
-            <div class="sort-dropdown">
-                <button id="sort-button" class="sortButton" data-translate="Sort By">Sort By &nbsp;
-                    <i class="fi fi-ts-angle-small-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="#" onclick="sortFarmList('status')" data-translate="Status">Status</a>
-                    <a href="#" onclick="sortFarmList('size')" data-translate="Farm size">Farm size</a>
-                    <a href="#" onclick="sortFarmList('lastUpdated')" data-translate="Last updated">Last updated</a>
-                    <a href="#" onclick="sortFarmList('name')" data-translate="Name">Name</a>
-                    <a href="#" onclick="sortFarmList('produce')" data-translate="Produce">Produce</a>
-                </div>
-            </div>
-        </div>
-        <div id="farm-list-container" class="farm-list-container">
-            <div class="fetching-data" data-translate="Fetching farm data...">Fetching farm data...</div>
-            <div class="sorting-message"></div>
-        </div>
-    </div>
-
-
-
-    <div class="menu-bar">
-        <div class="left-section">
-            <a href="https://enfarm.com/" target="_blank">
-                <img src="https://enfarm.com/fd57352e4cea98b4c1fb.jpg" class="company-logo" alt="enFarm Logo">
-            </a>
-            <div class="project-title">
-                <span data-translate="Enterprise Platform">Enterprise Platform</span>
-            </div>
-
-        </div>
-        <div class="middle-section">
-        </div>
-        <div class="right-section">
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Search farms...">
-                <button id="searchButton" style="color: #919191; position: relative;">
-                    <span class="material-symbols-outlined">search</span>
-                    <span class="tooltip-bottom" data-translate="Search">Search</span>
-                </button>
-            </div>
-
-            <!-- Language Switch Button -->
-            <button id="lang-switch" class="lang-switch" onclick="toggleLanguage()" aria-label="Toggle Language">
-                VN <i class="fa-solid fa-earth-asia"></i>
-                <span class="tooltip-bottom" data-translate="Switch Language">Switch Language</span>
-            </button>
-
-            <button class="logout-Btn" onclick="location.href='logout.html';">
-                <div class="sign">
-                    <svg viewBox="0 0 512 512">
-                        <path
-                            d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
-                        </path>
-                    </svg>
-                </div>
-                <div class="text" data-translate="Logout">&nbsp;Logout</div>
-            </button>
-
-        </div>
-    </div>
-
-    <!--Info button and info box-->
-    <button class="info-button" onclick="toggleInfo()">
-        <span class="material-icons-outlined">info</span>
-        <span class="tooltip-left" data-translate="About the Application">About the Application</span>
-    </button>
-
-
-    <!-- Info Box -->
-    <div class="info-box">
-        <div class="info-content">
-            <div class="info-image"></div>
-            <p data-translate="About">About</p>
-            <div class="info-logo">
-                <img src="https://enfarm.com/fd57352e4cea98b4c1fb.jpg" alt="enFarm Logo"
-                    style="width: 80px; height: auto;">
-            </div>
-            <p data-translate="Map application to track and visualize deployed enfarm devices">Map application to track
-                and visualize deployed enfarm devices</p>
-            <button class="dismiss-button" onclick="toggleInfo()" data-translate="Dismiss">Dismiss</button>
-        </div>
-    </div>
-
-
-
-
-
-    <!--Locate user-->
-    <button class="userlocation-button" onclick="locateUser()">
-        <span class="material-icons-outlined">my_location</span>
-        <span class="tooltip-right" data-translate="Locate User">Locate User</span>
-    </button>
-
-    <!--Full screen button-->
-    <button class="fullscreen-button" onclick="fullscreen()">
-        <span class="material-symbols-outlined">fullscreen</span>
-        <span class="tooltip-right" data-translate="Toggle fullscreen">Toggle fullscreen</span>
-    </button>
-
-    <!--Inset map button-->
-    <button id="insetMapToggle" class="insetmap-button" onclick="toggleInsetMap()">
-        <span class="material-symbols-outlined">public</span>
-        <span class="tooltip-right" data-translate="Toggle Inset Map">Toggle Inset Map</span>
-    </button>
-
-
-
-
-    <!--Sea level rise
+    </style></head> <body> <div id=map> <div class=floating-pill data-translate="All Farms">All Farms</div> <button class=needs-attention> <div id=lottie-container style="width: 24px; height: 24px;"></div> <span class=attention-text data-translate=Alert>Alert</span> <span class=tooltip-bottom data-translate="Show farms needing attention">Show farms needing attention</span> <span class=notification-circle></span> </button> <button class=durianTrees-filter> <img src=https://i.ibb.co/nnrMSMd/durian-removebg-preview.png alt="Durian Fruit Icon" class=durian-icon> <span class=durian-text data-translate=Durian>Durian</span> <span class=tooltip-bottom data-translate="Show Durian farms">Show Durian farms</span> </button> <button class=coffeeTrees-filter> <img src=https://i.ibb.co/FnNySKq/bean-removebg-preview.png alt="Coffee Beans Icon" class=coffee-icon> <span class=coffee-text data-translate=Coffee>Coffee</span> <span class=tooltip-bottom data-translate="Show Coffee farms">Show Coffee farms</span> </button> <button class=pepperFarms-filter> <img src=https://i.ibb.co/WxVZrLN/icons8-pepper-96.png alt="Pepper Icon" class=pepper-icon> <span class=pepper-text data-translate=Pepper>Pepper</span> <span class=tooltip-bottom data-translate="Show Pepper farms">Show Pepper farms</span> </button> <button class=teaFarms-filter> <img src=https://i.ibb.co/DGScVH9/icons8-tea-leaves-64.png alt="Tea Icon" class=tea-icon> <span class=tea-text data-translate=Tea>Tea</span> <span class=tooltip-bottom data-translate="Show Tea farms">Show Tea farms</span> </button> </div> <div id=inset-map></div> </div> <!-- Show Managed Farm List --> <button class=farmlist-button onclick=toggleFarmList()> <span class=material-symbols-outlined>list</span> <span class=tooltip-right data-translate="See lists of managed farms">See lists of managed farms</span> </button> <div id=popup-farmlist class=popup-farmlist> <button class=close-farmlist-btn onclick=hideFarmList() style="color: #555;">&times;</button> <div class=farmlist-header> <div style="display: flex; align-items: center;"> <span class=material-symbols-outlined style="margin-right: 4px;">psychiatry</span> <h3 style="margin: 0;" data-translate="Managed Farms">Managed Farms</h3> </div> <div class=sort-dropdown> <button id=sort-button class=sortButton data-translate=Sort>Sort &nbsp; <i class="fi fi-ts-angle-small-down"></i> </button> <div class=dropdown-content> <a href=# onclick="sortFarmList('status')" data-translate=Status>Status</a> <a href=# onclick="sortFarmList('size')" data-translate="Farm size">Farm size</a> <a href=# onclick="sortFarmList('lastUpdated')" data-translate="Last updated">Last updated</a> <a href=# onclick="sortFarmList('name')" data-translate=Name>Name</a> <a href=# onclick="sortFarmList('produce')" data-translate=Produce>Produce</a> </div> </div> </div> <div id=farm-list-container class=farm-list-container> <div class=fetching-data data-translate="Fetching farm data...">Fetching farm data...</div> <div class=sorting-message></div> </div> </div> <div class=menu-bar> <div class=left-section> <a href=https://enfarm.com/ target=_blank> <img src=https://enfarm.com/fd57352e4cea98b4c1fb.jpg class=company-logo alt="enFarm Logo"> </a> <div class=project-title> <span data-translate="Enterprise Platform">Enterprise Platform</span> </div> </div> <div class=middle-section> </div> <div class=right-section> <div class=search-bar> <input type=text id=searchInput placeholder="Search farms..."> <button id=searchButton style="color: #919191; position: relative;"> <span class=material-symbols-outlined>search</span> <span class=tooltip-bottom data-translate=Search>Search</span> </button> </div> <!-- Language Switch Button --> <button id=lang-switch class=lang-switch onclick=toggleLanguage() aria-label="Toggle Language" style="margin-right: 5px;"> VN <i class="fa-solid fa-earth-asia"></i> <span class=tooltip-bottom data-translate="Switch Language">Switch Language</span> </button> <button class=logout-Btn onclick="location.href='logout.html';"> <div class=sign> <svg viewbox="0 0 512 512"> <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"> </path> </svg> </div> <div class=text data-translate=Logout>&nbsp;Logout</div> </button> </div> </div> <!--Info button and info box--> <button class=info-button onclick=toggleInfo()> <span class=material-icons-outlined>info</span> <span class=tooltip-left data-translate="About the Application">About the Application</span> </button> <!-- Info Box --> <div class=info-box> <div class=info-content> <div class=info-image></div> <p data-translate=About>About</p> <div class=info-logo> <img src=https://enfarm.com/fd57352e4cea98b4c1fb.jpg alt="enFarm Logo" style="width: 80px; height: auto;"> </div> <p data-translate="Map application to track and visualize deployed enfarm devices">Map application to track and visualize deployed enfarm devices</p> <button class=dismiss-button onclick=toggleInfo() data-translate=Dismiss>Dismiss</button> </div> </div> <!--Locate user--> <button class=userlocation-button onclick=locateUser()> <span class=material-icons-outlined>my_location</span> <span class=tooltip-right data-translate="Locate User">Locate User</span> </button> <!--Full screen button--> <button class=fullscreen-button onclick=fullscreen()> <span class=material-symbols-outlined>fullscreen</span> <span class=tooltip-right data-translate="Toggle fullscreen">Toggle fullscreen</span> </button> <!--Inset map button--> <button id=insetMapToggle class=insetmap-button onclick=toggleInsetMap()> <span class=material-symbols-outlined>public</span> <span class=tooltip-right data-translate="Toggle Inset Map">Toggle Inset Map</span> </button> <!--Sea level rise
     <button class="sealevelrise-button" onclick="seaLevelRise()">
         <span class="material-icons-outlined">water</span>
     </button>
@@ -353,17 +120,11 @@
         Sea level
         <input id="level" type="range" min="0" max="100" value="1" />
         +<span id="output"></span> meters
-    </label>-->
-
-
-    <!--Mapbox 3D terrain
+    </label>--> <!--Mapbox 3D terrain
     <button class="mapbox3Dterrain-button" onclick="call3Dmap()">
         <span class="material-icons-outlined">landscape</span>
         <span class="tooltip-right">Switch to 3D Map View</span>
-    </button>-->
-
-
-    <!-- Common parent container for buttons
+    </button>--> <!-- Common parent container for buttons
     <div class="leaflet-control-rainviewer-buttons">
         <!-- Next button 
         <span class="leaflet-control-rainviewer-next leaflet-bar-part btn">
@@ -374,287 +135,11 @@
         <span class="leaflet-control-rainviewer-prev leaflet-bar-part btn">
             <span class="material-icons-outlined">arrow_back_ios</span>
         </span>
-    </div>-->
-
-
-    <!-- Statistics Dashboard -->
-    <button class="stats-button" onclick="toggleSlideMenuStats()">
-        <span class="material-icons-outlined">donut_large</span>
-        <span class="tooltip-left" data-translate="Show Dashboard">Show Dashboard</span>
-    </button>
-    <div id="slideMenuStats" class="slideMenuStats">
-        <div class="slideMenuStats-content">
-            <span class="material-icons-outlined slideMenuStats-close" onclick="toggleSlideMenuStats()">close</span>
-            <h2 class="dashboard-title" data-translate="Dashboard">Dashboard</h2>
-
-            <div style="display: flex; align-items: center; justify-content: center; gap: 30px; width: 100%;">
-                <!-- First Section -->
-                <div style="display: flex; align-items: center; flex-direction: column;">
-                    <div style="display: flex; align-items: center;">
-                        <img src="https://i.ibb.co/0QhPSvr/icons8-land-plot-64.png" alt="Farm Icon"
-                            style="width: 50px; height: 50px;">
-                        <div class="farm-count" id="totalfarmCount" style="margin-top: -10px; margin-left: 10px;"></div>
-                    </div>
-                    <div class="section-title" style="text-align: center; margin-top: -10px;" data-translate="farms">
-                        farms</div>
-                </div>
-
-                <!-- Second Section -->
-                <div style="display: flex; align-items: center; flex-direction: column;">
-                    <div style="display: flex; align-items: center;">
-                        <img src="https://i.ibb.co/qkqGjtM/icons8-rhomboid-shape-100.png" alt="Farm Icon"
-                            style="width: 40px; height: 40px;">
-                        <div class="totalfarmarea-sum" id="totalFarmAreaSum"
-                            style="margin-top: -10px; margin-left: 10px;"></div>
-                        <div class="section-title" style="margin-top: 10px; margin-left: 5px;">ha.</div>
-                    </div>
-                    <div class="section-title" style="text-align: center; margin-top: -10px;"
-                        data-translate="Land Area (Total)">Land Area (Total)</div>
-                </div>
-            </div>
-            <div class="divider"></div> <!-- Divider line -->
-
-            <div style="display: flex; align-items: center; flex-direction: column;">
-                <div style="display: flex; align-items: center;">
-                    <img src="https://i.ibb.co/1dggvZL/icons8-rfid-sensor-96.png" alt="RFID Sensor Icon"
-                        style="width: 50px; height: 50px;">
-                    <div class="device-count" id="totalDevicesCount" style="margin-top: -10px; margin-left: 10px;">
-                    </div>
-                </div>
-                <div class="section-title" style="text-align: center; margin-top: -10px;"
-                    data-translate="enfarm devices deployed">enfarm devices deployed</div>
-            </div>
-
-            <div class="divider"></div> <!-- Divider line -->
-
-            <!--Counter Farms Needing Attention-->
-            <br>
-            <div style="display: flex; align-items: center;">
-                <img src="https://i.ibb.co/Q9mfK1v/icons8-alert-96.png" alt="Farm Icon"
-                    style="width: 60px; height: 60px; margin-right: 8px; margin-top: -30px; color: #545454;">
-                <div class="needattention-sum" id="needAttentionSum" style="padding-bottom: 5px;"></div>
-                <div class="section-title">&nbsp;&nbsp;/</div>
-                <div class="section-title" id="totalDevicesCountFraction"></div>
-                <div class="section-title" data-translate="farm(s)">&nbsp;&nbsp;farm(s)</div>
-            </div>
-
-            <div class="section-title" data-translate="farms needing attention">farms needing attention</div>
-            <div class="divider"></div> <!-- Divider line -->
-
-            <!--Counter Total Productivity-->
-            <br>
-            <div class="section-title" style="text-align: center;" data-translate="Productivity (Total)">Productivity
-                (Total)</div>
-            <br>
-            <br>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <!-- Left section -->
-                <div style="display: flex; align-items: center;">
-                    <span class="material-symbols-outlined"
-                        style="font-size: 40px; color: #545454; margin-right: 0px; margin-top: -30px;">
-                        weight
-                    </span>
-                    <div class="currentproductivity-sum" id="currentProductivitySum" style="padding-bottom: -10px;">
-                    </div>
-                    <div class="section-title">&nbsp;&nbsp;t</div>
-                </div>
-
-                <!-- Add a 50px gap -->
-                <div style="width: 20px;"></div>
-
-                <!-- Right section -->
-                <div style="display: flex; align-items: center;">
-                    <span class="material-icons-outlined"
-                        style="font-size: 20px; color: #545454; margin-right: 0px; margin-top: -30px;">
-                        north_east
-                    </span>
-                    <span class="material-symbols-outlined"
-                        style="font-size: 40px; color: #545454; margin-left: -5px; margin-top: -30px;">
-                        weight
-                    </span>
-                    <div class="expectedproductivity-sum" id="expectedProductivitySum" style="padding-bottom: 5px;">
-                    </div>
-                    <div class="section-title">&nbsp;&nbsp;t</div>
-                </div>
-            </div>
-
-            <div style="display: flex; justify-content: space-between;">
-                <!-- Left section title -->
-                <div class="section-title" style="text-align: left;" data-translate="Current Prod.">Current Prod.</div>
-
-                <!-- Add a 50px gap -->
-                <div style="width: 50px;"></div>
-
-                <!-- Right section title -->
-                <div class="section-title" style="text-align: left;" data-translate="Expected Prod.">Expected Prod.
-                </div>
-            </div>
-            <div class="divider"></div> <!-- Divider line -->
-            <br>
-            <div class="farm-grid">
-                <div class="farm-pair">
-                    <div class="farm-icon coffeefarms-icon"></div>
-                    <div class="coffeefarms-count" id="totalcoffeefarmsCount"></div>
-                    <div class="section-title" data-translate="Coffee cultivation">Coffee cultivation</div>
-                </div>
-                <div class="farm-pair">
-                    <div class="farm-icon durianfarms-icon"></div>
-                    <div class="durianfarms-count" id="totaldurianfarmsCount"></div>
-                    <div class="section-title" data-translate="Durian cultivation">Durian cultivation</div>
-                </div>
-                <div class="farm-pair">
-                    <div class="farm-icon pepperfarms-icon"></div>
-                    <div class="pepperfarms-count" id="totalpepperfarmsCount"></div>
-                    <div class="section-title" data-translate="Pepper cultivation">Pepper cultivation</div>
-                </div>
-                <div class="farm-pair">
-                    <div class="farm-icon teafarms-icon"></div>
-                    <div class="teafarms-count" id="totalteafarmsCount"></div>
-                    <div class="section-title" data-translate="Tea cultivation">Tea cultivation</div>
-                </div>
-            </div>
-            <div class="divider"></div>
-            <div class="section-title" data-translate="cultivate distribution">cultivate distribution</div>
-            <p></p>
-            <canvas id="treeTypeChart"></canvas>
-        </div>
-    </div>
-
-
-
-    <!--Gauges and Historical Soil Data Line Chart pop up-->
-    <div id="popup-historicalsoildata" class="popup-historicalsoildata" style="display: none;">
-        <h4 class="title" style="display: inline-flex; align-items: center;">
-            <span class="material-symbols-outlined" style="margin-top: 3px;">speed</span>&nbsp;&nbsp;<span
-                data-translate="Current Measure">Current Measure</span>
-        </h4>
-        <div class="canvas-container">
-            <canvas id="npkGauge"></canvas>
-            <canvas id="moistGauge"></canvas>
-            <canvas id="pHGauge"></canvas>
-            <canvas id="tempGauge"></canvas>
-            <br>
-        </div>
-        <br>
-        <div class="header">
-            <h4 class="title"><span class="material-symbols-outlined"
-                    style="margin-top: 3px;">history</span>&nbsp;&nbsp;<span
-                    data-translate="Historical Soil Data">Historical Soil Data</span></h4>
-            <button class="close-btn" style="color: #555;">&times;</button>
-        </div>
-        <div class="timeTrend-buttons">
-            <button data-translate="1D">1D</button>
-            <button data-translate="1W">1W</button>
-            <button data-translate="2W">2W</button>
-            <button data-translate="1M">1M</button>
-            <button data-translate="3M">3M</button>
-            <button data-translate="6M">6M</button>
-            <button data-translate="1Y">1Y</button>
-            <button data-translate="3Y">3Y</button>
-            <button data-translate="5Y">5Y</button>
-        </div>
-        <div class="divider"></div> <!-- Divider line -->
-
-        <!--NPK Line-->
-        <div class="headerNPK">
-            <h5 class="title">
-                <span class="material-icons-outlined" style="margin-top: 3px;">bubble_chart</span>&nbsp;&nbsp;<span
-                    data-translate="Latest NPK">Latest NPK</span>
-            </h5>
-            <div id="npk-recommendation-container">
-                <span id="npkreccomendation-tooltip" class="tooltip">
-                    <span class="material-icons-outlined" style="vertical-align: middle;">lightbulb</span>&nbsp;
-                    <span data-translate="Recommendations">Recommendations</span>
-                    <p></p>
-                </span>
-            </div>
-        </div>
-
-        <br>
-        <canvas id="npkChart"></canvas>
-
-        <div class="headerMoist">
-            <h5 class="title">
-                <span class="material-symbols-outlined" style="margin-top: 3px;">humidity_mid</span>&nbsp;&nbsp;<span
-                    data-translate="Latest Moisture">Latest Moisture</span>
-            </h5>
-            <div id="moisture-recommendation-container">
-                <span id="moisturerecommendation-tooltip" class="tooltip">
-                    <span class="material-icons-outlined" style="vertical-align: middle;">lightbulb</span>&nbsp;
-                    <span data-translate="Recommendations">Recommendations:</span>
-                    <p></p>
-                </span>
-            </div>
-        </div>
-        <br>
-        <canvas id="moistChart"></canvas>
-
-        <div class="headerpH">
-            <h5 class="title">
-                <span class="material-symbols-outlined" style="margin-top: 3px;">water_ph</span>&nbsp;&nbsp;<span
-                    data-translate="Latest pH">Latest pH</span>
-            </h5>
-            <div id="ph-recommendation-container">
-                <span id="phrecommendation-tooltip" class="tooltip">
-                    <span class="material-icons-outlined" style="vertical-align: middle;">lightbulb</span>&nbsp;
-                    <span data-translate="Recommendations">Recommendations:</span>
-                    <p></p>
-                </span>
-            </div>
-        </div>
-        <br>
-        <canvas id="phChart"></canvas>
-
-        <br>
-        <div class="headerTemp">
-            <h5 class="title">
-                <span class="material-symbols-outlined"
-                    style="margin-top: 3px;">device_thermostat</span>&nbsp;&nbsp;<span
-                    data-translate="Latest Temp">Latest Temp</span>
-            </h5>
-            <div id="temp-recommendation-container">
-                <span id="temprecommendation-tooltip" class="tooltip">
-                    <span class="material-icons-outlined" style="vertical-align: middle;">lightbulb</span>&nbsp;
-                    <span data-translate="Recommendations">Recommendations:</span>
-                    <p></p>
-                </span>
-            </div>
-        </div>
-        <br>
-        <canvas id="tempChart"></canvas>
-        <br>
-    </div>
+    </div>--> <!-- Statistics Dashboard --> <button class=stats-button onclick=toggleSlideMenuStats()> <span class=material-icons-outlined>donut_large</span> <span class=tooltip-left data-translate="Show Dashboard">Show Dashboard</span> </button> <div id=slideMenuStats class=slideMenuStats> <div class=slideMenuStats-content> <span class="material-icons-outlined slideMenuStats-close" onclick=toggleSlideMenuStats()>close</span> <h2 class=dashboard-title data-translate=Dashboard>Dashboard</h2> <div style="display: flex; align-items: center; justify-content: center; gap: 30px; width: 100%;"> <!-- First Section --> <div style="display: flex; align-items: center; flex-direction: column;"> <div style="display: flex; align-items: center;"> <img src=https://i.ibb.co/0QhPSvr/icons8-land-plot-64.png alt="Farm Icon" style="width: 50px; height: 50px;"> <div class=farm-count id=totalfarmCount style="margin-top: -10px; margin-left: 10px;"></div> </div> <div class=section-title style="text-align: center; margin-top: -10px;" data-translate=farms> farms</div> </div> <!-- Second Section --> <div style="display: flex; align-items: center; flex-direction: column;"> <div style="display: flex; align-items: center;"> <img src=https://i.ibb.co/qkqGjtM/icons8-rhomboid-shape-100.png alt="Farm Icon" style="width: 40px; height: 40px;"> <div class=totalfarmarea-sum id=totalFarmAreaSum style="margin-top: -10px; margin-left: 10px;"></div> <div class=section-title style="margin-top: 10px; margin-left: 5px;">ha.</div> </div> <div class=section-title style="text-align: center; margin-top: -10px;" data-translate="Land Area (Total)">Land Area (Total)</div> </div> </div> <div class=divider></div> <!-- Divider line --> <div style="display: flex; align-items: center; flex-direction: column;"> <div style="display: flex; align-items: center;"> <img src=https://i.ibb.co/1dggvZL/icons8-rfid-sensor-96.png alt="RFID Sensor Icon" style="width: 50px; height: 50px;"> <div class=device-count id=totalDevicesCount style="margin-top: -10px; margin-left: 10px;"> </div> </div> <div class=section-title style="text-align: center; margin-top: -10px;" data-translate="enfarm devices deployed">enfarm devices deployed</div> </div> <div class=divider></div> <!-- Divider line --> <!--Counter Farms Needing Attention--> <br> <div style="display: flex; align-items: center;"> <img src=https://i.ibb.co/Q9mfK1v/icons8-alert-96.png alt="Farm Icon" style="width: 60px; height: 60px; margin-right: 8px; margin-top: -30px; color: #545454;"> <div class=needattention-sum id=needAttentionSum style="padding-bottom: 5px;"></div> <div class=section-title>&nbsp;&nbsp;/</div> <div class=section-title id=totalDevicesCountFraction></div> <div class=section-title data-translate=farm(s)>&nbsp;&nbsp;farm(s)</div> </div> <div class=section-title data-translate="farms needing attention">farms needing attention</div> <div class=divider></div> <!-- Divider line --> <!--Counter Total Productivity--> <br> <div class=section-title style="text-align: center;" data-translate="Productivity (Total)">Productivity (Total)</div> <br> <br> <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;"> <!-- Left section --> <div style="display: flex; align-items: center;"> <span class=material-symbols-outlined style="font-size: 40px; color: #545454; margin-right: 0px; margin-top: -30px;"> weight </span> <div class=currentproductivity-sum id=currentProductivitySum style="padding-bottom: -10px;"> </div> <div class=section-title>&nbsp;&nbsp;t</div> </div> <!-- Add a 50px gap --> <div style="width: 20px;"></div> <!-- Right section --> <div style="display: flex; align-items: center;"> <span class=material-icons-outlined style="font-size: 20px; color: #545454; margin-right: 0px; margin-top: -30px;"> north_east </span> <span class=material-symbols-outlined style="font-size: 40px; color: #545454; margin-left: -5px; margin-top: -30px;"> weight </span> <div class=expectedproductivity-sum id=expectedProductivitySum style="padding-bottom: 5px;"> </div> <div class=section-title>&nbsp;&nbsp;t</div> </div> </div> <div style="display: flex; justify-content: space-between;"> <!-- Left section title --> <div class=section-title style="text-align: left;" data-translate="Current Productivity">Current Prod. </div> <!-- Add a 50px gap --> <div style="width: 50px;"></div> <!-- Right section title --> <div class=section-title style="text-align: left;" data-translate="Expected Productivity">Expected Prod. </div> </div> <div class=divider></div> <!-- Divider line --> <br> <div class=farm-grid> <div class=farm-pair> <div class="farm-icon coffeefarms-icon"></div> <div class=coffeefarms-count id=totalcoffeefarmsCount></div> <div class=section-title data-translate="Coffee cultivation">Coffee cultivation</div> </div> <div class=farm-pair> <div class="farm-icon durianfarms-icon"></div> <div class=durianfarms-count id=totaldurianfarmsCount></div> <div class=section-title data-translate="Durian cultivation">Durian cultivation</div> </div> <div class=farm-pair> <div class="farm-icon pepperfarms-icon"></div> <div class=pepperfarms-count id=totalpepperfarmsCount></div> <div class=section-title data-translate="Pepper cultivation">Pepper cultivation</div> </div> <div class=farm-pair> <div class="farm-icon teafarms-icon"></div> <div class=teafarms-count id=totalteafarmsCount></div> <div class=section-title data-translate="Tea cultivation">Tea cultivation</div> </div> </div> <div class=divider></div> <div class=section-title data-translate="cultivate distribution">cultivate distribution</div> <p></p> <canvas id=treeTypeChart></canvas> </div> </div> <!--Gauges and Historical Soil Data Line Chart pop up--> <div id=popup-historicalsoildata class=popup-historicalsoildata style="display: none;"> <h4 class=title style="display: inline-flex; align-items: center;"> <span class=material-symbols-outlined style="margin-top: 3px;">speed</span>&nbsp;&nbsp;<span data-translate="Current Measure">Current Measure</span> </h4> <div class=canvas-container> <canvas id=npkGauge></canvas> <canvas id=moistGauge></canvas> <canvas id=pHGauge></canvas> <canvas id=tempGauge></canvas> <br> </div> <br> <div class=header> <h4 class=title><span class=material-symbols-outlined style="margin-top: 3px;">history</span>&nbsp;&nbsp;<span data-translate="Historical Soil Data">Historical Soil Data</span></h4> <button class=close-btn style="color: #555;">&times;</button> </div> <div class=timeTrend-buttons> <button data-translate=1D>1D</button> <button data-translate=1W>1W</button> <button data-translate=2W>2W</button> <button data-translate=1M>1M</button> <button data-translate=3M>3M</button> <button data-translate=6M>6M</button> <button data-translate=1Y>1Y</button> <button data-translate=3Y>3Y</button> <button data-translate=5Y>5Y</button> </div> <div class=divider></div> <!-- Divider line --> <!--NPK Line--> <div class=headerNPK> <h5 class=title> <span class=material-icons-outlined style="margin-top: 3px;">bubble_chart</span>&nbsp;&nbsp;<span data-translate="Latest NPK">Latest NPK</span> </h5> <div id=npk-recommendation-container> <span id=npkreccomendation-tooltip class=tooltip> <span class=material-icons-outlined style="vertical-align: middle;">lightbulb</span>&nbsp; <span data-translate=Recommendations>Recommendations</span> <p></p> </span> </div> </div> <br> <canvas id=npkChart></canvas> <div class=headerMoist> <h5 class=title> <span class=material-symbols-outlined style="margin-top: 3px;">humidity_mid</span>&nbsp;&nbsp;<span data-translate="Latest Moisture">Latest Moisture</span> </h5> <div id=moisture-recommendation-container> <span id=moisturerecommendation-tooltip class=tooltip> <span class=material-icons-outlined style="vertical-align: middle;">lightbulb</span>&nbsp; <span data-translate=Recommendations>Recommendations:</span> <p></p> </span> </div> </div> <br> <canvas id=moistChart></canvas> <div class=headerpH> <h5 class=title> <span class=material-symbols-outlined style="margin-top: 3px;">water_ph</span>&nbsp;&nbsp;<span data-translate="Latest pH">Latest pH</span> </h5> <div id=ph-recommendation-container> <span id=phrecommendation-tooltip class=tooltip> <span class=material-icons-outlined style="vertical-align: middle;">lightbulb</span>&nbsp; <span data-translate=Recommendations>Recommendations:</span> <p></p> </span> </div> </div> <br> <canvas id=phChart></canvas> <br> <div class=headerTemp> <h5 class=title> <span class=material-symbols-outlined style="margin-top: 3px;">device_thermostat</span>&nbsp;&nbsp;<span data-translate="Latest Temp">Latest Temp</span> </h5> <div id=temp-recommendation-container> <span id=temprecommendation-tooltip class=tooltip> <span class=material-icons-outlined style="vertical-align: middle;">lightbulb</span>&nbsp; <span data-translate=Recommendations>Recommendations:</span> <p></p> </span> </div> </div> <br> <canvas id=tempChart></canvas> <br> </div> <script src=authenticateduser.js></script> <script src=switchlang.js></script> <script src=map.js></script> <script src=popup.js></script> <!--<script type="module" src="popup.js"></script>--> <script src=gaugeslinecharthistoricaldata.js></script> <script src=search.js></script> <script src=infobox.js></script> <script src=userlocation.js></script> <script src=rainviewer.js></script> <!--<script src="mapbox3Dterrain.js"></script>--> <!--<script src="globeminimap.js"></script>--> <!--<script src="sealevelmap.js"></script>--> <script src=treetypecount.js></script> <script src=sumfarmarea.js></script> <script src=inset.js></script> <script src=filters.js></script> <script src=farmlist.js></script> <script src=fullscreen.js></script> <!--<script type="module" src="./userIds.js"></script>--> <!--<script src="fetchFarmData.js"></script>--> <!--<script src="userID.js"></script>--> <script>
 
 
 
 
-    <script src="authenticateduser.js"></script>
-    <script src="switchlang.js"></script>
-    <script src="map.js"></script>
-    <script src="popup.js"></script>
-    <!--<script type="module" src="popup.js"></script>-->
-    <script src="gaugeslinecharthistoricaldata.js"></script>
-    <script src="search.js"></script>
-    <script src="infobox.js"></script>
-    <script src="userlocation.js"></script>
-    <script src="rainviewer.js"></script>
-    <!--<script src="mapbox3Dterrain.js"></script>-->
-    <!--<script src="globeminimap.js"></script>-->
-    <!--<script src="sealevelmap.js"></script>-->
-    <script src="treetypecount.js"></script>
-    <script src="sumfarmarea.js"></script>
-    <script src="inset.js"></script>
-    <script src="filters.js"></script>
-    <script src="farmlist.js"></script>
-    <script src="fullscreen.js"></script>
-
-    <!--<script type="module" src="./userIds.js"></script>-->
-    <!--<script src="fetchFarmData.js"></script>-->
-
-    <!--<script src="userID.js"></script>-->
-
-
-    <script>
 
         // Toggle slide menu stats
         function toggleSlideMenuStats() {
@@ -662,18 +147,27 @@
             slideMenuStats.classList.toggle('active');
         }
 
-        // Rain viewer Panel
+
+
+
+        window.currentLang = 'vi';
+        function getRainViewerText(key) {
+            return translations[currentLang][key] || translations['vi'][key];
+        }
+
         var rainviewer = L.control.rainviewer({
-            position: 'bottomleft',
-            nextButtonText: '›',
-            playStopButtonText: 'Start/Stop',
-            prevButtonText: '‹',
-            positionSliderLabelText: "🕐 Adjust time:",
-            opacitySliderLabelText: "🌧️ Adjust layer opacity:",
-            animationInterval: 500,
-            opacity: 0.5
-        });
-        rainviewer.addTo(map);
+    position: 'bottomleft',
+    nextButtonText: '›',
+    playStopButtonText: getTranslatedText("Start/Stop"),
+    prevButtonText: '‹',
+    positionSliderLabelText: getTranslatedText("Adjust time:"),
+    opacitySliderLabelText: getTranslatedText("Adjust layer opacity:"),
+    animationInterval: 500,
+    opacity: 0.5,
+    host: 'https://tilecache.rainviewer.com'  // Add this line
+});
+rainviewer.addTo(map);
+updateRainViewerTexts();
 
 
         //Call Mapbox 3D map
@@ -694,8 +188,4 @@
 
 
 
-    </script>
-
-</body>
-
-</html>
+    </script> </body> </html>
