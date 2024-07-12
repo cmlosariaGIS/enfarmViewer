@@ -51,7 +51,7 @@
         }
     </script><style>
 
-    </style></head><body onload=loadPage()><div class=form-container><img src=https://enfarm.com/fd57352e4cea98b4c1fb.jpg alt="enCity Logo" class=company-logo><p class=title data-translate=Welcome>Welcome</p><h6 class=sub-title data-translate="Login to access the enfarm Enterprise Platform">Login to access the enfarm Enterprise Platform</h6><br><form class=form onsubmit="event.preventDefault(); loginWithPhoneNumber();"><input type=tel class=input name=phone placeholder="Mobile Number"><div class=password-input-container><input type=password class="input password-input" name=password placeholder=Password><span class=password-toggle-icon><i class=material-icons-outlined>visibility_off</i></span></div><p class=page-link><a href=forgetPassword.html class=page-link-label data-translate="Forgot Password?" style="font-size: 12px;">Forgot Password?</a></p><p id=error-message class=error-message></p><button type=submit class=form-btn data-translate="Log in">Log in</button></form></div><button id=lang-switch class=lang-switch onclick=toggleLanguage() aria-label="Toggle Language"> VN <i class="fa-solid fa-earth-asia"></i><span class=tooltip-bottom data-translate="Switch Language">Switch Language</span></button><script>
+    </style></head><body onload=loadPage()><div class=form-container><img src=https://enfarm.com/fd57352e4cea98b4c1fb.jpg alt="enCity Logo" class=company-logo><p class=title data-translate=Welcome>Welcome</p><h6 class=sub-title data-translate="Login to access the enfarm Enterprise Platform">Login to access the enfarm Enterprise Platform</h6><br><form class=form onsubmit="event.preventDefault(); loginWithPhoneNumber();"><input type=tel class=input name=phone data-translate="Mobile Number" placeholder="Mobile Number"><div class=password-input-container><input type=password class="input password-input" name=password data-translate=Password placeholder=Password><span class=password-toggle-icon><i class=material-icons-outlined>visibility_off</i></span></div><p class=page-link><a href=forgetPassword.html class=page-link-label data-translate="Forgot Password?" style="font-size: 12px;">Forgot Password?</a></p><p id=error-message class=error-message></p><button type=submit class=form-btn data-translate="Log in">Log in</button></form></div><button id=lang-switch class=lang-switch onclick=toggleLanguage() aria-label="Toggle Language"> VN <i class="fa-solid fa-earth-asia"></i><span class=tooltip-bottom data-translate="Switch Language"></span></button><script>
         const passwordInput = document.querySelector('.password-input input[type="password"]');
         const passwordToggleIcon = document.querySelector('.password-toggle-icon i');
 
@@ -68,42 +68,65 @@
         let currentLang = 'vi'; // Set Vietnamese as the initial language
 
         const translations = {
-            'en': {
-                'Welcome': 'Welcome',
-                'Login to access the enfarm Enterprise Platform': 'Login to access the enfarm Enterprise Platform',
-                'Forgot Password?': 'Forgot Password?',
-                'Log in': 'Log in',
-                'Switch Language': 'Switch Language'
-            },
-            'vi': {
-                'Welcome': 'Chào mừng',
-                'Login to access the enfarm Enterprise Platform': 'Đăng nhập để truy cập vào nền tảng doanh nghiệp enfarm',
-                'Forgot Password?': 'Quên mật khẩu?',
-                'Log in': 'Đăng nhập',
-                'Switch Language': 'Đổi ngôn ngữ'
-            }
-        };
+    'en': {
+        'Welcome': 'Welcome',
+        'Login to access the enfarm Enterprise Platform': 'Login to access the enfarm Enterprise Platform',
+        'Forgot Password?': 'Forgot Password?',
+        'Log in': 'Log in',
+        'Switch Language': 'Switch Language',
+        'Mobile Number': 'Mobile Number',
+        'Password': 'Password'
+    },
+    'vi': {
+        'Welcome': 'Chào mừng',
+        'Login to access the enfarm Enterprise Platform': 'Đăng nhập để truy cập vào nền tảng doanh nghiệp enfarm',
+        'Forgot Password?': 'Quên mật khẩu?',
+        'Log in': 'Đăng nhập',
+        'Switch Language': 'Đổi ngôn ngữ',
+        'Mobile Number': 'Số điện thoại',
+        'Password': 'Mật khẩu'
+    }
+};
 
-        function loadPage() {
+        /*function loadPage() {
             // Translate initial content to Vietnamese
             translatePageTo(currentLang);
+        }*/RecaptchaVerifier
+
+        function loadPage() {
+    // Check if there's a language parameter in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const langParam = urlParams.get('lang');
+    if (langParam && (langParam === 'en' || langParam === 'vi')) {
+        currentLang = langParam;
+    }
+    // Translate content to the current language
+    translatePageTo(currentLang);
+}
+
+function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'vi' : 'en';
+    translatePageTo(currentLang);
+    // Update the URL with the new language
+    const url = new URL(window.location);
+    url.searchParams.set('lang', currentLang);
+    window.history.pushState({}, '', url);
+}
+
+function translatePageTo(lang) {
+    const elements = document.querySelectorAll('[data-translate]');
+    const langSwitchButton = document.getElementById('lang-switch');
+
+    langSwitchButton.innerText = lang === 'en' ? 'VN ' : 'EN ';
+    langSwitchButton.innerHTML += lang === 'en' ? '<i class="fa-solid fa-earth-americas"></i>' : '<i class="fa-solid fa-earth-asia"></i>';
+
+    elements.forEach(element => {
+        const key = element.getAttribute('data-translate');
+        if (element.tagName === 'INPUT') {
+            element.placeholder = translations[lang][key] || element.placeholder;
+        } else {
+            element.innerText = translations[lang][key] || element.innerText;
         }
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'vi' : 'en';
-            translatePageTo(currentLang);
-        }
-
-        function translatePageTo(lang) {
-            const elements = document.querySelectorAll('[data-translate]');
-            const langSwitchButton = document.getElementById('lang-switch');
-
-            langSwitchButton.innerText = lang === 'en' ? 'VN ' : 'EN ';
-            langSwitchButton.innerHTML += lang === 'en' ? '<i class="fa-solid fa-earth-americas"></i>' : '<i class="fa-solid fa-earth-asia"></i>';
-
-            elements.forEach(element => {
-                const key = element.getAttribute('data-translate');
-                element.innerText = translations[lang][key] || element.innerText;
-            });
-        }
+    });
+}
     </script></body></html>

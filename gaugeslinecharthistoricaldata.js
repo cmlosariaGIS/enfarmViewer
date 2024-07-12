@@ -10,9 +10,9 @@ if(tempGauge){tempGauge.destroy();tempGauge=null;}
 resetChartMessages();const buttons=document.querySelectorAll('.timeTrend-buttons button');buttons.forEach(btn=>btn.classList.remove('active'));const npkMinMax=document.getElementById('npkMinMax');if(npkMinMax)npkMinMax.remove();const moistMinMax=document.getElementById('moistMinMax');if(moistMinMax)moistMinMax.remove();if(moistMinMax)moistMinMax.remove();const pHMinMax=document.getElementById('pHMinMax');if(pHMinMax)pHMinMax.remove();const tempMinMax=document.getElementById('tempMinMax');if(tempMinMax)tempMinMax.remove();}
 function resetChartMessages(){const npkHeader=document.querySelector('.headerNPK .title');if(npkHeader)npkHeader.innerHTML='';const npkStatus=document.querySelector('.headerNPK .nutrient-status');if(npkStatus)npkStatus.remove();const moistHeader=document.querySelector('.headerMoist .title');if(moistHeader)moistHeader.innerHTML='';const moistStatus=document.querySelector('.headerMoist .moisture-status');if(moistStatus)moistStatus.remove();const phHeader=document.querySelector('.headerpH .title');if(phHeader)phHeader.innerHTML='';const phStatus=document.querySelector('.headerpH .ph-status');if(phStatus)phStatus.remove();const tempHeader=document.querySelector('.headerTemp .title');if(tempHeader)tempHeader.innerHTML='';const tempStatus=document.querySelector('.headerTemp .temp-status');if(tempStatus)tempStatus.remove();clearGaugeCanvas('npkGauge');clearGaugeCanvas('moistGauge');clearGaugeCanvas('pHGauge');clearGaugeCanvas('tempGauge');}
 function clearGaugeCanvas(canvasId){const canvas=document.getElementById(canvasId);if(canvas){const ctx=canvas.getContext('2d');ctx.clearRect(0,0,canvas.width,canvas.height);}}
-function setupNPKObserver(){const observerTarget=document.querySelector('.headerNPK');if(observerTarget){const observer=new MutationObserver((mutations)=>{mutations.forEach((mutation)=>{if(mutation.type==='childList'){console.log('NPK status element changed:',document.querySelector('.nutrient-status'));}});});observer.observe(observerTarget,{childList:true,subtree:true});}}
-document.addEventListener('DOMContentLoaded',setupNPKObserver);document.addEventListener('npkStatusUpdated',(event)=>{console.log('NPK status updated:',event.detail);});function createOrUpdateGaugeCharts(latestNpkValue,latestMoistValue,latestPHValue,latestTempValue){const npkMaxValue=3;const npkThresholds=[0.5,1];const latestNpkRatio=latestNpkValue===null?0:latestNpkValue/300;let npkStatus="";if(latestNpkRatio<0.5){npkStatus=`<span data-translate="Insufficient Nutrients">${getTranslatedText("Insufficient Nutrients")}</span>`;}else if(latestNpkRatio<=1){npkStatus=`<span data-translate="Adequate Nutrients">${getTranslatedText("Adequate Nutrients")}</span>`;}else{npkStatus=`<span data-translate="Excess Nutrients">${getTranslatedText("Excess Nutrients")}</span>`;}
-console.log("NPK status set:",npkStatus);const npkStatusElement=document.querySelector('.nutrient-status');if(npkStatusElement){npkStatusElement.innerHTML=npkStatus;console.log("NPK status updated in DOM:",npkStatusElement.innerHTML);const event=new CustomEvent('npkStatusUpdated',{detail:npkStatus});document.dispatchEvent(event);}else{console.log("NPK status element not found in DOM");}
+function setupNPKObserver(){const observerTarget=document.querySelector('.headerNPK');if(observerTarget){const observer=new MutationObserver((mutations)=>{mutations.forEach((mutation)=>{if(mutation.type==='childList'){}});});observer.observe(observerTarget,{childList:true,subtree:true});}}
+document.addEventListener('DOMContentLoaded',setupNPKObserver);document.addEventListener('npkStatusUpdated',(event)=>{});function createOrUpdateGaugeCharts(latestNpkValue,latestMoistValue,latestPHValue,latestTempValue){const npkMaxValue=3;const npkThresholds=[0.5,1];const latestNpkRatio=latestNpkValue===null?0:latestNpkValue/300;let npkStatus="";if(latestNpkRatio<0.5){npkStatus=`<span data-translate="Insufficient Nutrients">${getTranslatedText("Insufficient Nutrients")}</span>`;}else if(latestNpkRatio<=1){npkStatus=`<span data-translate="Adequate Nutrients">${getTranslatedText("Adequate Nutrients")}</span>`;}else{npkStatus=`<span data-translate="Excess Nutrients">${getTranslatedText("Excess Nutrients")}</span>`;}
+const npkStatusElement=document.querySelector('.nutrient-status');if(npkStatusElement){npkStatusElement.innerHTML=npkStatus;const event=new CustomEvent('npkStatusUpdated',{detail:npkStatus});document.dispatchEvent(event);}else{console.log("NPK status element not found in DOM");}
 if(npkGauge){npkGauge.data.datasets[0].needleValue=latestNpkRatio;npkGauge.options.plugins.gaugeValue=latestNpkRatio;npkGauge.update();}else{npkGauge=setupGaugeChart("npkGauge","NPK",npkThresholds,latestNpkRatio,0,npkMaxValue,{colors:["#BA0F30","#18A558","#BA0F30"],thresholdLabels:["Insufficient","Adequate","Excess"]});}
 const moistureThresholds=[35,55];if(moistGauge){moistGauge.data.datasets[0].needleValue=latestMoistValue===null?0:latestMoistValue;moistGauge.options.plugins.gaugeValue=latestMoistValue===null?0:latestMoistValue;moistGauge.update();}else{moistGauge=setupGaugeChart("moistGauge","Độ ẩm (%)",moistureThresholds,latestMoistValue===null?0:latestMoistValue,0,100,{colors:["#BA0F30","#18A558","#BA0F30"],thresholdLabels:["Insufficient","Adequate","Excess"],unit:'%'});}
 const pHThresholds=[4,4.5,6.8,7,7.01,8];if(pHGauge){pHGauge.data.datasets[0].needleValue=latestPHValue===null?0:latestPHValue;pHGauge.options.plugins.gaugeValue=latestPHValue===null?0:latestPHValue;pHGauge.update();}else{pHGauge=setupGaugeChart("pHGauge","pH",pHThresholds,latestPHValue===null?0:latestPHValue,0,14,{colors:["#BA0F30","#BA0F30","#BA0F30","#18A558","#BA0F30","#BA0F30","#BA0F30"],thresholdLabels:["Very Acidic","Acidic","Slightly Acidic","Neutral","Slightly Alkaline","Alkaline","Very Alkaline"]});}
@@ -167,7 +167,7 @@ const filteredDates=sortedDates.filter(date=>new Date(date)>=startDate&&new Date
                     `;});});createOrUpdateGaugeCharts(latestNpkValue,latestMoistValue,latestPHValue,latestTempValue);}).catch(function(error){console.log(error);});});function setActiveButton(button){const buttons=document.querySelectorAll('.timeTrend-buttons button');buttons.forEach(btn=>btn.classList.remove('active'));button.classList.add('active');}
 function setupGaugeChart(canvasId,title,thresholds,defaultValue,minValue,maxValue,options){const data={datasets:[{data:[thresholds[0]-minValue,...thresholds.slice(1).map((t,i)=>t-thresholds[i]),maxValue-thresholds[thresholds.length-1]],backgroundColor:options.colors,needleValue:defaultValue,borderWidth:0,cutout:"85%",circumference:180,rotation:270,}]};const gaugeNeedle={id:"gaugeNeedle",afterDatasetDraw(chart,args,options){const{ctx,chartArea:{top,bottom,left,right,width,height}}=chart;ctx.save();const padding=2;const adjustedLeft=left+padding;const adjustedRight=right-padding;const adjustedWidth=width-2*padding;const needleValue=data.datasets[0].needleValue;const angle=Math.PI+(1/(maxValue-minValue))*(needleValue-minValue)*Math.PI;const cx=adjustedLeft+adjustedWidth/2;const cy=chart._metasets[0].data[0].y+10;ctx.translate(cx,cy);ctx.rotate(angle);ctx.beginPath();ctx.moveTo(0,-2);ctx.lineTo(height/2,0);ctx.lineTo(0,2);ctx.fillStyle="#444";ctx.fill();ctx.translate(-cx,-cy);ctx.beginPath();ctx.arc(cx,cy,5,0,Math.PI*2);ctx.fill();ctx.restore();ctx.font="12px 'Be Vietnam', sans-serif";ctx.fillStyle="#444";ctx.textAlign="center";ctx.fillText(title,cx,cy-83);ctx.font="bold 16px Be Vietnam";ctx.fillText(`${defaultValue.toFixed(2)}${options.unit || ''}`,cx,cy-20);ctx.font="bold 16px Be Vietnam";ctx.fillText(`${defaultValue === 0 ? '0.00' : defaultValue.toFixed(2)}${options.unit || ''}`,cx,cy-20);const radius=height/2+15;ctx.font="8px 'Be Vietnam', sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";let tickValues;if(title==="NPK"){tickValues=[1,2];}else if(title==="Độ ẩm (%)"){tickValues=[25,50,75];}else if(title==="pH"){tickValues=[2,4,7,10,12];}else if(title==="Nhiệt độ (°c)"){tickValues=[10,20,30,40];}
 tickValues.forEach(value=>{const angle=Math.PI+((value-minValue)/(maxValue-minValue))*Math.PI;const x=cx+Math.cos(angle)*radius;const y=cy+Math.sin(angle)*radius;const labelRadius=radius-25;const labelX=cx+Math.cos(angle)*labelRadius;const labelY=cy+Math.sin(angle)*labelRadius;ctx.fillText(value.toString()+(options.unit||''),labelX,labelY);});ctx.font="10px 'Be Vietnam', sans-serif";ctx.textAlign="left";ctx.fillText(`${minValue}${options.unit || ''}`,adjustedLeft,bottom-20);ctx.textAlign="right";ctx.fillText(`${maxValue}${options.unit || ''}`,adjustedRight,bottom-20);if(options.thresholdLabels){ctx.font="10px 'Be Vietnam', sans-serif";ctx.textAlign="center";const labelY=bottom+15;const labelCount=options.thresholdLabels.length;options.thresholdLabels.forEach((label,index)=>{const labelX=adjustedLeft+adjustedWidth*(index+0.5)/labelCount;ctx.fillText(label,labelX,labelY);});}}};const config={type:"doughnut",data,options:{responsive:true,plugins:{legend:{display:false},tooltip:{enabled:false},},},plugins:[gaugeNeedle],};return new Chart(document.getElementById(canvasId),config);}
-function getNutrientRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'').trim();console.log("NPK status key:",statusKey);const recommendations={"Insufficient Nutrients":{en:`
+function getNutrientRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'').trim();const recommendations={"Insufficient Nutrients":{en:`
             • Test soil pH and adjust if necessary for better nutrient availability<br>
             • Monitor plants closely for signs of deficiency<br>
             • Apply a balanced NPK fertilizer immediately<br>
@@ -272,7 +272,7 @@ function getNutrientRecommendation(status){const statusKey=status.replace(/<[^>]
             `,vi:`
             • Hiện tại không có khuyến nghị.
             `}};return recommendations[statusKey]||{en:"No specific recommendations available.",vi:"Không có khuyến nghị cụ thể."};}
-function getMoistureRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'').trim();console.log("Moisture status key:",statusKey);const recommendations={"Very dry":{en:`
+function getMoistureRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'').trim();const recommendations={"Very dry":{en:`
             • Increase irrigation immediately<br>
             • Apply mulch to retain soil moisture<br>
             • Consider installing drip irrigation for efficient water use<br>
@@ -377,7 +377,7 @@ function getMoistureRecommendation(status){const statusKey=status.replace(/<[^>]
             `,vi:`
             • Hiện tại không có khuyến nghị.
             `}};return recommendations[statusKey]||{en:"No specific recommendations available.",vi:"Không có khuyến nghị cụ thể."};}
-function getPHRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'').trim();console.log("pH status key:",statusKey);const recommendations={"Very Acidic":{en:`
+function getPHRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'').trim();const recommendations={"Very Acidic":{en:`
             • Apply lime to raise soil pH<br>
             • Use dolomitic lime if magnesium is also low<br>
             • Avoid using acidifying fertilizers<br>
@@ -554,7 +554,7 @@ function getPHRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'
             `,vi:`
             • Hiện tại không có khuyến nghị. Tiến hành kiểm tra độ pH của đất.
             `}};return recommendations[statusKey]||{en:"No specific recommendations available.",vi:"Không có khuyến nghị cụ thể."};}
-function getTempRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'').trim();console.log("Temperature status key:",statusKey);const recommendations={"Normal Temp":{en:`
+function getTempRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'').trim();const recommendations={"Normal Temp":{en:`
             • Maintain current temperature management practices<br>
             • Monitor for any sudden changes in temperature<br>
             • Ensure proper air circulation in the growing area<br>
@@ -579,25 +579,25 @@ function getTempRecommendation(status){const statusKey=status.replace(/<[^>]*>/g
             • Tiếp tục kiểm tra sức khỏe cây trồng thường xuyên<br>
             • Điều chỉnh tưới nước dựa trên nhiệt độ và nhu cầu của cây
             `},"Average Temp":{en:`
-            • Maintain temperature between 60-70°F (15-21°C) for optimal coffee growth<br>
+            • Maintain temperature between 60-70°F (15-21°C) for optimal growth<br>
             • Ensure proper shade management to regulate temperature<br>
             • Monitor soil moisture, as average temperatures can affect water retention<br>
-            • Continue regular pest and disease checks, especially for coffee berry borer<br>
+            • Continue regular pest and disease checks, especially for  berry borer<br>
             • Adjust fertilization schedule based on growth rate and season
             `,vi:`
-            • Duy trì nhiệt độ từ 15-21°C để tăng trưởng cà phê tối ưu<br>
+            • Duy trì nhiệt độ từ 15-21°C để tăng trưởng tối ưu<br>
             • Đảm bảo quản lý bóng râm phù hợp để điều chỉnh nhiệt độ<br>
             • Theo dõi độ ẩm đất, vì nhiệt độ trung bình có thể ảnh hưởng đến khả năng giữ nước<br>
             • Tiếp tục kiểm tra sâu bệnh thường xuyên, đặc biệt là mọt đục quả cà phê<br>
             • Điều chỉnh lịch bón phân dựa trên tốc độ tăng trưởng và mùa vụ
             `},"Nhiệt độ trung bình":{en:`
-            • Maintain temperature between 60-70°F (15-21°C) for optimal coffee growth<br>
+            • Maintain temperature between 60-70°F (15-21°C) for optimal growth<br>
             • Ensure proper shade management to regulate temperature<br>
             • Monitor soil moisture, as average temperatures can affect water retention<br>
-            • Continue regular pest and disease checks, especially for coffee berry borer<br>
+            • Continue regular pest and disease checks, especially for  berry borer<br>
             • Adjust fertilization schedule based on growth rate and season
             `,vi:`
-            • Duy trì nhiệt độ từ 15-21°C để tăng trưởng cà phê tối ưu<br>
+            • Duy trì nhiệt độ từ 15-21°C để tăng trưởng tối ưu<br>
             • Đảm bảo quản lý bóng râm phù hợp để điều chỉnh nhiệt độ<br>
             • Theo dõi độ ẩm đất, vì nhiệt độ trung bình có thể ảnh hưởng đến khả năng giữ nước<br>
             • Tiếp tục kiểm tra sâu bệnh thường xuyên, đặc biệt là mọt đục quả cà phê<br>
