@@ -102,7 +102,7 @@ function getNutrientRecommendation(status){const statusKey=status.replace(/<[^>]
             • No recommendations at the moment.
             `,vi:`
             • Hiện tại không có khuyến nghị.
-            `}};return recommendations[statusKey]||{en:"No specific recommendations available.",vi:"Không có khuyến nghị cụ thể."}}
+            `}};return recommendations[statusKey]||{en:"No specific recommendations available.",vi:"Không có khuyến nghị cụ thể."};}
 function getMoistureRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'').trim();const recommendations={"Very dry":{en:`
             • Increase irrigation immediately<br>
             • Apply mulch to retain soil moisture<br>
@@ -207,7 +207,7 @@ function getMoistureRecommendation(status){const statusKey=status.replace(/<[^>]
             • No recommendations at the moment.
             `,vi:`
             • Hiện tại không có khuyến nghị.
-            `}};return recommendations[statusKey]||{en:"No specific recommendations available.",vi:"Không có khuyến nghị cụ thể."}}
+            `}};return recommendations[statusKey]||{en:"No specific recommendations available.",vi:"Không có khuyến nghị cụ thể."};}
 function getPHRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'').trim();const recommendations={"Very Acidic":{en:`
             • Apply lime to raise soil pH<br>
             • Use dolomitic lime if magnesium is also low<br>
@@ -384,7 +384,7 @@ function getPHRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'
             • No recommendations at the moment. Conduct a soil pH test.
             `,vi:`
             • Hiện tại không có khuyến nghị. Tiến hành kiểm tra độ pH của đất.
-            `}};return recommendations[statusKey]||{en:"No specific recommendations available.",vi:"Không có khuyến nghị cụ thể."}}
+            `}};return recommendations[statusKey]||{en:"No specific recommendations available.",vi:"Không có khuyến nghị cụ thể."};}
 function getTempRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'').trim();const recommendations={"Normal Temp":{en:`
             • Maintain current temperature management practices<br>
             • Monitor for any sudden changes in temperature<br>
@@ -489,7 +489,7 @@ function getTempRecommendation(status){const statusKey=status.replace(/<[^>]*>/g
             • No recommendations at the moment. Check temperature monitoring equipment.
             `,vi:`
             • Hiện tại không có khuyến nghị. Kiểm tra thiết bị theo dõi nhiệt độ.
-            `}};return recommendations[statusKey]||{en:"No specific recommendations available.",vi:"Không có khuyến nghị cụ thể."}}
+            `}};return recommendations[statusKey]||{en:"No specific recommendations available.",vi:"Không có khuyến nghị cụ thể."};}
 function getNtsRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'').trim();const recommendations={"Average NTS":{en:`
             • Continue current nitrogen application rates<br>
             • Monitor NTS levels bi-weekly<br>
@@ -586,7 +586,7 @@ function getNtsRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,
             • Xem xét lại hồ sơ bón phân và tưới tiêu gần đây<br>
             • Kiểm tra cây trồng để tìm dấu hiệu thiếu hoặc thừa đạm<br>
             • Liên hệ hỗ trợ kỹ thuật nếu vấn đề thiết bị vẫn tiếp diễn
-            `}};return recommendations[statusKey]||{en:"No specific recommendations available. Please consult with a local agronomist.",vi:"Không có khuyến nghị cụ thể. Vui lòng tham khảo ý kiến của chuyên gia nông học địa phương."}}
+            `}};return recommendations[statusKey]||{en:"No specific recommendations available. Please consult with a local agronomist.",vi:"Không có khuyến nghị cụ thể. Vui lòng tham khảo ý kiến của chuyên gia nông học địa phương."};}
 function getP205Recommendation(status){const statusKey=status.replace(/<[^>]*>/g,'').trim();const recommendations={"Average P2O5":{en:`
             • Maintain current fertilization practices<br>
             • Monitor NTS levels regularly<br>
@@ -667,7 +667,7 @@ function getP205Recommendation(status){const statusKey=status.replace(/<[^>]*>/g
             • No recommendations at the moment. Check NTS monitoring equipment.
             `,vi:`
             • Hiện tại không có khuyến nghị. Kiểm tra thiết bị theo dõi NTS.
-            `}};return recommendations[statusKey]||{en:"No specific recommendations available.",vi:"Không có khuyến nghị cụ thể."}}
+            `}};return recommendations[statusKey]||{en:"No specific recommendations available.",vi:"Không có khuyến nghị cụ thể."};}
 function getk2oRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,'').trim();const recommendations={"Average K2O":{en:`
             • Maintain current potassium application rates<br>
             • Monitor K2O levels quarterly<br>
@@ -764,4 +764,4 @@ function getk2oRecommendation(status){const statusKey=status.replace(/<[^>]*>/g,
             • Xem xét lại hồ sơ bón phân gần đây<br>
             • Kiểm tra cây trồng để tìm dấu hiệu thiếu hoặc thừa K<br>
             • Tham khảo ý kiến chuyên gia đất đai
-            `}};return recommendations[statusKey]||{en:"No specific recommendations available. Please consult with a local agronomist.",vi:"Không có khuyến nghị cụ thể. Vui lòng tham khảo ý kiến của chuyên gia nông học địa phương."}}
+            `}};return recommendations[statusKey]||{en:"No specific recommendations available. Please consult with a local agronomist.",vi:"Không có khuyến nghị cụ thể. Vui lòng tham khảo ý kiến của chuyên gia nông học địa phương."};}
