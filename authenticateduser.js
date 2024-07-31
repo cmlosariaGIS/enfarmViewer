@@ -1,1 +1,1 @@
-const authenticatedUserIDs=[236,260,261,990];
+const authenticatedUserIDs=[236];
