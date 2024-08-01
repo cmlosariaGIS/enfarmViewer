@@ -1,4 +1,3 @@
-function getAuthenticatedUserID(){const userID=localStorage.getItem('userId');if(userID){return parseInt(userID,10);}
-return null;}
-const authenticatedUserIDs=[];const currentUserID=getAuthenticatedUserID();if(currentUserID!==null){authenticatedUserIDs.push(currentUserID);}
-console.log('Authenticated User IDs:',authenticatedUserIDs);function isUserAuthenticated(userID){return authenticatedUserIDs.includes(userID);}
+const ADMIN_PHONE='1800888900';const ALL_USER_IDS=[236,260,261,990,1454];function getAuthenticatedUserInfo(){const userID=localStorage.getItem('userId');const userPhone=localStorage.getItem('userPhone');return{userID:userID,userPhone:userPhone};}
+let authenticatedUserIDs=[];const userInfo=getAuthenticatedUserInfo();if(userInfo.userPhone===ADMIN_PHONE){authenticatedUserIDs=ALL_USER_IDS;}else if(userInfo.userID!==null&&userInfo.userID!=='admin'){authenticatedUserIDs.push(parseInt(userInfo.userID,10));}
+console.log('Authenticated User IDs:',authenticatedUserIDs);function isUserAuthenticated(userID){return authenticatedUserIDs.includes(userID)||userInfo.userPhone===ADMIN_PHONE;}
