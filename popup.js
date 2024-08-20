@@ -1,34 +1,33 @@
 window.currentLang='vi';window.getTranslatedText=function(key){return translations[currentLang][key]||key;}
-var images=['https://i.ibb.co/C0gT2rp/projeto-cafe-gato-mourisco-Z8m-Gr-8-E7f4-unsplash.jpg','https://i.ibb.co/HXbrp66/projeto-cafe-gato-mourisco-Uz1-Rk85-VUW4-unsplash.jpg','https://i.ibb.co/sqXW5Lf/projeto-cafe-gato-mourisco-z-OVRgig-QMQA-unsplash.jpg','https://i.ibb.co/D5rD1qj/projeto-cafe-gato-mourisco-eq5-OMTg-ED4-unsplash.jpg','https://i.ibb.co/JH08gkp/projeto-cafe-gato-mourisco-6fo-Phyz6-QU-unsplash.jpg','https://i.ibb.co/R0LYsq5/projeto-cafe-gato-mourisco-q-EJd-MO6-Qml-Y-unsplash.jpg','https://i.ibb.co/4WC5LWz/projeto-cafe-gato-mourisco-Pjv-HCp-KPzho-unsplash.jpg','https://i.ibb.co/gRdpBB3/anton-shuvalov-GTz-Rv-LR6a-OU-unsplash.jpg','https://i.ibb.co/Lg2SCqc/projeto-cafe-gato-mourisco-yw-Ec-Uv-W4-Ha-U-unsplash.jpg','https://i.ibb.co/ByhYLQy/projeto-cafe-gato-mourisco-b-Forvtl-Lx-SA-unsplash.jpg'];let originalMarkers;let currentFilteredMarkers;let activeFilters={needsAttention:false,coffee:false,durian:false,tea:false,pepper:false};let farmsNeedingAttention=new Set();let totalCurrentProd=0;let totalExpectedProd=0;const fetchFarmData=async(userIds)=>{try{const requests=userIds.map(userId=>axios.post('https://api-router.enfarm.com/api/v3/farm/total-farms-per-user',{user_id:userId,},{headers:{'accept':'application/json','Content-Type':'application/json',},}));const responses=await axios.all(requests);const farms=responses.flatMap(response=>response.data.content.data);const farmNames=farms.map(farm=>farm.farm_name);fetch('https://api-ma.enfarm.com/api/v1/ma/get-install-locations',{headers:{'accept':'application/json'},}).then(response=>response.json()).then(data=>{const filteredLocations=data.content.filter(location=>{return!(/toàn|test|enfarm|koko/i.test(location.farmname)||/toàn|test|enfarm|koko/i.test(location.region_name))&&farmNames.includes(location.farmname);});const associatedLocations=filteredLocations.filter(location=>{return farmNames.includes(location.farmname);});const uniqueFarms=new Set();filteredLocations.forEach(location=>{const farmKey=`${location.lat},${location.long}`;uniqueFarms.add(farmKey);});const uniqueFarmCount=uniqueFarms.size;document.getElementById('totalfarmCount').innerText=uniqueFarmCount;var totalDevicesCount=associatedLocations.length;var farmsNeedingAttentionCount=0;var markers=L.markerClusterGroup();associatedLocations.forEach(location=>{var randomImage=images[Math.floor(Math.random()*images.length)];const farmDetails=farms.flatMap(farm=>farm).find(farm=>farm.farm_name===location.farmname);var customMarker=L.divIcon({className:'custom-marker',html:`
-        <div class="marker2D-label" style="background-color: rgba(0, 0, 0, 0); color: rgb(58, 58, 58); font-size: 12px; font-weight: normal; padding: 3px 6px; border-radius: 10px; margin-right: 8px; white-space: nowrap; font-family: 'Be Vietnam', sans-serif; position: absolute; top: -10px; left: 30px; background-color: #ffffff00; border: none; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; display: flex; align-items: center;">
-            <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">psychiatry</span>
-            ${location.farmname}
-        </div>
-        <img src="${customIcon.options.iconUrl}" class="marker-icon"/>
-    `});var marker=L.marker([location.lat,location.long],{icon:customMarker,farmName:location.farmname
-});function getTreeTypesFromPopup(popupContent){const treeTypes=new Set();if(popupContent.includes('data-translate="Coffee"'))treeTypes.add('Coffee');if(popupContent.includes('data-translate="Durian"'))treeTypes.add('Durian');if(popupContent.includes('data-translate="Tea"'))treeTypes.add('Tea');if(popupContent.includes('data-translate="Pepper"'))treeTypes.add('Pepper');return Array.from(treeTypes);}
+var images=['https://i.ibb.co/C0gT2rp/projeto-cafe-gato-mourisco-Z8m-Gr-8-E7f4-unsplash.jpg','https://i.ibb.co/HXbrp66/projeto-cafe-gato-mourisco-Uz1-Rk85-VUW4-unsplash.jpg','https://i.ibb.co/sqXW5Lf/projeto-cafe-gato-mourisco-z-OVRgig-QMQA-unsplash.jpg','https://i.ibb.co/D5rD1qj/projeto-cafe-gato-mourisco-eq5-OMTg-ED4-unsplash.jpg','https://i.ibb.co/JH08gkp/projeto-cafe-gato-mourisco-6fo-Phyz6-QU-unsplash.jpg','https://i.ibb.co/R0LYsq5/projeto-cafe-gato-mourisco-q-EJd-MO6-Qml-Y-unsplash.jpg','https://i.ibb.co/4WC5LWz/projeto-cafe-gato-mourisco-Pjv-HCp-KPzho-unsplash.jpg','https://i.ibb.co/gRdpBB3/anton-shuvalov-GTz-Rv-LR6a-OU-unsplash.jpg','https://i.ibb.co/Lg2SCqc/projeto-cafe-gato-mourisco-yw-Ec-Uv-W4-Ha-U-unsplash.jpg','https://i.ibb.co/ByhYLQy/projeto-cafe-gato-mourisco-b-Forvtl-Lx-SA-unsplash.jpg'];let originalMarkers;let currentFilteredMarkers;let activeFilters={needsAttention:false,coffee:false,durian:false,tea:false,pepper:false};let farmsNeedingAttention=new Set();let totalCurrentProd=0;let totalExpectedProd=0;const fetchFarmData=async(userIds)=>{try{const requests=userIds.map(userId=>axios.post('https://api-router.enfarm.com/api/v3/farm/total-farms-per-user',{user_id:userId,},{headers:{'accept':'application/json','Content-Type':'application/json',},}));const responses=await axios.all(requests);const farms=responses.flatMap(response=>response.data.content.data);const farmIds=farms.map(farm=>farm.farm_id);fetch('https://api-ma.enfarm.com/api/v1/ma/get-install-locations',{headers:{'accept':'application/json'},}).then(response=>response.json()).then(data=>{const filteredLocations=data.content.filter(location=>{return!(/toàn|test|enfarm|koko/i.test(location.farmname))&&farmIds.includes(location.farmid);});const uniqueFarms=new Set(filteredLocations.map(location=>location.farmid));const uniqueFarmCount=uniqueFarms.size;document.getElementById('totalfarmCount').innerText=uniqueFarmCount;var totalDevicesCount=filteredLocations.length;var farmsNeedingAttentionCount=0;var markers=L.markerClusterGroup();filteredLocations.forEach(location=>{var randomImage=images[Math.floor(Math.random()*images.length)];const farmDetails=farms.find(farm=>farm.farm_id===location.farmid);var customMarker=L.divIcon({className:'custom-marker',html:`
+                        <div class="marker2D-label" style="background-color: rgba(0, 0, 0, 0); color: rgb(58, 58, 58); font-size: 12px; font-weight: normal; padding: 3px 6px; border-radius: 10px; margin-right: 8px; white-space: nowrap; font-family: 'Be Vietnam', sans-serif; position: absolute; top: -10px; left: 30px; background-color: #ffffff00; border: none; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; display: flex; align-items: center;">
+                            <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">psychiatry</span>
+                            ${location.farmname}
+                        </div>
+                        <img src="${customIcon.options.iconUrl}" class="marker-icon"/>
+                    `});var marker=L.marker([location.lat,location.long],{icon:customMarker,farmName:location.farmname});function getTreeTypesFromPopup(popupContent){const treeTypes=new Set();if(popupContent.includes('data-translate="Coffee"'))treeTypes.add('Coffee');if(popupContent.includes('data-translate="Durian"'))treeTypes.add('Durian');if(popupContent.includes('data-translate="Tea"'))treeTypes.add('Tea');if(popupContent.includes('data-translate="Pepper"'))treeTypes.add('Pepper');return Array.from(treeTypes);}
 var popupContent=`
-                    <div style="position: relative; padding: 0; margin: 0;">
-                    <div style="overflow: hidden; width: 330px; height: 150px; position: relative; margin-left: -7.5%; margin-top: -15px; border-top-left-radius: 6px; border-top-right-radius: 6px;" onmouseover="this.querySelector('.parallax-img').style.transform = 'scale(1.1)'" onmouseout="this.querySelector('.parallax-img').style.transform = 'scale(1)'">
-                    <img src="${randomImage}" alt="Farm Image" style="width: 330px; height: 150px; position: absolute; top: 0; left: 0; transition: transform 0.3s ease;" class="parallax-img" />
-                </div>
+<div style="position: relative; padding: 0; margin: 0;">
+<div style="overflow: hidden; width: 330px; height: 150px; position: relative; margin-left: -7.5%; margin-top: -15px; border-top-left-radius: 6px; border-top-right-radius: 6px;" onmouseover="this.querySelector('.parallax-img').style.transform = 'scale(1.1)'" onmouseout="this.querySelector('.parallax-img').style.transform = 'scale(1)'">
+<img src="${randomImage}" alt="Farm Image" style="width: 330px; height: 150px; position: absolute; top: 0; left: 0; transition: transform 0.3s ease;" class="parallax-img" />
+</div>
 
-                    <div style="position: absolute; top: 30px; left: 0px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
-                        <span class="material-symbols-outlined" style="font-size: 16px; margin-right: 2px; color: white;">psychiatry</span>
-                        <b style="font-size: 18px; color: white;">${location.farmname}</b><br>
-                        <span class="material-symbols-outlined" style="font-size: 10px; margin-right: 4px; color: white;">location_on</span>
-                        <span style="font-size: 12px; color: white;">${farmDetails ? farmDetails.farm_address || 'N/A' : 'N/A'}</span><br>
-                    </div>
-                </div>
+<div style="position: absolute; top: 30px; left: 0px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+<span class="material-symbols-outlined" style="font-size: 16px; margin-right: 2px; color: white;">psychiatry</span>
+<b style="font-size: 18px; color: white;">${location.farmname}</b><br>
+<span class="material-symbols-outlined" style="font-size: 10px; margin-right: 4px; color: white;">location_on</span>
+<span style="font-size: 12px; color: white;">${farmDetails ? farmDetails.farm_address || 'N/A' : 'N/A'}</span><br>
+</div>
+</div>
                 
-<div style="padding-bottom: 30px; top-padding 0px"><div>
+                <div style="padding-bottom: 30px; top-padding 0px"><div>
 
     
-    <!--Farm ID: ${farmDetails ? farmDetails.farm_id : 'N/A'}<br>-->
-    <!--Region name: ${location.region_name}<br>-->`;if(farmDetails){const matchingCultivates=farmDetails.cultivates.filter(cultivate=>{return cultivate.name===location.region_name;});if(matchingCultivates.length>0){popupContent+=`
-<br><span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">grid_on</span> <b data-translate="Farm Area">${getTranslatedText("Farm Area")}</b>: ${farmDetails.farm_area} ha.`;const cultivateDetailsPromises=matchingCultivates.map(async cultivate=>{popupContent+=`
-    <br>
-    <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;"><b>psychiatry</span> <span data-translate="Tree Type">Loại cây</span>:</b> ${cultivate.tree_type === 0 ?
+
+                <!--Farm ID: ${farmDetails ? farmDetails.farm_id : 'N/A'}<br>-->`;if(farmDetails){console.log(`Processing farm: ${location.farmname}`);const matchingCultivates=farmDetails.cultivates;if(matchingCultivates.length>0){popupContent+=`
+                        <br><span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">grid_on</span> <b data-translate="Farm Area">${getTranslatedText("Farm Area")}</b>: ${farmDetails.farm_area} ha.`;const cultivateDetailsPromises=matchingCultivates.map(async cultivate=>{popupContent+=`
+                                    <br>
+                                        <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;"><b>psychiatry</span> <span data-translate="Tree Type">Loại cây</span>:</b> ${cultivate.tree_type === 0 ?
                                         '<img src="https://i.ibb.co/n0wJnyq/icons8-coffee-beans-48.png" alt="Coffee Beans" style="width: 10px;"> <span data-translate="Coffee">Cà phê</span>' :
                                         cultivate.tree_type === 1 ?
                                             '<img src="https://i.ibb.co/gV8W7kL/icons8-durian-64.png" alt="Durian" style="width: 10px;"> <span data-translate="Durian">Sầu riêng</span>' :
@@ -37,12 +36,13 @@ var popupContent=`
                                                 cultivate.tree_type === 3 ?
                                                     '<img src="https://i.ibb.co/RCnz5gb/icons8-tea-leaves-64.png" alt="Tea" style="width: 10px;"> <span data-translate="Tea">Trà</span>' :
                                                     'N/A'
-                                    }<br>`;const cultivateDetails=await fetch(`https://api-router.enfarm.com/api/v3/cultivate/retrieve-cultivate-tree`,{method:'POST',headers:{'accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({cultivate_id:cultivate.cultivate_id})}).then(response=>response.json()).then(data=>data.content).catch(error=>{console.error(`Error fetching cultivate details for cultivate_id ${cultivate.cultivate_id}:`,error);return null;});if(cultivateDetails){popupContent+=`
+                                            }<br>`;const cultivateDetails=await fetch(`https://api-router.enfarm.com/api/v3/cultivate/retrieve-cultivate-tree`,{method:'POST',headers:{'accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({cultivate_id:cultivate.cultivate_id})}).then(response=>response.json()).then(data=>data.content).catch(error=>{console.error(`Error fetching cultivate details for cultivate_id ${cultivate.cultivate_id}:`,error);return null;});if(cultivateDetails){popupContent+=`
     <div>
         <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">trending_flat</span><b> <span data-translate="Current Productivity">Năng suất hiện tại</span>: <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; position: relative; top: -2px;">weight</span></b>${cultivateDetails.current_prod} tonnes<br>
         
         <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">trending_up</span><b> <span data-translate="Expected Productivity">Năng suất dự kiến</span>: <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; position: relative; top: -2px;">weight</span></b>${cultivateDetails.expected_prod} tonnes<br>
         <!--Cultivate ID: ${cultivateDetails.cultivate_id}<br>-->
+        Cultivate ID: ${cultivateDetails.cultivate_id}<br>
         <!--Region ID: ${cultivateDetails.region_id}<br>-->
         <!--Softids:<br>-->
         <br>
@@ -53,14 +53,14 @@ var popupContent=`
     
         <!-- Existing 3D button -->
         <span class="view-in-3D" style="background-color: #ffffff; color: #000000; padding: 3px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; height: 25px; float: left; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-left: 70px; margin-right: 5px; position: relative;" onmouseover="showIcon(this); this.style.backgroundColor='#f0f0f0'" onmouseout="hideIcon(this); this.style.backgroundColor='#ffffff'" onclick="logLatLong(${location.lat}, ${location.long})">
-            <span class="material-symbols-outlined" id="icon" style="display: none; font-size: 16px;">elevation</span>
+                    <span class="material-symbols-outlined" id="icon" style="display: none; font-size: 16px;">elevation</span>
             <span id="text">3D</span>
             <span class="tooltip-bottom" data-translate="Visualize farm in 3D">Visualize farm in 3D</span>
         </span>
 
         <!-- Zoom to Farm button -->
         <span class="zoom-in-farm" style="background-color: #ffffff; color: #000000; padding: 3px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; height: 25px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-right: 5px; position: relative;" onmouseover="this.style.backgroundColor='#f0f0f0'" onmouseout="this.style.backgroundColor='#ffffff'" onclick="zoomToMarker(${location.lat}, ${location.long})">
-            <span class="material-symbols-outlined" style="font-size: 16px;">zoom_in</span>
+                    <span class="material-symbols-outlined" style="font-size: 16px;">zoom_in</span>
             <span class="tooltip-bottom" data-translate="Zoom in to Farm">Zoom in to farm</span>
         </span>
     
