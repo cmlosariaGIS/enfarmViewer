@@ -36,8 +36,8 @@ const flyToFarmLocation = async (farmName) => {
         const farmLocation = locations.find(location => location.farmname === farmName);
 
         if (farmLocation) {
-            //const latLng = L.latLng(farmLocation.lat, farmLocation.long);
-            const latLng = L.latLng(farmLocation.long, farmLocation.lat);
+            const latLng = L.latLng(farmLocation.lat, farmLocation.long);
+            //const latLng = L.latLng(farmLocation.long, farmLocation.lat);
             const zoomLevel = 18;
             map.flyTo(latLng, zoomLevel, { animate: true, duration: 1 });
 

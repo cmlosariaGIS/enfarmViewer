@@ -80,7 +80,7 @@ h3 {
 .usersdevices-list {
     position: fixed;
     top: 60px;
-    right: -550px;
+    right: -650px;
     padding: 20px;
     border-radius: 0px;
     z-index: 9999999;
@@ -89,7 +89,7 @@ h3 {
     flex-direction: column;
     gap: 10px;
     color: #333333;
-    width: 450px;
+    width: 600px;
     height: 90%;
     transition: right 0.5s ease-in-out;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -331,7 +331,8 @@ h3 {
 .region-info h3,
 .cultivate-info h3,
 .sensor-info h3,
-.box-info h3 {
+.box-info h3,
+.gateway-info h3  {
     color: #2c3e50;
     margin-bottom: 15px;
     font-size: 14px;
@@ -567,9 +568,9 @@ p {
     height: auto;
 }
 
-
 .sensor-cards,
-.box-cards {
+.box-cards,
+.gateway-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
@@ -578,7 +579,8 @@ p {
 }
 
 .sensor-card,
-.box-card {
+.box-card,
+.gateway-cards {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -589,7 +591,8 @@ p {
 }
 
 .sensor-card img,
-.box-card img {
+.box-card img,
+.gateway-card img {
     width: 100%;
     max-width: 200px;
     height: auto;
@@ -597,20 +600,23 @@ p {
 }
 
 .sensor-card p,
-.box-card p {
+.box-card p,
+.gateway-card p {
     margin: 3px 0;
     text-align: center;
 }
 
 .sensor-card .sensor-id,
-.box-card .box-id {
+.box-card .box-id,
+.gateway-card .gateway-id {
     font-weight: bold;
     font-size: 13px;
     color: #2c3e50;
 }
 
 .sensor-card .sensor-type,
-.box-card .box-type {
+.box-card .box-type,
+.gateway-card .gateway-type {
     font-style: italic;
     color: #7f8c8d;
     font-size: 11px;
@@ -618,7 +624,9 @@ p {
 
 .sensor-card .sensor-qr,
 .box-card .box-bl,
-.box-card .box-qr {
+.box-card .box-qr,
+.gateway-card .gateway-bl,
+.gateway-card .gateway-qr {
     font-size: 10px;
     word-break: break-all;
 }
@@ -626,7 +634,8 @@ p {
 @media (max-width: 768px) {
 
     .sensor-cards,
-    .box-cards {
+    .box-cards,
+    .gateway-cards {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -634,7 +643,8 @@ p {
 @media (max-width: 480px) {
 
     .sensor-cards,
-    .box-cards {
+    .box-cards,
+    .gateway-cards {
         grid-template-columns: 1fr;
     }
 }
@@ -813,6 +823,11 @@ p {
     box-sizing: border-box;
 }
 
+.gateway-info {
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
 
 
 

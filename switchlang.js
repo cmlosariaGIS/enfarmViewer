@@ -215,11 +215,13 @@ const translations = {
         "User ID": "User ID",
         "See lists of managed farms": "See lists of managed farms",
 
-        "Total Farm": "Total Farm",
-        "Total Sensor": "Total Sensor",
-        "Total Box": "Total Box",
-        "Sensors Installed": "Sensors Installed",
-        "Boxes Installed": "Boxes Installed",
+        "Total Farm(s)": "Total Farm(s)",
+        "Total Sensor(s)": "Total Sensor(s)",
+        "Total Box(es)": "Total Box(es)",
+        "Total Gateway(s)": "Total Gateway(s)",
+        "Sensor(s) Installed": "Sensor(s) Installed",
+        "Box(es) Installed": "Box(es) Installed",
+        "Gateway(s) Installed": "Gateway(s) Installed",
         "User Profile": "User Profile",
         "Name:": "Name:",
         "Phone:": "Phone:",
@@ -250,7 +252,13 @@ const translations = {
         "Box Information": "Box Information",
         "Box ID": "Box ID",
         "BL Address": "BL Address",
-        "No box information available": "No box(es) information available for this farm."
+        "No box information available": "No box(es) information available for this farm.",
+
+
+        "Gateway Information": "Gateway Information",
+        "Gateway ID": "Gateway ID",
+        "BL Address": "BL Address",
+        "No gateway information available": "No gateway(s) information available for this farm."
 
     },
     vi: {
@@ -455,11 +463,13 @@ const translations = {
         "User ID": "ID Người dùng",
         "See lists of managed farms": "Xem danh sách các trang trại được quản lý",
 
-        "Total Farm": "Tổng số Trang trại",
-        "Total Sensor": "Tổng số Cảm biến",
-        "Total Box": "Tổng số Hộp",
-        "Sensors Installed": "Cảm biến đã lắp đặt",
-        "Boxes Installed": "Hộp đã lắp đặt",
+        "Total Farm(s)": "Tổng số Trang trại",
+        "Total Sensor(s)": "Tổng số Cảm biến",
+        "Total Box(es)": "Tổng số Hộp",
+        "Total Gateway(s)": "Tổng số Gateway",
+        "Sensor(s) Installed": "Cảm biến đã lắp đặt",
+        "Box(es) Installed": "Hộp đã lắp đặt",
+        "Gateway(s) Installed": "Cổng đã được cài đặt",
         "User Profile": "Hồ sơ Người dùng",
         "Name:": "Tên:",
         "Phone:": "Điện thoại:",
@@ -490,7 +500,12 @@ const translations = {
         "Box Information": "Thông tin Hộp",
         "Box ID": "ID Hộp",
         "BL Address": "Địa chỉ BL",
-        "No box information available": "Không có thông tin hộp nào cho trang trại này."
+        "No box information available": "Không có thông tin hộp nào cho trang trại này.",
+
+        "Gateway Information": "Thông tin cổng thông tin",
+        "Gateway ID": "ID cổng",
+        "BL Address": "Địa chỉ BL",
+        "No gateway information available": "Không có thông tin cổng thông tin nào có sẵn cho trang trại này."
 
     }
 };

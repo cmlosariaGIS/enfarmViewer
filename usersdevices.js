@@ -46,8 +46,11 @@ document.addEventListener('DOMContentLoaded', initializeUserDevicesPanel);
 
 // const farmApiUrl = 'https://api-router.enfarm.com/api/v1/users/get-farm-region-per-user'; // old
 const farmApiUrl = 'https://api-router.enfarm.com/api/v3/farm/total-farms-per-user';
+
 const sensorApiUrl = 'https://api-router.enfarm.com/api/v1/devices/get-sensor-per-farm';
 const boxApiUrl = 'https://api-router.enfarm.com/api/v1/devices/get-box-per-farm';
+const gatewayApiUrl = 'https://api-router.enfarm.com/api/v1/devices/get-gateway-per-farm';
+
 const regionApiUrl = 'https://api-router.enfarm.com/api/v1/farm/get-region-per-farm';
 const farmDetailApiUrl = 'https://api-router.enfarm.com/api/v1/farm/get-farm-detail';
 const userProfileApiUrl = 'https://api-router.enfarm.com/api/v2/user/get-user-profile';
@@ -77,7 +80,7 @@ async function populateUserDropdown() {
         try {
             const userProfile = await getUserProfile(userId);
             let displayText = '';
-            
+
             if (userProfile && userProfile.user_name) {
                 displayText = `${userProfile.user_name} (User ID: ${userId})`;
             } else {
@@ -101,7 +104,7 @@ async function populateUserDropdown() {
             console.error(`Error fetching user profile for ID ${userId}:`, error);
             // If there's an error, still add the user ID to the dropdown
             const displayText = `User ID: ${userId}`;
-            
+
             const option = document.createElement('option');
             option.value = userId;
             option.textContent = displayText;
@@ -173,49 +176,64 @@ function getTreeTypeName(treeType) {
     return `<span class="tree-type" data-tree-type="${treeTypeInt}" data-translate="${key}"></span>`;
 }
 
-function generateTotalCounters(totalFarms, totalSensors, totalBoxes) {
+//UserID Farm Devices Summary Cards 
+function generateTotalCounters(totalFarms, totalSensors, totalBoxes, totalGateways) {
     return `
 <div class="device-counters total-counters">
     <div class="counter">
         <img src="images/leaf.png" alt="Farm icon">
         <div class="counter-content">
             <h2>${totalFarms}</h2>
-            <p data-translate="Total Farm">Total Farm${totalFarms !== 1 ? 's' : ''}</p>
+            <p data-translate="Total Farm(s)">Total Farm(s)${totalFarms !== 1 ? '(s)' : ''}</p>
         </div>
     </div>
     <div class="counter">
         <img src="images/sensor.png" alt="Sensor icon">
         <div class="counter-content">
             <h2>${totalSensors}</h2>
-            <p data-translate="Total Sensor">Total Sensor${totalSensors !== 1 ? 's' : ''}</p>
+            <p data-translate="Total Sensor(s)">Total Sensor(s)${totalSensors !== 1 ? '(s)' : ''}</p>
         </div>
     </div>
     <div class="counter">
         <img src="images/box.png" alt="Box icon">
         <div class="counter-content">
             <h2>${totalBoxes}</h2>
-            <p data-translate="Total Box">Total Box${totalBoxes !== 1 ? 'es' : ''}</p>
+            <p data-translate="Total Box(es)">Total Box(es)${totalBoxes !== 1 ? '(es)' : ''}</p>
+        </div>
+    </div>
+    <div class="counter">
+        <img src="images/gateway.png" alt="Gateway icon">
+        <div class="counter-content">
+            <h2>${totalGateways}</h2>
+            <p data-translate="Total Gateway(s)">Total Gateway(s)${totalGateways !== 1 ? '(s)' : ''}</p>
         </div>
     </div>
 </div>
 `;
 }
 
-function generateCounters(sensorCount, boxCount) {
+function generateCounters(sensorCount, boxCount, gatewayCount) {
     return `
 <div class="device-counters">
     <div class="counter">
         <img src="images/sensor.png" alt="Sensor icon">
         <div class="counter-content">
             <h2>${sensorCount}</h2>
-            <p data-translate="Sensors Installed">Sensor${sensorCount !== 1 ? 's' : ''} Installed</p>
+            <p data-translate="Sensor(s) Installed">Sensor(s)${sensorCount !== 1 ? 's' : ''} Installed</p>
         </div>
     </div>
     <div class="counter">
         <img src="images/box.png" alt="Box icon">
         <div class="counter-content">
             <h2>${boxCount}</h2>
-            <p data-translate="Boxes Installed">Box${boxCount !== 1 ? 'es' : ''} Installed</p>
+            <p data-translate="Box(es) Installed">Box(es)${boxCount !== 1 ? 'es' : ''} Installed</p>
+        </div>
+    </div>
+    <div class="counter">
+        <img src="images/gateway.png" alt="Gateway icon">
+        <div class="counter-content">
+            <h2>${gatewayCount}</h2>
+            <p data-translate="Gateway(s) Installed">Gateway(s)${gatewayCount !== 1 ? 's' : ''} Installed</p>
         </div>
     </div>
 </div>
@@ -254,6 +272,18 @@ async function getRegionData(farmId) {
         return [];
     }
 }
+
+
+async function getGatewayData(farmId) {
+    try {
+        const gatewayResponse = await axios.post(gatewayApiUrl, { farm_id: parseInt(farmId) });
+        return gatewayResponse.data.content;
+    } catch (error) {
+        console.error('Error fetching gateway data:', error);
+        return { is_have_gateway: false, gateways: [] };
+    }
+}
+
 
 /*
 //Fetch Farm Locations
@@ -330,6 +360,7 @@ async function getFarmData(userId) {
             let totalFarms = 0;
             let totalSensors = 0;
             let totalBoxes = 0;
+            let totalGateways = 0;
 
             const farms = farmData.content.data;
             totalFarms = farms.length;
@@ -337,18 +368,21 @@ async function getFarmData(userId) {
             for (const farm of farms) {
                 const sensorData = await getSensorData(farm.farm_id);
                 const boxData = await getBoxData(farm.farm_id);
+                const gatewayData = await getGatewayData(farm.farm_id);
                 totalSensors += sensorData.is_have_sensor ? sensorData.sensors.length : 0;
                 totalBoxes += boxData.is_have_box ? boxData.boxes.length : 0;
+                totalGateways += gatewayData.is_have_gateway ? gatewayData.gateways.length : 0;
             }
 
-            console.log(`Total Farms: ${totalFarms}, Total Sensors: ${totalSensors}, Total Boxes: ${totalBoxes}`);
+            console.log(`Total Farms: ${totalFarms}, Total Sensors: ${totalSensors}, Total Boxes: ${totalBoxes}, Total Gateways: ${totalGateways}`);
 
-            html += generateTotalCounters(totalFarms, totalSensors, totalBoxes);
+            html += generateTotalCounters(totalFarms, totalSensors, totalBoxes, totalGateways);
 
             for (const farm of farms) {
                 const farmDetail = farmDetailData[farm.farm_id] || {};
                 const sensorData = await getSensorData(farm.farm_id);
                 const boxData = await getBoxData(farm.farm_id);
+                const gatewayData = await getGatewayData(farm.farm_id);
                 const farmDetailInfo = await getFarmDetail(farm.farm_id);
                 const regionData = await getRegionData(farm.farm_id);
                 const cultivateData = farm.cultivates || [];
@@ -400,7 +434,7 @@ async function getFarmData(userId) {
                 <p><strong data-translate="Address:">Address:</strong> ${farm.farm_address}</p>
                 <p><strong data-translate="Area:">Area:</strong> ${farm.farm_area} hectares</p>
                 <p><strong data-translate="Tree Types:">Tree Types:</strong> 
-                        ${farm.tree_types.map(treeType => getTreeTypeName(treeType)).join(', ')}
+                    ${farm.tree_types.map(treeType => getTreeTypeName(treeType)).join(', ')}
                 </p>
                 ${farmDetail.productivity ? `<p><strong data-translate="Productivity">Productivity:</strong> ${farmDetail.productivity} Tonnes</p>` : ''}
                 ${farmDetail.fertilization_date ? `<p><strong data-translate="Fertilization Date:">Fertilization Date:</strong> ${farmDetail.fertilization_date}</p>` : ''}
@@ -443,7 +477,11 @@ async function getFarmData(userId) {
                 </table>
             ` : '<p class="centered-message" data-translate="No region or cultivate information available">No region or cultivate information available for this farm.</p>'}
         </div>
-        ${generateCounters(sensorData.is_have_sensor ? sensorData.sensors.length : 0, boxData.is_have_box ? boxData.boxes.length : 0)}
+        ${generateCounters(
+                    sensorData.is_have_sensor ? sensorData.sensors.length : 0,
+                    boxData.is_have_box ? boxData.boxes.length : 0,
+                    gatewayData.is_have_gateway ? gatewayData.gateways.length : 0
+                )}
         <div class="sensor-info">
             <h3 data-translate="Sensor Information">Sensor Information</h3>
             ${sensorData.is_have_sensor ? `
@@ -480,6 +518,22 @@ async function getFarmData(userId) {
                 </div>
             ` : '<p class="centered-message" data-translate="No box information available">No box(es) information available for this farm.</p>'}
         </div>
+        <br>
+        <div class="gateway-info">
+            <h3 data-translate="Gateway Information">Gateway Information</h3>
+            ${gatewayData.is_have_gateway ? `
+                <div class="gateway-cards">
+                    ${gatewayData.gateways.map(gateway => `
+                        <div class="gateway-card">
+                            <img src="https://dashboard.enfarm.com/static/media/enfarm%20F+_congdulieu_3.4e2c80b4f00a0e698e82.png" alt="Gateway">
+                            <p class="gateway-id"><span data-translate="Gateway ID">Gateway ID</span>: ${gateway.gateway_id}</p>
+                            <p class="gateway-bl"><span data-translate="BL Address">BL Address</span>: ${gateway.bl_address}</p>
+                            <p class="gateway-qr"><span data-translate="QR">QR</span>: ${gateway.gateway_qr_string}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            ` : '<p class="centered-message" data-translate="No gateway information available">No gateway(s) information available for this farm.</p>'}
+        </div>
     </div>
 </div>
 `;
@@ -492,16 +546,16 @@ async function getFarmData(userId) {
 
             // Add event listeners to the show on map buttons
             document.querySelectorAll('.map-button').forEach(button => {
-               button.addEventListener('click', (event) => {
-                   const farmName = event.target.closest('.map-button').dataset.farmName;
-                   const farmLocation = farmLocations.find(location => location.farmname === farmName);
-                   if (farmLocation) {
-                       zoomToMarker(farmLocation.lat, farmLocation.long);
-                   } else {
-                       console.error('Farm location not found:', farmName);
-                   }
-               });
-           });
+                button.addEventListener('click', (event) => {
+                    const farmName = event.target.closest('.map-button').dataset.farmName;
+                    const farmLocation = farmLocations.find(location => location.farmname === farmName);
+                    if (farmLocation) {
+                        zoomToMarker(farmLocation.lat, farmLocation.long);
+                    } else {
+                        console.error('Farm location not found:', farmName);
+                    }
+                });
+            });
 
 
             /*//Lat Long Switched

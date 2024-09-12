@@ -1,1 +1,294 @@
-.needs-attention{position:absolute;right:20px;top:80px;background-color:#fff;border:0;border-radius:50px;box-shadow:0 4px 6px rgba(0,0,0,0.1);padding:5px 10px;font-size:14px;font-family:'Be Vietnam',sans-serif;cursor:pointer;transition:all .3s ease;z-index:999;display:flex;align-items:center;gap:4px}.needs-attention span.attention-text{color:#e25e5e}.needs-attention:hover{background-color:#de8888;color:white;box-shadow:0 6px 8px rgba(0,0,0,0.15)}.active-needs-attention{background-color:#f05a5a;color:white;padding:5px 10px;display:flex;align-items:center;gap:4px}.needs-attention:hover .tooltip-bottom{visibility:visible;opacity:1;font-family:'Be Vietnam',sans-serif}.notification-circle{position:absolute;top:-3px;right:-8px;width:19px;height:18px;background-color:red;border-radius:50%;display:flex;justify-content:center;align-items:center;color:white;font-size:10px;font-weight:bold;padding-bottom:2px}.coffeeTrees-filter{position:absolute;right:180px;top:80px;background-color:#fff;border:0;border-radius:50px;box-shadow:0 4px 6px rgba(0,0,0,0.1);padding:5px 10px;font-size:14px;font-family:'Be Vietnam',sans-serif;cursor:pointer;transition:all .3s ease;z-index:999;display:flex;align-items:center;gap:4px}.coffee-icon{width:25px;height:25px}.coffee-text{margin-left:4px}.coffeeTrees-filter:hover{background-color:#4a0000;color:white;box-shadow:0 6px 8px rgba(0,0,0,0.15)}.coffeeTrees-filter:hover .tooltip-bottom{visibility:visible;opacity:1;font-family:'Be Vietnam',sans-serif}.active-coffee{background-color:#4a0000;color:white}.durianTrees-filter{position:absolute;right:285px;top:80px;background-color:#fff;border:0;border-radius:50px;box-shadow:0 4px 6px rgba(0,0,0,0.1);padding:5px 10px;font-size:14px;font-family:'Be Vietnam',sans-serif;cursor:pointer;transition:all .3s ease;z-index:999;display:flex;align-items:center;gap:4px}.durian-icon{width:25px;height:25px}.durian-text{margin-left:4px}.durianTrees-filter:hover{background-color:#ebaa04;color:#2c2c2c;box-shadow:0 6px 8px rgba(0,0,0,0.15)}.durianTrees-filter:hover .tooltip-bottom{visibility:visible;opacity:1;font-family:'Be Vietnam',sans-serif}.active-durian{background-color:#ebaa04}.pepperFarms-filter{position:absolute;top:80px;right:390px;background-color:#fff;border:0;border-radius:50px;box-shadow:0 4px 6px rgba(0,0,0,0.1);padding:5px 10px;font-size:14px;font-family:'Be Vietnam',sans-serif;cursor:pointer;transition:all .3s ease;z-index:999;display:flex;align-items:center;gap:4px}[data-lang="vi"] .pepperFarms-filter{right:430px}.pepper-icon{width:25px;height:25px}.pepper-text{margin-left:4px}.pepperFarms-filter:hover{background-color:#eb1515;color:white;box-shadow:0 6px 8px rgba(0,0,0,0.15)}.pepperFarms-filter:hover .tooltip-bottom{visibility:visible;opacity:1;font-family:'Be Vietnam',sans-serif}.active-pepper{background-color:#eb1515;color:white}.teaFarms-filter{position:absolute;right:497px;top:80px;background-color:#fff;border:0;border-radius:50px;box-shadow:0 4px 6px rgba(0,0,0,0.1);padding:5px 10px;font-size:14px;font-family:'Be Vietnam',sans-serif;cursor:pointer;transition:all .3s ease;z-index:999;display:flex;align-items:center;gap:4px}.tea-icon{width:25px;height:25px}.tea-text{margin-left:4px}.teaFarms-filter:hover{background-color:#00a244;color:white;box-shadow:0 6px 8px rgba(0,0,0,0.15)}.teaFarms-filter:hover .tooltip-bottom{visibility:visible;opacity:1;font-family:'Be Vietnam',sans-serif}.active-tea{background-color:#00a244;color:white}.custom-marker{display:flex;align-items:center}.marker2D-label{background-color:rgba(0,0,0,0);color:#656565;font-size:12px;font-weight:normal;padding:3px 6px;border-radius:10px;margin-right:8px;white-space:nowrap;font-family:'Be Vietnam',sans-serif;position:absolute;top:-10px;left:30px;background-color:#ffffff00;border:0;text-shadow:-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,1px 1px 0 #fff}.marker-icon{width:40px;height:40px}
+/*Attention Button*/
+
+.needs-attention {
+    position: absolute;
+    right: 20px;
+    top: 80px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    font-size: 14px;
+    font-family: 'Be Vietnam', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.needs-attention span.attention-text {
+    color: rgb(226, 94, 94);
+}
+
+.needs-attention:hover {
+    background-color: rgb(222, 136, 136);
+    color: white;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.active-needs-attention {
+    background-color: rgb(240, 90, 90);
+    color: white;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.needs-attention:hover .tooltip-bottom {
+    visibility: visible;
+    opacity: 1;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+
+
+.notification-circle {
+    position: absolute;
+    top: -3px;
+    right: -8px;
+    width: 19px;
+    height: 18px;
+    background-color: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding-bottom: 2px; /* Add this line */
+}
+
+/*Coffee Filters Button*/
+
+.coffeeTrees-filter {
+    position: absolute;
+    right: 180px;
+    top: 80px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    font-size: 14px;
+    font-family: 'Be Vietnam', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.coffee-icon {
+    width: 25px;
+    /* Adjust the size as needed */
+    height: 25px;
+    /* Adjust the size as needed */
+}
+
+.coffee-text {
+    margin-left: 4px;
+}
+
+.coffeeTrees-filter:hover {
+    background-color: rgb(74, 0, 0);
+    color: white;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.coffeeTrees-filter:hover .tooltip-bottom {
+    visibility: visible;
+    opacity: 1;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+.active-coffee {
+    background-color: rgb(74, 0, 0);
+    color: white;
+}
+
+/*Durian Filters Button*/
+.durianTrees-filter {
+    position: absolute;
+    right: 285px;
+    top: 80px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    font-size: 14px;
+    font-family: 'Be Vietnam', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.durian-icon {
+    width: 25px;
+    /* Adjust the size as needed */
+    height: 25px;
+    /* Adjust the size as needed */
+}
+
+.durian-text {
+    margin-left: 4px;
+}
+
+.durianTrees-filter:hover {
+    background-color: #ebaa04;
+    color: rgb(44, 44, 44);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.durianTrees-filter:hover .tooltip-bottom {
+    visibility: visible;
+    opacity: 1;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+.active-durian {
+    background-color: #ebaa04;
+
+}
+
+.pepperFarms-filter {
+    /* Existing styles */
+    position: absolute;
+    top: 80px;
+    right: 390px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    font-size: 14px;
+    font-family: 'Be Vietnam', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Adjust position for Vietnamese language */
+[data-lang="vi"] .pepperFarms-filter {
+    right: 430px; /* Adjust the value as needed */
+}
+
+.pepper-icon {
+    width: 25px;
+    /* Adjust the size as needed */
+    height: 25px;
+    /* Adjust the size as needed */
+}
+
+.pepper-text {
+    margin-left: 4px;
+}
+
+.pepperFarms-filter:hover {
+    background-color: rgb(235, 21, 21);
+    color: white;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.pepperFarms-filter:hover .tooltip-bottom {
+    visibility: visible;
+    opacity: 1;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+.active-pepper {
+    background-color: rgb(235, 21, 21);
+    color: white;
+}
+
+/*Pepper Filters Button*/
+.teaFarms-filter {
+    position: absolute;
+    right: 497px;
+    top: 80px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    font-size: 14px;
+    font-family: 'Be Vietnam', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tea-icon {
+    width: 25px;
+    /* Adjust the size as needed */
+    height: 25px;
+    /* Adjust the size as needed */
+}
+
+.tea-text {
+    margin-left: 4px;
+}
+
+.teaFarms-filter:hover {
+    background-color: rgb(0, 162, 68);
+    color: white;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.teaFarms-filter:hover .tooltip-bottom {
+    visibility: visible;
+    opacity: 1;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+
+.active-tea {
+    background-color: rgb(0, 162, 68);
+    color: white;
+}
+
+
+
+.custom-marker {
+    display: flex;
+    align-items: center;
+}
+
+.marker2D-label {
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(101, 101, 101);
+    font-size: 12px;
+    font-weight: normal;
+    padding: 3px 6px;
+    border-radius: 10px;
+    margin-right: 8px;
+    white-space: nowrap;
+    font-family: 'Be Vietnam', sans-serif;
+    position: absolute;
+    top: -10px;
+    left: 30px;
+    background-color: #ffffff00;
+    border: none;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+
+
+.marker-icon {
+    width: 40px;
+    height: 40px;
+}
