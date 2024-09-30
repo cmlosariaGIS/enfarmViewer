@@ -1,87 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./login.css">
-    <title>Login to enfarm Enterprise Platform</title>
-
-    <link rel="icon" href="https://i.ibb.co/tQDxF41/enfarm-favicon.png" type="image/png">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;700&display=swap">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script src="https://kit.fontawesome.com/0eb73cfc5c.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!--Lottie Files-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js"></script>
-</head>
-
-<body onload="loadPage()">
-    <div class="form-container">
-        <img src="https://enfarm.com/fd57352e4cea98b4c1fb.jpg" alt="enCity Logo" class="company-logo">
-        <p class="title" data-translate="Welcome">Welcome</p>
-        <h6 class="sub-title" data-translate="Login to access the enfarm Enterprise Platform">Login to access the enfarm
-            Enterprise Platform</h6>
-        <br>
-        <form class="form" onsubmit="event.preventDefault(); loginWithPhoneNumber();">
-            <div class="input-container">
-                <input type="tel" id="phone" name="phone" required>
-                <label for="phone" data-translate="Mobile Number">Mobile Number</label>
-                <span class="phone-icon"></span>
-            </div>
-            <div class="otp-input-container">
-                <div class="otp-boxes">
-                    <input type="text" class="otp-box" maxlength="1" oninput="moveToNext(this, 0)"
-                        onkeydown="handleKeyDown(event, this, 0)">
-                    <input type="text" class="otp-box" maxlength="1" oninput="moveToNext(this, 1)"
-                        onkeydown="handleKeyDown(event, this, 1)">
-                    <input type="text" class="otp-box" maxlength="1" oninput="moveToNext(this, 2)"
-                        onkeydown="handleKeyDown(event, this, 2)">
-                    <input type="text" class="otp-box" maxlength="1" oninput="moveToNext(this, 3)"
-                        onkeydown="handleKeyDown(event, this, 3)">
-                    <input type="text" class="otp-box" maxlength="1" oninput="moveToNext(this, 4)"
-                        onkeydown="handleKeyDown(event, this, 4)">
-                    <input type="text" class="otp-box" maxlength="1" oninput="moveToNext(this, 5)"
-                        onkeydown="handleKeyDown(event, this, 5)">
-                </div>
-                <button type="button" id="generate-otp" class="otp-btn" onclick="handleSendOtp()"
-                    data-translate="Generate OTP">Generate OTP</button>
-            </div>
-            <p id="error-message" class="error-message"></p>
-            <button type="submit" class="form-btn" data-translate="Log in">Log in</button>
-        </form>
-    </div>
-
-    <button id="lang-switch" class="lang-switch" onclick="toggleLanguage()" aria-label="Toggle Language">
-        VN <i class="fa-solid fa-earth-asia"></i>
-        <span class="tooltip-bottom" data-translate="Switch Language"></span>
-    </button>
-
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <p id="modal-message"></p>
-        </div>
-    </div>
-
-    <div id="hotline-icon" class="hotline-icon" aria-label="Call hotline 1800 888 900">
-        <div id="lottie-container"></div>
-        <div class="hotline-text-container">
-            <div class="hotline-text" data-translate="Hotline">Hotline</div>
-        </div>
-        <span class="tooltip-left" data-translate="Call 1800 888 900">Call 1800 888 900</span>
-    </div>
-
-    <script src="login.js"></script>
-    <script>
+<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width, initial-scale=1.0"><link rel=stylesheet href=./login.css><title>Login to enfarm Enterprise Platform</title><link rel=icon href=https://i.ibb.co/tQDxF41/enfarm-favicon.png type=image/png><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;700&display=swap"><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"><script src=https://kit.fontawesome.com/0eb73cfc5c.js crossorigin=anonymous></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css><script src=https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js></script></head><body onload=loadPage()><div class=form-container><img src=https://enfarm.com/fd57352e4cea98b4c1fb.jpg alt="enCity Logo" class=company-logo><p class=title data-translate=Welcome>Welcome</p><h6 class=sub-title data-translate="Login to access the enfarm Enterprise Platform">Login to access the enfarm Enterprise Platform</h6><br><form class=form onsubmit="event.preventDefault(); loginWithPhoneNumber();"><div class=input-container><input type=tel id=phone name=phone required><label for=phone data-translate="Mobile Number">Mobile Number</label><span class=phone-icon></span></div><div class=otp-input-container><div class=otp-boxes><input type=text class=otp-box maxlength=1 oninput="moveToNext(this, 0)" onkeydown="handleKeyDown(event, this, 0)"><input type=text class=otp-box maxlength=1 oninput="moveToNext(this, 1)" onkeydown="handleKeyDown(event, this, 1)"><input type=text class=otp-box maxlength=1 oninput="moveToNext(this, 2)" onkeydown="handleKeyDown(event, this, 2)"><input type=text class=otp-box maxlength=1 oninput="moveToNext(this, 3)" onkeydown="handleKeyDown(event, this, 3)"><input type=text class=otp-box maxlength=1 oninput="moveToNext(this, 4)" onkeydown="handleKeyDown(event, this, 4)"><input type=text class=otp-box maxlength=1 oninput="moveToNext(this, 5)" onkeydown="handleKeyDown(event, this, 5)"></div><button type=button id=generate-otp class=otp-btn onclick=handleSendOtp() data-translate="Generate OTP">Generate OTP</button></div><p id=error-message class=error-message></p><button type=submit class=form-btn data-translate="Log in">Log in</button></form></div><button id=lang-switch class=lang-switch onclick=toggleLanguage() aria-label="Toggle Language"> VN <i class="fa-solid fa-earth-asia"></i><span class=tooltip-bottom data-translate="Switch Language"></span></button><div id=modal class=modal><div class=modal-content><p id=modal-message></p></div></div><div id=hotline-icon class=hotline-icon aria-label="Call hotline 1800 888 900"><div id=lottie-container></div><div class=hotline-text-container><div class=hotline-text data-translate=Hotline>Hotline</div></div><span class=tooltip-left data-translate="Call 1800 888 900">Call 1800 888 900</span></div><script src=login.js></script><script>
 
         //login.html
 
         
 
 
-    </script>
-</body>
-
-</html>
+    </script></body></html>

@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <link rel="stylesheet" href="./signup.css">
-
-    <title>Signup</title>
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;700&display=swap">
-
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-
-
-    <!-- Firebase -->
-    <script type="module">
+<!DOCTYPE html><html><head><link rel=stylesheet href=./signup.css><title>Signup</title><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;700&display=swap"><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"><script type=module>
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 
@@ -97,9 +82,7 @@
                     console.error('Error verifying email:', error.message);
                 });
         }
-    </script>
-
-    <style>
+    </script><style>
         body {
             font-family: 'Be Vietnam', sans-serif;
         }
@@ -123,32 +106,7 @@
             margin: 0 auto 20px; /* Center the logo and add space below */
             height: 80px;
         }
-    </style>
-</head>
-
-<body>
-    <div class="form-container">
-        <img src="https://enfarm.com/fd57352e4cea98b4c1fb.jpg" alt="enCity Logo" class="company-logo">
-        <p class="title">Create an account</p>
-        <p class="sub-title">to access the enfarm Enterprise Platform</p>
-        <form class="form" onsubmit="event.preventDefault(); signUpWithEmail();">
-            <input type="text" class="input" name="name" placeholder="Name">
-            <input type="text" class="input" name="email" placeholder="Email">
-            <div class="password-input-container">
-                <input type="password" class="input password-input" name="password" placeholder="Password">
-                <span class="password-toggle-icon">
-                    <i class="material-icons-outlined">visibility_off</i>
-                </span>
-            </div>
-            <button type="submit" class="form-btn">Create account</button>
-            <p id="error-message" class="error-message"></p> <!-- Display error message -->
-        </form>
-        <p class="sign-up-label">
-            Already have an account?<span class="sign-up-link">Log in</span>
-        </p>
-    </div>
-
-    <script>
+    </style></head><body><div class=form-container><img src=https://enfarm.com/fd57352e4cea98b4c1fb.jpg alt="enCity Logo" class=company-logo><p class=title>Create an account</p><p class=sub-title>to access the enfarm Enterprise Platform</p><form class=form onsubmit="event.preventDefault(); signUpWithEmail();"><input type=text class=input name=name placeholder=Name><input type=text class=input name=email placeholder=Email><div class=password-input-container><input type=password class="input password-input" name=password placeholder=Password><span class=password-toggle-icon><i class=material-icons-outlined>visibility_off</i></span></div><button type=submit class=form-btn>Create account</button><p id=error-message class=error-message></p> </form><p class=sign-up-label> Already have an account?<span class=sign-up-link>Log in</span></p></div><script>
         const passwordInput = document.querySelector('.password-input');
         const passwordToggleIcon = document.querySelector('.password-toggle-icon i');
 
@@ -166,7 +124,4 @@
         loginLink.addEventListener('click', () => {
             window.location.href = 'login.html';
         });
-    </script>
-</body>
-
-</html>
+    </script></body></html>

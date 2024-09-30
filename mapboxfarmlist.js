@@ -1,254 +1,10 @@
-//farmlist.js NEW
-let currentFarmData = []; // Store the current farm data for sorting
-let userProfiles = {}; // Store user profiles
-let uniqueFarmUsers = []; // Store unique farm users
-
-// Function to toggle the visibility of the farm list popup
-const toggleFarmList = () => {
-    const farmListPopup = document.getElementById('popup-farmlist');
-    farmListPopup.classList.toggle('show');
-    if (farmListPopup.classList.contains('show')) {
-        fetchFarmListData(authenticatedUserIDs);
-    }
-};
-
-// Function to hide the farm list popup
-const hideFarmList = () => {
-    document.getElementById('popup-farmlist').classList.remove('show');
-};
-
-// Function to fly to the farm location on the map
-const flyToFarmLocation3D = async (farmName) => {
-    try {
-        const response = await fetch('https://api-ma.enfarm.com/api/v1/ma/get-install-locations', {
-            headers: { 'accept': 'application/json' },
-        });
-        const { content: locations } = await response.json();
-        const farmLocation = locations.find(location => location.farmname === farmName);
-
-        if (farmLocation) {
-            const lngLat = new mapboxgl.LngLat(farmLocation.long, farmLocation.lat);
-            const zoomLevel = 18;
-            map.flyTo({ center: lngLat, zoom: zoomLevel, speed: 1 });
-        } else {
-            console.log(`Farm location not found for farm name: ${farmName}`);
-        }
-    } catch (error) {
-        console.error('Error fetching farm location:', error);
-    }
-};
-
-async function getFarmThumbnail(farmId) {
-    try {
-        const response = await axios.post('https://api-router.enfarm.com/api/v3/farm/retrieve-farm-detail', {
-            farm_id: farmId
-        }, {
-            headers: {
-                accept: 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
-
-        const farmThumbnail = response.data.content.data.farm_thumbnail;
-        return farmThumbnail || 'images/noimage.jfif';
-    } catch (error) {
-        console.error('Error fetching farm thumbnail:', error);
-        return 'images/noimage.jfif';
-    }
-}
-
-// Function to fetch user profile
-const fetchUserProfile = async (userId) => {
-    try {
-        const response = await fetch('https://api-router.enfarm.com/api/v2/user/get-user-profile', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ user_id: userId }),
-        });
-        const data = await response.json();
-        if (data.status_code === 200 && data.content) {
-            userProfiles[userId] = data.content;
-        }
-    } catch (error) {
-        console.error('Error fetching user profile:', error);
-    }
-};
-
-// Function to fetch farm list data
-const fetchFarmListData = async (userIds) => {
-    try {
-        const farmRequests = userIds.map(userId =>
-            axios.post(
-                'https://api-router.enfarm.com/api/v3/farm/total-farms-per-user',
-                { user_id: userId },
-                { headers: { 'accept': 'application/json', 'Content-Type': 'application/json' } }
-            )
-        );
-
-        const userRequests = userIds.map(userId =>
-            fetch('https://api-router.enfarm.com/api/v2/user/get-user-profile', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ user_id: userId }),
-            }).then(response => response.json())
-        );
-
-        const [farmResponses, userResponses] = await Promise.all([
-            Promise.all(farmRequests),
-            Promise.all(userRequests)
-        ]);
-
-        currentFarmData = farmResponses.flatMap((response, index) => {
-            const userId = userIds[index];
-            const userProfile = userResponses[index].content;
-            return response.data.content.data.map(farm => ({
-                ...farm,
-                userId: userId,
-                userName: userProfile.user_name || 'N/A',
-                userPhone: userProfile.user_phone || 'N/A'
-            }));
-        });
-
-        // Populate uniqueFarmUsers
-        uniqueFarmUsers = [...new Set(currentFarmData.map(farm => farm.userName))];
-        populateUserFilterOptions();
-
-        displayFarmList(currentFarmData);
-    } catch (error) {
-        console.error('Error fetching farm details:', error);
-    }
-};
-
-const farmNeedsAttention = async (farm) => {
-    // Check if farm has cultivates or sensor_lst
-    if (!farm.cultivates && !farm.sensor_lst) {
-        console.warn('Farm has neither cultivates nor sensor_lst:', farm);
-        return false;
-    }
-
-    const itemsToCheck = farm.cultivates || farm.sensor_lst || [];
-
-    const checkPromises = itemsToCheck.map(async item => {
-        const cultivateId = item.cultivate_id || item.id;
-        if (!cultivateId) {
-            console.warn('No cultivate_id or id found for item:', item);
-            return false;
-        }
-
-        const cultivateDetails = await fetch(`https://api-router.enfarm.com/api/v3/cultivate/retrieve-cultivate-tree`, {
-            method: 'POST',
-            headers: {
-                'accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ cultivate_id: cultivateId })
-        })
-            .then(response => response.json())
-            .then(data => data.content)
-            .catch(error => {
-                console.error('Error fetching cultivate details:', error);
-                return null;
-            });
-
-        if (cultivateDetails && cultivateDetails.softids) {
-            const nutritionDataPromises = cultivateDetails.softids.map(async softid => {
-                const nutritionData = await fetch(`https://api-router.enfarm.com/api/v3/charts/retrieve-nutrition-chart`, {
-                    method: 'POST',
-                    headers: {
-                        'accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ cultivate_id: cultivateId })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        const matchingValues = data.content.find(item => item.in_depth === softid.in_depth)?.values;
-                        if (matchingValues) {
-                            const latestIndex = matchingValues.created_at
-                                .map((date, index) => ({ date: new Date(date), index }))
-                                .sort((a, b) => b.date - a.date)[0].index;
-
-                            return {
-                                npk: matchingValues.npk ? matchingValues.npk[latestIndex] : null,
-                                nts: matchingValues.nts ? matchingValues.nts[latestIndex] : null,
-                                k2o: matchingValues.k2o ? matchingValues.k2o[latestIndex] : null,
-                                p2o5: matchingValues.p2o5 ? matchingValues.p2o5[latestIndex] : null,
-                                moist: matchingValues.moist[latestIndex],
-                                pH: matchingValues.pH[latestIndex],
-                                t: matchingValues.t[latestIndex],
-                                created_at: matchingValues.created_at[latestIndex],
-                            };
-                        }
-                        return null;
-                    })
-                    .catch(error => {
-                        //console.error('Error fetching nutrition data:', error);
-                        return null;
-                    });
-
-                if (nutritionData) {
-                    const { t, pH, moist, npk, nts, p2o5, k2o } = nutritionData;
-                    const npkQuotient = npk / 300;
-                    return (
-                        t < 20 || t > 30 ||
-                        pH < 7 || pH > 7 ||
-                        moist <= 22.5 || moist > 55 ||
-                        npkQuotient < 0.5 || npkQuotient > 1 ||
-                        (nts !== null && (nts < 0.1 || nts > 0.2)) ||
-                        (p2o5 !== null && (p2o5 < 20 || p2o5 > 60)) ||
-                        (k2o !== null && (k2o < 100 || k2o > 200))
-                    );
-                }
-                return false;
-            });
-
-            const nutritionDataResults = await Promise.all(nutritionDataPromises);
-            return nutritionDataResults.some(result => result);
-        }
-        return false;
-    });
-
-    const checkResults = await Promise.all(checkPromises);
-    return checkResults.some(result => result);
-};
-
-// Helper function to create a farm item HTML
-const createFarmItem = async (farm) => {
-    // Fetch the farm thumbnail
-    const farmThumbnail = await getFarmThumbnail(farm.farm_id);
-
-    const treeTypesOrder = [0, 1, 2, 3]; // Order of tree types: Coffee, Durian, Pepper, Tea
-    const treeTypeImages = [
-        '<img src="images/icons8-coffee-beans-96.png" alt="Coffee Beans" style="width: 20px;">',
-        '<img src="images/icons8-durian-64.png" alt="Durian" style="width: 20px;">',
-        '<img src="images/icons8-pepper-96.png" alt="Pepper" style="width: 20px;">',
-        '<img src="images/icons8-tea-leaves-64.png" alt="Tea" style="width: 20px;">'
-    ];
-
-    const treeTypes = treeTypesOrder.map(type => {
-        const foundType = farm.cultivates && farm.cultivates.find(cultivate => cultivate.tree_type === type);
-        return foundType ? treeTypeImages[type] : '';
-    }).filter(Boolean); // Filter out falsy values (empty strings)
-
-    // Add a check for valid dates and use a fallback if necessary
-    const lastUpdateDate = farm.cultivates && farm.cultivates.length > 0
-        ? new Date(Math.max(...farm.cultivates
-            .map(cultivate => new Date(cultivate.last_update))
-            .filter(date => !isNaN(date.getTime()))
-        ))
-        : (farm.farm_last_action_day ? new Date(farm.farm_last_action_day) : new Date());
-
-    const formattedDate = !isNaN(lastUpdateDate.getTime())
-        ? lastUpdateDate.toISOString().split('T')[0]
-        : 'N/A';
-
-    const needsAttention = await farmNeedsAttention(farm);
-
-    return `
+let currentFarmData=[];let userProfiles={};let uniqueFarmUsers=[];const toggleFarmList=()=>{const farmListPopup=document.getElementById('popup-farmlist');farmListPopup.classList.toggle('show');if(farmListPopup.classList.contains('show')){fetchFarmListData(authenticatedUserIDs);}};const hideFarmList=()=>{document.getElementById('popup-farmlist').classList.remove('show');};const flyToFarmLocation3D=async(farmName)=>{try{const response=await fetch('https://api-ma.enfarm.com/api/v1/ma/get-install-locations',{headers:{'accept':'application/json'},});const{content:locations}=await response.json();const farmLocation=locations.find(location=>location.farmname===farmName);if(farmLocation){const lngLat=new mapboxgl.LngLat(farmLocation.long,farmLocation.lat);const zoomLevel=18;map.flyTo({center:lngLat,zoom:zoomLevel,speed:1});}else{console.log(`Farm location not found for farm name: ${farmName}`);}}catch(error){console.error('Error fetching farm location:',error);}};async function getFarmThumbnail(farmId){try{const response=await axios.post('https://api-router.enfarm.com/api/v3/farm/retrieve-farm-detail',{farm_id:farmId},{headers:{accept:'application/json','Content-Type':'application/json'}});const farmThumbnail=response.data.content.data.farm_thumbnail;return farmThumbnail||'images/noimage.jfif';}catch(error){console.error('Error fetching farm thumbnail:',error);return'images/noimage.jfif';}}
+const fetchUserProfile=async(userId)=>{try{const response=await fetch('https://api-router.enfarm.com/api/v2/user/get-user-profile',{method:'POST',headers:{'Content-Type':'application/json',},body:JSON.stringify({user_id:userId}),});const data=await response.json();if(data.status_code===200&&data.content){userProfiles[userId]=data.content;}}catch(error){console.error('Error fetching user profile:',error);}};const fetchFarmListData=async(userIds)=>{try{const farmRequests=userIds.map(userId=>axios.post('https://api-router.enfarm.com/api/v3/farm/total-farms-per-user',{user_id:userId},{headers:{'accept':'application/json','Content-Type':'application/json'}}));const userRequests=userIds.map(userId=>fetch('https://api-router.enfarm.com/api/v2/user/get-user-profile',{method:'POST',headers:{'Content-Type':'application/json',},body:JSON.stringify({user_id:userId}),}).then(response=>response.json()));const[farmResponses,userResponses]=await Promise.all([Promise.all(farmRequests),Promise.all(userRequests)]);currentFarmData=farmResponses.flatMap((response,index)=>{const userId=userIds[index];const userProfile=userResponses[index].content;return response.data.content.data.map(farm=>({...farm,userId:userId,userName:userProfile.user_name||'N/A',userPhone:userProfile.user_phone||'N/A'}));});uniqueFarmUsers=[...new Set(currentFarmData.map(farm=>farm.userName))];populateUserFilterOptions();displayFarmList(currentFarmData);}catch(error){console.error('Error fetching farm details:',error);}};const farmNeedsAttention=async(farm)=>{if(!farm.cultivates&&!farm.sensor_lst){console.warn('Farm has neither cultivates nor sensor_lst:',farm);return false;}
+const itemsToCheck=farm.cultivates||farm.sensor_lst||[];const checkPromises=itemsToCheck.map(async item=>{const cultivateId=item.cultivate_id||item.id;if(!cultivateId){console.warn('No cultivate_id or id found for item:',item);return false;}
+const cultivateDetails=await fetch(`https://api-router.enfarm.com/api/v3/cultivate/retrieve-cultivate-tree`,{method:'POST',headers:{'accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({cultivate_id:cultivateId})}).then(response=>response.json()).then(data=>data.content).catch(error=>{console.error('Error fetching cultivate details:',error);return null;});if(cultivateDetails&&cultivateDetails.softids){const nutritionDataPromises=cultivateDetails.softids.map(async softid=>{const nutritionData=await fetch(`https://api-router.enfarm.com/api/v3/charts/retrieve-nutrition-chart`,{method:'POST',headers:{'accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({cultivate_id:cultivateId})}).then(response=>response.json()).then(data=>{const matchingValues=data.content.find(item=>item.in_depth===softid.in_depth)?.values;if(matchingValues){const latestIndex=matchingValues.created_at.map((date,index)=>({date:new Date(date),index})).sort((a,b)=>b.date-a.date)[0].index;return{npk:matchingValues.npk?matchingValues.npk[latestIndex]:null,nts:matchingValues.nts?matchingValues.nts[latestIndex]:null,k2o:matchingValues.k2o?matchingValues.k2o[latestIndex]:null,p2o5:matchingValues.p2o5?matchingValues.p2o5[latestIndex]:null,moist:matchingValues.moist[latestIndex],pH:matchingValues.pH[latestIndex],t:matchingValues.t[latestIndex],created_at:matchingValues.created_at[latestIndex],};}
+return null;}).catch(error=>{return null;});if(nutritionData){const{t,pH,moist,npk,nts,p2o5,k2o}=nutritionData;const npkQuotient=npk/300;return(t<20||t>30||pH<7||pH>7||moist<=22.5||moist>55||npkQuotient<0.5||npkQuotient>1||(nts!==null&&(nts<0.1||nts>0.2))||(p2o5!==null&&(p2o5<20||p2o5>60))||(k2o!==null&&(k2o<100||k2o>200)));}
+return false;});const nutritionDataResults=await Promise.all(nutritionDataPromises);return nutritionDataResults.some(result=>result);}
+return false;});const checkResults=await Promise.all(checkPromises);return checkResults.some(result=>result);};const createFarmItem=async(farm)=>{const farmThumbnail=await getFarmThumbnail(farm.farm_id);const treeTypesOrder=[0,1,2,3];const treeTypeImages=['<img src="images/icons8-coffee-beans-96.png" alt="Coffee Beans" style="width: 20px;">','<img src="images/icons8-durian-64.png" alt="Durian" style="width: 20px;">','<img src="images/icons8-pepper-96.png" alt="Pepper" style="width: 20px;">','<img src="images/icons8-tea-leaves-64.png" alt="Tea" style="width: 20px;">'];const treeTypes=treeTypesOrder.map(type=>{const foundType=farm.cultivates&&farm.cultivates.find(cultivate=>cultivate.tree_type===type);return foundType?treeTypeImages[type]:'';}).filter(Boolean);const lastUpdateDate=farm.cultivates&&farm.cultivates.length>0?new Date(Math.max(...farm.cultivates.map(cultivate=>new Date(cultivate.last_update)).filter(date=>!isNaN(date.getTime())))):(farm.farm_last_action_day?new Date(farm.farm_last_action_day):new Date());const formattedDate=!isNaN(lastUpdateDate.getTime())?lastUpdateDate.toISOString().split('T')[0]:'N/A';const needsAttention=await farmNeedsAttention(farm);return`
         <div class="farm-item" data-farm-name="${farm.farm_name || farm.name}">
             <div class="farm-image-container" onmouseover="this.querySelector('.parallax-img').style.transform = 'scale(1.01)'" onmouseout="this.querySelector('.parallax-img').style.transform = 'scale(1)'">
                 <img src="${farmThumbnail}" alt="Farm Image" class="parallax-img" style="object-fit: cover; width: 100%; height: 100%;" />
@@ -259,13 +15,7 @@ const createFarmItem = async (farm) => {
             <div class="farm-details">
                 <div class="farm-title">
                     ${farm.farm_name || farm.name}
-                    ${needsAttention ? `
-                        <div class="needs-attention-glow">
-                            <span class="tooltip-left">This farm needs attention</span>
-                        </div>
-                    ` : `
-                        <!--<div class="dont-need-attention">
-                            <span class="tooltip-left">This farm's soil status is ok</span>
+                    ${needsAttention ? `<div class="needs-attention-glow"><span class="tooltip-left">This farm needs attention</span></div>` : `<!--<div class="dont-need-attention"><span class="tooltip-left">This farm's soil status is ok</span>
                         </div>-->
                     `}
                 </div>
@@ -290,7 +40,7 @@ const createFarmItem = async (farm) => {
                 <div class="farm-phone">
                     <span class="material-symbols-outlined phone-icon">phone</span>
                     <span>${farm.userPhone || 'N/A'}</span>
-                    <button class="copy-phone-btn" onclick="copyToClipboard('${farm.userPhone || ''}')">
+                    <button class="copy-phone-btn" onclick="copyToClipboard('${farm.userPhone||''}')">
                         <span class="material-symbols-outlined">content_paste</span>
                     </button>
                 </div>
@@ -318,7 +68,7 @@ const displayFarmList = async (farms) => {
         setTimeout(() => {
             item.style.opacity = '1';
             item.style.transform = 'translateY(0)';
-            item.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            item.style.transition = 'opacity 0.5s ease-out,transform 0.5s ease-out';
         }, (index + 1) * 300);
     });
 };
@@ -499,7 +249,7 @@ function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(() => {
             alert('Phone number copied to clipboard!');
         }).catch((err) => {
-            console.error('Failed to copy: ', err);
+            console.error('Failed to copy:', err);
         });
     } else {
         // Fallback for older browsers
@@ -513,8 +263,4 @@ function copyToClipboard(text) {
             document.execCommand('copy');
             alert('Phone number copied to clipboard!');
         } catch (err) {
-            console.error('Failed to copy: ', err);
-        }
-        document.body.removeChild(textArea);
-    }
-}
+            console.error('Failed to copy:'

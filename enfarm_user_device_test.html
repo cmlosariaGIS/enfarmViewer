@@ -1,54 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users - Devices</title>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
-    <!--FlatUI icon-->
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-thin-rounded/css/uicons-thin-rounded.css'>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="./usersdevices.css">
-    <style>
+<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width, initial-scale=1.0"><title>Users - Devices</title><script src=https://unpkg.com/axios/dist/axios.min.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css><link rel=stylesheet href=https://cdn-uicons.flaticon.com/2.5.1/uicons-thin-rounded/css/uicons-thin-rounded.css><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@400;500;600;700&display=swap" rel=stylesheet><link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel=stylesheet><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel=stylesheet><link rel=stylesheet href=./usersdevices.css><style>
        
-    </style>
-</head>
-
-<body>
-
-
-    <!-- Show User Devices List -->
-    <button class="usersdevices-button" onclick="toggleUserDevices()">
-        <span class="material-symbols-outlined">sensors_krx</span>
-        <span class="tooltip-right" data-translate="See lists of managed farms"></span>
-    </button>
-
-    <div class="usersdevices-list">
-        <div class="container">
-            <h1>enfarm users, devices information</h1>
-            <br>
-            <div class="user-select">
-                <select id="userSelect">
-                    <option value="">Select a user</option>
-                </select>
-                <button class="select-button" id="selectedUser">Select user</button>
-                <div class="dropdown-user" id="userDropdown"></div>
-            </div>
-            <h2 style="display: none;">User ID: <span id="userId"></span></h2>
-            <div id="farmInfo"></div>
-        </div>
-    </div>
-
-    <script src="usersdevices.js"></script>
-    <script>
+    </style></head><body><button class=usersdevices-button onclick=toggleUserDevices()><span class=material-symbols-outlined>sensors_krx</span><span class=tooltip-right data-translate="See lists of managed farms"></span></button><div class=usersdevices-list><div class=container><h1>enfarm users, devices information</h1><br><div class=user-select><select id=userSelect><option value>Select a user</option></select><button class=select-button id=selectedUser>Select user</button><div class=dropdown-user id=userDropdown></div></div><h2 style="display: none;">User ID: <span id=userId></span></h2><div id=farmInfo></div></div></div><script src=usersdevices.js></script><script>
 
     </script>
