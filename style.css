@@ -1,1 +1,1594 @@
-body,html{margin:0;padding:0;height:100%;font-family:'Be Vietnam',sans-serif}#map{height:100%;width:100%;margin:0}.leaflet-popup-content-wrapper{min-width:100px !important;max-width:328px !important;border-radius:5px;font-family:'Be Vietnam',sans-serif}.tooltip-right{position:absolute;top:50%;right:calc(100% + 10px);transform:translateY(-50%);z-index:1;background-color:#eee;color:#555;text-align:center;padding:8px;border-radius:6px;visibility:hidden;opacity:0;transition:opacity .3s;font-size:14px;white-space:nowrap;outline:0}.tooltip-right::before{content:"";position:absolute;top:50%;right:-10px;transform:translateY(-50%);border-width:5px;border-style:solid;border-color:transparent transparent transparent #eee}.tooltip-left{position:absolute;top:50%;left:calc(100% + 10px);transform:translateY(-50%);z-index:1;background-color:#eee;color:#555;text-align:center;padding:8px;border-radius:6px;visibility:hidden;opacity:0;transition:opacity .3s;font-size:14px;white-space:nowrap;outline:0}.tooltip-left::before{content:"";position:absolute;top:50%;left:-10px;transform:translateY(-50%);border-width:5px;border-style:solid;border-color:transparent #eee transparent transparent}.tooltip-bottom{position:absolute;top:calc(100% + 10px);left:10%;transform:translateX(-50%);z-index:1;background-color:#eee;color:#555;text-align:center;padding:8px;border-radius:6px;visibility:hidden;opacity:0;transition:opacity .3s;font-size:14px;white-space:nowrap;outline:0}.tooltip-bottom::before{content:"";position:absolute;top:-10px;left:57%;transform:translateX(-50%);border-width:5px;border-style:solid;border-color:transparent transparent #eee transparent}.menu-bar{position:fixed;top:0;left:0;width:100%;height:40px;background-color:white;box-shadow:0 2px 4px rgba(0,0,0,0.1);z-index:99999;padding:10px 10px 10px 20px;display:flex;justify-content:space-between;align-items:center}.left-section{display:flex;align-items:center}.middle-section{flex:1;display:flex;justify-content:center}.project-title{display:flex;align-items:left;justify-content:flex-start;padding:0 30px;font-size:large;font-family:'Be Vietnam',sans-serif;font-weight:1200;color:#306b1b}.right-section{display:flex;align-items:center;padding-right:30px}.company-logo{max-width:100px;max-height:40px}@media only screen and (max-width:768px){.search-bar{right:60px}.downloadProjSheetsAsZip-button{right:2%}.downloadProjectListAsExcel-button{right:6%}.filterProjects-button{right:10%}}@media only screen and (max-width:576px){.search-bar{right:12%}.downloadProjSheetsAsZip-button{right:0}.downloadProjectListAsExcel-button{right:4%}.filterProjects-button{right:8%}}.stats-button{position:absolute;top:210px;left:22px;width:40px;height:40px;border-radius:50%;border:0;background-color:#fff;color:#363636;font-size:20px;cursor:pointer;display:flex;justify-content:center;align-items:center;z-index:999;box-shadow:0 2px 4px rgba(0,0,0,0.1)}.stats-button:hover{background-color:#c9c9c9}.stats-button:hover .tooltip-left{visibility:visible;opacity:1;font-family:'Be Vietnam',sans-serif}.stats-button span{line-height:1}.slideMenuStats{height:100vh;width:0;position:fixed;top:0;left:0;background-color:rgba(255,255,255,0.5);overflow-x:hidden;transition:.5s;box-shadow:0 2px 4px rgba(0,0,0,0.1);z-index:9998;backdrop-filter:blur(10px)}.slideMenuStats.active{width:450px}.slideMenuStats-content{display:flex;flex-direction:column;align-items:center;padding:20px;height:15%}.slideMenuStats-close{position:absolute;top:80px;right:10px;font-size:10px;margin-left:50px;cursor:pointer}.dashboard-title{font-weight:none;font-size:18px;color:#414141;text-shadow:2px 2px 4px rgba(0,0,0,0.2);margin-bottom:20px;margin-top:70px}.section-title{font-size:10px;color:#777;text-align:center;margin-bottom:-2px;margin-top:-15px}.divider{width:50%;border-top:1px solid #f8f8f8;margin:20px 0}.farm-count{font-size:60px;color:#306b1b;margin-top:0;font-weight:900;text-shadow:2px 2px 4px rgba(0,0,0,0.2);margin-top:-40px}.totalfarmarea-sum{font-size:60px;color:#545454;margin-top:0;font-weight:900;text-shadow:2px 2px 4px rgba(0,0,0,0.2);margin-top:-40px}.device-count{font-size:40px;color:#545454;font-weight:900;text-shadow:2px 2px 4px rgba(0,0,0,0.2);margin-top:-40px;margin-right:10px;margin-bottom:10px}.needattention-sum{font-size:50px;color:#fc2a2a;margin-top:0;font-weight:900;text-shadow:2px 2px 4px rgba(0,0,0,0.2);margin-top:-40px}.currentproductivity-sum,.expectedproductivity-sum{font-size:40px;color:#545454;margin-top:0;font-weight:900;text-shadow:2px 2px 4px rgba(0,0,0,0.2);margin-top:-40px}.farm-grid-container{display:flex;align-items:center;position:relative}.navigation{position:absolute;top:50%;transform:translateY(-50%);cursor:pointer;z-index:10}.left-nav{left:-40px}.right-nav{right:-40px}.nav-icon{font-size:24px;color:#545454}.farm-grid{display:flex;flex-wrap:wrap;justify-content:space-between}.farm-pair{width:20%;margin-bottom:20px;display:flex;flex-direction:column;align-items:center}.coffeefarms-count,.durianfarms-count,.pepperfarms-count,.teafarms-count,.otherplants-count{font-size:25px;font-weight:bold;margin-bottom:10px;text-align:center;color:#545454}.farm-icon{width:40px;height:40px;background-size:cover;background-repeat:no-repeat;margin-bottom:10px}.coffeefarms-icon{background-image:url('images/icons8-coffee-beans-96.png');margin-bottom:-2px;margin-top:-20px}.durianfarms-icon{background-image:url('images/icons8-durian-96.png');margin-bottom:-2px;margin-top:-20px}.pepperfarms-icon{background-image:url('images/icons8-pepper-96.png');margin-bottom:-2px;margin-top:-20px}.teafarms-icon{background-image:url('images/icons8-tea-leaves-64.png');margin-bottom:-2px;margin-top:-20px}.otherplants-icon{background-image:url('images/icons8-plant-96.png');margin-bottom:-2px;margin-top:-20px}.info-button{position:absolute;top:160px;left:22px;width:40px;height:40px;border-radius:50%;border:0;background-color:#fff;color:#363636;font-size:20px;cursor:pointer;display:flex;justify-content:center;align-items:center;z-index:999;box-shadow:0 2px 4px rgba(0,0,0,0.1)}.info-button:hover{background-color:#c9c9c9}.info-button:hover .tooltip-left{visibility:visible;opacity:1;font-family:'Be Vietnam',sans-serif}.info-button span{line-height:1}.info-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:99999;background-color:#fff;border-radius:8px;padding:20px;box-shadow:0 0 10px rgba(0,0,0,0.2);display:flex;flex-direction:column;align-items:center;max-width:400px;min-width:300px;font-size:smaller}.info-image{position:relative;background-image:url('https://uploads.nguoidothi.net.vn/content/1b5cdbd6-2a1d-497d-ab5e-ae8451669583.jpg');background-size:cover;background-position:center;height:200px;width:calc(100% + 40px);margin-left:-20px;margin-right:-20px;border-radius:8px 8px 0 0;object-fit:cover}.info-image::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.2);border-radius:8px 8px 0 0}.info-logo{text-align:center;margin-bottom:-10px}.info-logo img{width:30px;height:auto}.info-content{flex:1;margin-top:-22px;font-family:'Be Vietnam',sans-serif;text-align:center}.info-content h3{font-family:'Be Vietnam',sans-serif}.dismiss-button{background-color:#306b1b;color:#fff;border:0;padding:8px 16px;border-radius:4px;cursor:pointer;transition:background-color .3s ease;margin-top:20px;align-self:flex-end;box-shadow:0 0 10px rgba(0,0,0,0.2)}.dismiss-button:hover{background-color:#009e69;box-shadow:0 0 10px rgba(0,0,0,0.2)}.popup-historicalsoildata{position:fixed;top:60px;right:0;padding:20px;border-radius:0;z-index:9999999;overflow-y:auto;display:flex;flex-direction:column;gap:10px;color:#555;width:535px;height:90vh;box-shadow:0 2px 4px rgba(0,0,0,0.1);background-color:rgba(255,255,255,0.5);backdrop-filter:blur(10px)}.close-btn{position:absolute;top:10px;right:10px;background:0;border:0;font-size:24px;cursor:pointer;color:#333}.close-btn:hover{color:#000}.popup-historicalsoildata::-webkit-scrollbar{width:8px}.popup-historicalsoildata::-webkit-scrollbar-track{background:#f1f1f1;right:3px}.popup-historicalsoildata::-webkit-scrollbar-thumb{background:#f1f1f1;border-radius:4px}.popup-historicalsoildata::-webkit-scrollbar-thumb:hover{background:#555}.header{display:flex;justify-content:space-between;align-items:center}.header h4.title{display:flex;align-items:center;color:#414141;margin:0}.headerNPK,.headerMoist,.headerpH,.headerTemp,.headerNDT,.headerP205,.headerk2o{display:flex;justify-content:space-between;align-items:center}.headerNPK,.headerMoist,.headerpH,.headerTemp,.headerNDT,.headerP205,.headerk2o,h5.title{display:flex;align-items:center;margin:0;font-size:18px;font-weight:900;font-family:'Be Vietnam',sans-serif}.header{cursor:move}.popup-historicalsoildata canvas{margin-bottom:15px}.home-button{position:absolute;bottom:180px;right:22px;width:40px;height:40px;border-radius:50%;border:0;background-color:#fff;color:#363636;font-size:20px;cursor:pointer;display:flex;justify-content:center;align-items:center;z-index:999;box-shadow:0 2px 4px rgba(0,0,0,0.1)}.home-button:hover{background-color:#c9c9c9}.home-button:hover .tooltip-right{visibility:visible;opacity:1;font-family:'Be Vietnam',sans-serif}.home-button span{line-height:1}.userlocation-button{position:absolute;bottom:130px;right:22px;width:40px;height:40px;border-radius:50%;border:0;background-color:#fff;color:#363636;font-size:20px;cursor:pointer;display:flex;justify-content:center;align-items:center;z-index:999;box-shadow:0 2px 4px rgba(0,0,0,0.1)}.userlocation-button:hover{background-color:#c9c9c9}.userlocation-button:hover .tooltip-right{visibility:visible;opacity:1;font-family:'Be Vietnam',sans-serif}.userlocation-button span{line-height:1}.fullscreen-button{position:absolute;bottom:30px;right:22px;width:40px;height:40px;border-radius:50%;border:0;background-color:#fff;color:#363636;font-size:20px;cursor:pointer;display:flex;justify-content:center;align-items:center;z-index:999;box-shadow:0 2px 4px rgba(0,0,0,0.1)}.fullscreen-button:hover{background-color:#c9c9c9}.fullscreen-button:hover .tooltip-right{visibility:visible;opacity:1;font-family:'Be Vietnam',sans-serif}.fullscreen-button span{line-height:1}.insetmap-button{position:absolute;bottom:60px;left:22px;width:40px;height:40px;border-radius:50%;border:0;background-color:#fff;color:#363636;font-size:20px;cursor:pointer;display:flex;justify-content:center;align-items:center;z-index:999;box-shadow:0 2px 4px rgba(0,0,0,0.1)}.insetmap-button:hover{background-color:#c9c9c9}.insetmap-button:hover .tooltip-left{visibility:visible;opacity:1;font-family:'Be Vietnam',sans-serif}.insetmap-button span{line-height:1}.insetmap-button.active{background-color:#f0f0f0}#inset-map{position:absolute;bottom:70px;left:80px;width:160px;height:160px;z-index:999;box-shadow:0 0 10px rgba(255,255,255,0.7),0 0 5px rgba(0,0,0,0.7);border-radius:5px;transition:transform .3s ease-in-out,opacity .3s ease-in-out}#inset-map.hidden{transform:translateY(10px);opacity:0;pointer-events:none}.mapbox3Dterrain-button{position:absolute;top:250px;right:22px;width:40px;height:40px;border-radius:50%;border:0;background-color:#fff;color:#363636;font-size:20px;cursor:pointer;display:flex;justify-content:center;align-items:center;z-index:999;box-shadow:0 2px 4px rgba(0,0,0,0.1)}.mapbox3Dterrain-button:hover{background-color:#c9c9c9}.mapbox3Dterrain-button span{line-height:1}.mapbox3Dterrain-button:hover .tooltip-right{visibility:visible;opacity:1;font-family:'Be Vietnam',sans-serif}.view-in-3D:hover #text{display:none}.timeTrend-buttons{margin-top:10px;display:flex;gap:10px}.timeTrend-buttons button{padding:10px 10px;border:0;border-radius:100px;background-color:#fcfbfb;color:#303030;font-size:8px;cursor:pointer;transition:background-color .3s ease,transform .3s ease;box-shadow:2px 2px 5px rgba(0,0,0,0.2)}.timeTrend-buttons button:hover{background-color:#019d6b;color:#f1f1f1}.timeTrend-buttons button:active,.timeTrend-buttons button.active{background-color:#019d6b;color:#f1f1f1}.timeTrend-buttons button:active{transform:translateY(0)}.logout-Btn{--black:#000;--ch-black:#141414;--eer-black:#1b1b1b;--night-rider:#2e2e2e;--white:#fff;--af-white:#fff;--ch-white:#e1e1e1;display:flex;align-items:center;justify-content:flex-start;width:45px;height:45px;border:0;border-radius:5px;cursor:pointer;position:relative;overflow:hidden;transition-duration:.3s;background-color:var(--af-white)}.sign{width:100%;transition-duration:.3s;display:flex;align-items:center;justify-content:center}.sign svg{width:17px}.sign svg path{fill:var(--night-rider)}.text{position:absolute;right:0;width:0;opacity:0;color:var(--night-rider);font-size:1.2em;font-weight:600;transition-duration:.3s}.logout-Btn:hover{width:150px;border-radius:5px;transition-duration:.3s}.logout-Btn:hover .sign{width:13%;transition-duration:.3s;padding-left:20px}.logout-Btn:hover .text{opacity:1;width:70%;transition-duration:.3s;padding-right:10px}.logout-Btn:active{transform:translate(2px,2px)}.tooltip{display:none;position:absolute;right:80px;background-color:white;color:#333;padding:10px;border:0;border-radius:6px;font-size:.875rem;box-shadow:0 4px 8px rgba(0,0,0,0.1);z-index:1000;transition:opacity .2s,transform .2s;opacity:0;transform:translateY(-15px);pointer-events:none;font-family:'Be Vietnam',sans-serif;font-weight:200;font-size:12px;width:300px}.headerNPK:hover .tooltip,.headerMoist:hover .tooltip,.headerpH:hover .tooltip,.headerTemp:hover .tooltip,.headerNDT:hover .tooltip,.headerP205:hover .tooltip,.headerk2o:hover .tooltip{display:block;opacity:1;transform:translateY(5px);pointer-events:auto}.view-in-3D:hover .tooltip-bottom{visibility:visible;opacity:1}.zoom-in-farm:hover .tooltip-bottom{visibility:visible;opacity:1}.toggle-text-container:hover .tooltip-bottom{visibility:visible;opacity:1}.showHistoricalSoilData-btn:hover .tooltip-left{visibility:visible;opacity:1}.showHistoricalSoilData-btn:hover .material-symbols-outlined{color:green}.npkreccomendation-tooltip{font-size:10px}.leaflet-bottom.leaflet-left{display:flex;flex-direction:column;align-items:flex-start}.leaflet-control-scale{margin-bottom:-90px !important}.tooltip{display:none;position:absolute;right:80px;background-color:white;color:#333;padding:10px;border:0;border-radius:6px;font-size:.875rem;box-shadow:0 4px 8px rgba(0,0,0,0.1);z-index:1000;transition:opacity .2s,transform .2s;opacity:0;transform:translateY(-15px);pointer-events:none;font-family:'Be Vietnam',sans-serif;font-weight:200;font-size:12px;width:300px}.headerNPK:hover .tooltip,.headerMoist:hover .tooltip,.headerpH:hover .tooltip,.headerTemp:hover .tooltip,.headerNDT:hover .tooltip,.headerP205:hover .tooltip,.headerk2o:hover .tooltip{display:block;opacity:1;transform:translateY(5px);pointer-events:auto}.view-in-3D:hover .tooltip-bottom{visibility:visible;opacity:1}.zoom-in-farm:hover .tooltip-bottom{visibility:visible;opacity:1}.toggle-text-container:hover .tooltip-bottom{visibility:visible;opacity:1}.showHistoricalSoilData-btn:hover .tooltip-left{visibility:visible;opacity:1}.showHistoricalSoilData-btn:hover .material-symbols-outlined{color:green}.npkreccomendation-tooltip{font-size:10px}.canvas-container{display:flex;align-items:center;height:115px}.canvas-container canvas{margin:0 10px}.canvas-container-2{display:flex;align-items:center;height:115px}.canvas-container-2 canvas{margin:0 10px}.lang-switch{position:relative;right:22px;background-color:#306b1b;color:#fff;border:0;padding:10px 10px;font-size:16px;cursor:pointer;border-radius:10px;transition:background-color .3s,transform .3s;box-shadow:0 0 10px rgba(0,0,0,0.2);z-index:999}.lang-switch:hover{background-color:#009e69;transform:scale(1.05)}.lang-switch:hover .tooltip-left{visibility:visible;opacity:1}.lang-switch.active{background-color:#28a745;color:#fff}.farm-popup{max-width:300px}.farm-popup-header{position:relative;height:150px;overflow:hidden}.farm-image{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}.farm-popup-header:hover .farm-image{transform:scale(1.1)}.farm-info{position:absolute;bottom:10px;left:10px;color:white;text-shadow:1px 1px 2px rgba(0,0,0,0.8)}.farm-popup-content{padding:15px}.farm-popup-actions{display:flex;justify-content:space-between;margin-top:15px}.view-3d-btn,.soil-data-btn{display:flex;align-items:center;padding:5px 10px;border:0;border-radius:20px;cursor:pointer;transition:background-color .3s}.view-3d-btn{background-color:#4caf50;color:white}.soil-data-btn{background-color:#2196f3;color:white}.tree-icon{width:20px;height:20px;vertical-align:middle;margin-right:5px}.material-icons{font-size:18px;margin-right:5px}.gauge-wrapper{display:flex;flex-wrap:wrap;justify-content:center}.canvas-container,.canvas-container-2{display:flex;flex-wrap:nowrap;justify-content:center;gap:10px}canvas{width:160px;height:auto}.gauge-wrapper[data-farm-type="durian"] .canvas-container,.gauge-wrapper[data-farm-type="durian"] .canvas-container-2{width:100%;gap:20px}.gauge-wrapper[data-farm-type="coffee"] .canvas-container{display:none}.gauge-wrapper[data-farm-type="coffee"] .canvas-container-2{width:100%;justify-content:center;gap:5px}@media(max-width:768px){.canvas-container,.canvas-container-2{flex-wrap:wrap}canvas{width:140px}.gauge-wrapper[data-farm-type="coffee"] .canvas-container-2{gap:10px}}.durian-charts[data-farm-type="coffee"]{display:none}.durian-charts[data-farm-type="durian"]{display:block;margin-bottom:20px}body[data-farm-type="coffee"] .durian-charts,body[data-farm-type="coffee"] .headerNDT,body[data-farm-type="coffee"] .headerP205,body[data-farm-type="coffee"] .headerk2o{display:none;height:0;margin:0;padding:0;overflow:hidden}.headerNPK,.headerMoist,.headerpH,.headerTemp{margin-top:20px}body[data-farm-type="coffee"] .headerNPK{margin-top:0}body[data-farm-type="durian"] .headerNDT{margin-top:0}.zone-boxes{display:flex;gap:20px;margin-top:0;align-items:center;position:absolute;right:20px}.zone-item{display:flex;align-items:center;gap:5px}.zone-box{width:10px;height:10px}.zone-item p{margin:0;font-size:10px;color:#555;text-align:left}.marker-cluster div{width:30px;height:30px;margin-left:5px;margin-top:5px;text-align:center;border-radius:15px;font:12px "Helvetica Neue",Arial,Helvetica,sans-serif;font-weight:bold;color:#fff;text-shadow:2px 2px 4px rgba(0,0,0,0.8)}.marker-cluster span{line-height:30px}#ndtChartContainer,#p205ChartContainer,#k2oChartContainer,#npkChartContainer,#moistureChartContainer,#pHChartContainer,#tempChartContainer{position:relative;width:100%;height:220px;background-size:cover;background-position:center;border-radius:10px;overflow:hidden;box-shadow:0 4px 8px rgba(0,0,0,0.2)}#ndtChartContainer::before,#p205ChartContainer::before,#k2oChartContainer::before,#npkChartContainer::before,#moistureChartContainer::before,#pHChartContainer::before,#tempChartContainer::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:inherit;filter:blur(2px);transform:scale(1.1)}#ndtChartContainer::after,#p205ChartContainer::after,#k2oChartContainer::after,#npkChartContainer::after,#moistureChartContainer::after,#pHChartContainer::after,#tempChartContainer::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,rgba(255,255,255,0) 0,rgba(255,255,255,0.5) 100%);border-radius:10px;pointer-events:none}#ndtChart,#p205Chart,#k2oChart,#npkChart,#moistChart,#phChart,#tempChart{position:relative;z-index:1;margin:10px auto;width:calc(100% - 50px) !important;height:calc(100% - 40px) !important}.recenter-btn{background:0;border:0;padding:0;cursor:pointer;font-size:12px;color:#555;transition:all .3s ease}.recenter-btn:hover{color:#000;transform:scale(1.2)}.recenter-btn .material-symbols-outlined{font-size:13px;transition:all .3s ease}.recenter-btn:hover .material-symbols-outlined{font-size:15px}
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+.leaflet-popup-content-wrapper {
+    min-width: 100px !important;
+    max-width: 328px !important;
+    border-radius: 5px;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+
+.tooltip-right {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 10px);
+    transform: translateY(-50%);
+    z-index: 1;
+    background-color: #eeeeee;
+    color: #555;
+    text-align: center;
+    padding: 8px;
+    border-radius: 6px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    white-space: nowrap;
+    outline: none;
+}
+
+.tooltip-right::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    transform: translateY(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #eeeeee;
+}
+
+.tooltip-left {
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 10px);
+    transform: translateY(-50%);
+    z-index: 1;
+    background-color: #eeeeee;
+    color: #555;
+    text-align: center;
+    padding: 8px;
+    border-radius: 6px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    white-space: nowrap;
+    outline: none;
+}
+
+.tooltip-left::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -10px;
+    /* Adjust this value as needed */
+    transform: translateY(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #eeeeee transparent transparent;
+}
+
+
+
+.tooltip-bottom {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 10%;
+    transform: translateX(-50%);
+    z-index: 1;
+    background-color: #eeeeee;
+    color: #555;
+    text-align: center;
+    padding: 8px;
+    border-radius: 6px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    white-space: nowrap;
+    outline: none;
+}
+
+.tooltip-bottom::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 57%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #eeeeee transparent;
+}
+
+
+/*Start Menu Bar*/
+.menu-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 99999;
+    padding: 10px 10px 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+}
+
+.middle-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.project-title {
+    display: flex;
+    align-items: left;
+    justify-content: flex-start;
+    padding: 0 30px;
+    font-size: large;
+    font-family: 'Be Vietnam', sans-serif;
+    font-weight: 1200;
+    color: #306b1b;
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+    padding-right: 30px;
+}
+
+.company-logo {
+    max-width: 100px;
+    max-height: 40px;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 768px) {
+    .search-bar {
+        right: 60px;
+    }
+
+    .downloadProjSheetsAsZip-button {
+        right: 2%;
+    }
+
+    .downloadProjectListAsExcel-button {
+        right: 6%;
+    }
+
+    .filterProjects-button {
+        right: 10%;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .search-bar {
+        right: 12%;
+    }
+
+    .downloadProjSheetsAsZip-button {
+        right: 0;
+    }
+
+    .downloadProjectListAsExcel-button {
+        right: 4%;
+    }
+
+    .filterProjects-button {
+        right: 8%;
+    }
+}
+
+/*End Menu Bar*/
+.stats-button {
+    position: absolute;
+    top: 210px;
+    left: 22px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(54, 54, 54);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+.stats-button:hover {
+    background-color: #c9c9c9;
+}
+
+.stats-button:hover .tooltip-left {
+    visibility: visible;
+    opacity: 1;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+.stats-button span {
+    line-height: 1;
+}
+
+.slideMenuStats {
+    height: 100vh;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    /* White with 80% opacity */
+    overflow-x: hidden;
+    transition: 0.5s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 9998;
+    backdrop-filter: blur(10px);
+    /* Apply blur effect */
+}
+
+
+.slideMenuStats.active {
+    width: 450px;
+}
+
+.slideMenuStats-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: 15%;
+}
+
+.slideMenuStats-close {
+    position: absolute;
+    top: 80px;
+    right: 10px;
+    font-size: 10px;
+    margin-left: 50px;
+    cursor: pointer;
+}
+
+.dashboard-title {
+    font-weight: none;
+    font-size: 18px;
+    color: rgb(65, 65, 65);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    margin-top: 70px;
+}
+
+/* Section Title */
+.section-title {
+    font-size: 10px;
+    color: #777;
+    text-align: center;
+    margin-bottom: -2px;
+    margin-top: -15px;
+}
+
+/* Divider style */
+.divider {
+    width: 50%;
+    border-top: 1px solid rgb(248, 248, 248);
+    margin: 20px 0;
+}
+
+
+.farm-count {
+    font-size: 60px;
+    color: #306b1b;
+    margin-top: 0px;
+    font-weight: 900;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: -40px;
+}
+
+
+.totalfarmarea-sum {
+    font-size: 60px;
+    color: #545454;
+    margin-top: 0px;
+    font-weight: 900;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: -40px;
+}
+
+.device-count {
+    font-size: 40px;
+    color: #545454;
+    font-weight: 900;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: -40px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+}
+
+.needattention-sum {
+    font-size: 50px;
+    color: #fc2a2a;
+    margin-top: 0px;
+    font-weight: 900;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: -40px;
+}
+
+.currentproductivity-sum,
+.expectedproductivity-sum {
+    font-size: 40px;
+    color: #545454;
+    margin-top: 0px;
+    font-weight: 900;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: -40px;
+}
+
+
+
+
+.farm-grid-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.navigation {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.left-nav {
+    left: -40px; /* Adjust as needed */
+}
+
+.right-nav {
+    right: -40px; /* Adjust as needed */
+}
+
+.nav-icon {
+    font-size: 24px;
+    color: #545454;
+}
+
+
+/* Farm Grid Layout */
+.farm-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Farm Pair */
+.farm-pair {
+    width: 20%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Farm Count */
+.coffeefarms-count,
+.durianfarms-count,
+.pepperfarms-count,
+.teafarms-count,
+.otherplants-count {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #545454;
+}
+
+
+/* Farm Icon */
+.farm-icon {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+}
+
+
+/* Coffee Farm Icon */
+.coffeefarms-icon {
+    background-image: url('images/icons8-coffee-beans-96.png');
+    margin-bottom: -2px;
+    margin-top: -20px;
+}
+
+/* Durian Farm Icon */
+.durianfarms-icon {
+    background-image: url('images/icons8-durian-96.png');
+    margin-bottom: -2px;
+    margin-top: -20px;
+}
+
+/* Pepper Farm Icon */
+.pepperfarms-icon {
+    background-image: url('images/icons8-pepper-96.png');
+    margin-bottom: -2px;
+    margin-top: -20px;
+}
+
+/* Tea Farm Icon */
+.teafarms-icon {
+    background-image: url('images/icons8-tea-leaves-64.png');
+    margin-bottom: -2px;
+    margin-top: -20px;
+}
+
+/* Other Plants Farm Icon */
+.otherplants-icon {
+    background-image: url('images/icons8-plant-96.png');
+    margin-bottom: -2px;
+    margin-top: -20px;
+}
+
+
+
+
+
+
+
+
+
+/*start app info button related*/
+.info-button {
+    position: absolute;
+    top: 160px;
+    left: 22px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(54, 54, 54);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info-button:hover {
+    background-color: #c9c9c9;
+}
+
+.info-button:hover .tooltip-left {
+    visibility: visible;
+    opacity: 1;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+.info-button span {
+    line-height: 1;
+}
+
+.info-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    min-width: 300px;
+    font-size: smaller;
+}
+
+.info-image {
+    position: relative;
+    background-image: url('https://uploads.nguoidothi.net.vn/content/1b5cdbd6-2a1d-497d-ab5e-ae8451669583.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+    border-radius: 8px 8px 0 0;
+    object-fit: cover;
+}
+
+.info-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px 8px 0 0;
+}
+
+.info-logo {
+    text-align: center;
+    margin-bottom: -10px;
+}
+
+.info-logo img {
+    width: 30px;
+    height: auto;
+}
+
+.info-content {
+    flex: 1;
+    margin-top: -22px;
+    font-family: 'Be Vietnam', sans-serif;
+    text-align: center;
+}
+
+.info-content h3 {
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+.dismiss-button {
+    /*background-color: #00b97b;*/
+    background-color: #306b1b;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    align-self: flex-end;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dismiss-button:hover {
+    background-color: #009e69;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+/*end app info button related*/
+
+
+
+
+
+
+
+
+
+/*Historical Soil Data Line Chart pop up*/
+.popup-historicalsoildata {
+    position: fixed;
+    top: 60px;
+    right: 0px;
+    padding: 20px;
+    border-radius: 0px;
+    z-index: 9999999;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #555;
+    width: 535px;
+    /* Set the desired width */
+    height: 90vh;
+    /* Set the desired height */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    /* Apply blur effect */
+
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+.close-btn:hover {
+    color: #000;
+}
+
+.popup-historicalsoildata::-webkit-scrollbar {
+    width: 8px;
+}
+
+.popup-historicalsoildata::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    right: 3px;
+    /* Push scrollbar to the left by 3px */
+}
+
+.popup-historicalsoildata::-webkit-scrollbar-thumb {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.popup-historicalsoildata::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h4.title {
+    display: flex;
+    align-items: center;
+    color: rgb(65, 65, 65);
+    /*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);*/
+    margin: 0;
+}
+
+.headerNPK,
+.headerMoist,
+.headerpH,
+.headerTemp,
+.headerNDT,
+.headerP205,
+.headerk2o {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerNPK,
+.headerMoist,
+.headerpH,
+.headerTemp,
+.headerNDT,
+.headerP205,
+.headerk2o,
+h5.title {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 900;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+
+/*canvas {
+    border: 1px solid #e0e0e000;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}*/
+
+.header {
+    cursor: move;
+}
+
+.popup-historicalsoildata canvas {
+    margin-bottom: 15px;
+    /* Add bottom margin of 15px */
+}
+
+/*Home Button*/
+.home-button {
+    position: absolute;
+    bottom: 180px;
+    right: 22px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(54, 54, 54);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.home-button:hover {
+    background-color: #c9c9c9;
+}
+
+.home-button:hover .tooltip-right {
+    visibility: visible;
+    opacity: 1;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+.home-button span {
+    line-height: 1;
+}
+
+
+/*Locate User Button*/
+.userlocation-button {
+    position: absolute;
+    bottom: 130px;
+    right: 22px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(54, 54, 54);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.userlocation-button:hover {
+    background-color: #c9c9c9;
+}
+
+.userlocation-button:hover .tooltip-right {
+    visibility: visible;
+    opacity: 1;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+.userlocation-button span {
+    line-height: 1;
+}
+
+
+/*Fullscreen Button*/
+.fullscreen-button {
+    position: absolute;
+    bottom: 30px;
+    right: 22px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(54, 54, 54);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.fullscreen-button:hover {
+    background-color: #c9c9c9;
+}
+
+.fullscreen-button:hover .tooltip-right {
+    visibility: visible;
+    opacity: 1;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+.fullscreen-button span {
+    line-height: 1;
+}
+
+/*Inset Map Button*/
+.insetmap-button {
+    position: absolute;
+    bottom: 60px;
+    left: 22px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(54, 54, 54);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.insetmap-button:hover {
+    background-color: #c9c9c9;
+}
+
+.insetmap-button:hover .tooltip-left {
+    visibility: visible;
+    opacity: 1;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+.insetmap-button span {
+    line-height: 1;
+}
+
+.insetmap-button.active {
+    background-color: #f0f0f0;
+}
+
+/*Inset Map*/
+
+#inset-map {
+    position: absolute;
+    bottom: 70px;
+    left: 80px;
+    width: 160px;
+    height: 160px;
+    z-index: 999;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 5px rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+#inset-map.hidden {
+    transform: translateY(10px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+
+/*Launch Mapbox 3D Viewer*/
+.mapbox3Dterrain-button {
+    position: absolute;
+    top: 250px;
+    right: 22px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(54, 54, 54);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mapbox3Dterrain-button:hover {
+    background-color: #c9c9c9;
+}
+
+.mapbox3Dterrain-button span {
+    line-height: 1;
+}
+
+.mapbox3Dterrain-button:hover .tooltip-right {
+    visibility: visible;
+    opacity: 1;
+    font-family: 'Be Vietnam', sans-serif;
+}
+
+
+
+/*Style to replace 3D text wit elevation icon on hover*/
+.view-in-3D:hover #text {
+    display: none;
+    /* Hide the text content when the button is hovered */
+}
+
+
+
+
+
+
+
+
+
+
+/* Time Trend Soil Historical Data*/
+.timeTrend-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+
+    /* Creates space between buttons */
+}
+
+.timeTrend-buttons button {
+    padding: 10px 10px;
+    border: none;
+    border-radius: 100px;
+    background-color: #fcfbfb;
+    color: rgb(48, 48, 48);
+    font-size: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    /* Adjust the values as needed */
+}
+
+
+.timeTrend-buttons button:hover {
+    background-color: #019d6b;
+    color: #f1f1f1;
+}
+
+.timeTrend-buttons button:active,
+.timeTrend-buttons button.active {
+    background-color: #019d6b;
+    color: #f1f1f1;
+}
+
+.timeTrend-buttons button:active {
+    transform: translateY(0);
+}
+
+
+/*Logout*/
+.logout-Btn {
+    --black: #000000;
+    --ch-black: #141414;
+    --eer-black: #1b1b1b;
+    --night-rider: #2e2e2e;
+    --white: #ffffff;
+    --af-white: #ffffff;
+    --ch-white: #e1e1e1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: .3s;
+    background-color: var(--af-white);
+}
+
+/* plus sign */
+.sign {
+    width: 100%;
+    transition-duration: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sign svg {
+    width: 17px;
+}
+
+.sign svg path {
+    fill: var(--night-rider);
+}
+
+/* text */
+.text {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    color: var(--night-rider);
+    font-size: 1.2em;
+    font-weight: 600;
+    transition-duration: .3s;
+}
+
+/* hover effect on button width */
+.logout-Btn:hover {
+    width: 150px;
+    border-radius: 5px;
+    transition-duration: .3s;
+}
+
+.logout-Btn:hover .sign {
+    width: 13%;
+    transition-duration: .3s;
+    padding-left: 20px;
+}
+
+/* hover effect button's text */
+.logout-Btn:hover .text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: .3s;
+    padding-right: 10px;
+}
+
+/* button click effect*/
+.logout-Btn:active {
+    transform: translate(2px, 2px);
+}
+
+
+/* Recommendation Tooltip */
+/* Common Tooltip Styling */
+.tooltip {
+    display: none;
+    position: absolute;
+    right: 80px;
+    background-color: white;
+    color: #333;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: opacity 0.2s, transform 0.2s;
+    opacity: 0;
+    transform: translateY(-15px);
+    /* Adjust the translateY value as needed */
+    pointer-events: none;
+    font-family: 'Be Vietnam', sans-serif;
+    font-weight: 200;
+    font-size: 12px;
+    width: 300px;
+}
+
+/* Hover Effect  */
+.headerNPK:hover .tooltip,
+.headerMoist:hover .tooltip,
+.headerpH:hover .tooltip,
+.headerTemp:hover .tooltip,
+.headerNDT:hover .tooltip,
+.headerP205:hover .tooltip,
+.headerk2o:hover .tooltip {
+    display: block;
+    opacity: 1;
+    transform: translateY(5px);
+    pointer-events: auto;
+}
+
+
+
+.view-in-3D:hover .tooltip-bottom {
+    visibility: visible;
+    opacity: 1;
+}
+
+.zoom-in-farm:hover .tooltip-bottom {
+    visibility: visible;
+    opacity: 1;
+}
+
+.toggle-text-container:hover .tooltip-bottom {
+    visibility: visible;
+    opacity: 1;
+}
+
+.showHistoricalSoilData-btn:hover .tooltip-left {
+    visibility: visible;
+    opacity: 1;
+}
+
+.showHistoricalSoilData-btn:hover .material-symbols-outlined {
+    color: green;
+}
+
+
+.npkreccomendation-tooltip {
+    font-size: 10px;
+}
+
+
+/*Scale bar*/
+.leaflet-bottom.leaflet-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+.leaflet-control-scale {
+    margin-bottom: -90px !important;
+}
+
+
+
+
+
+
+/* Recommendation Tooltip */
+/* Common Tooltip Styling */
+.tooltip {
+    display: none;
+    position: absolute;
+    right: 80px;
+    background-color: white;
+    color: #333;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: opacity 0.2s, transform 0.2s;
+    opacity: 0;
+    transform: translateY(-15px);
+    /* Adjust the translateY value as needed */
+    pointer-events: none;
+    font-family: 'Be Vietnam', sans-serif;
+    font-weight: 200;
+    font-size: 12px;
+    width: 300px;
+}
+
+/* Hover Effect  */
+.headerNPK:hover .tooltip,
+.headerMoist:hover .tooltip,
+.headerpH:hover .tooltip,
+.headerTemp:hover .tooltip,
+.headerNDT:hover .tooltip,
+.headerP205:hover .tooltip,
+.headerk2o:hover .tooltip {
+    display: block;
+    opacity: 1;
+    transform: translateY(5px);
+    pointer-events: auto;
+}
+
+
+
+.view-in-3D:hover .tooltip-bottom {
+    visibility: visible;
+    opacity: 1;
+}
+
+.zoom-in-farm:hover .tooltip-bottom {
+    visibility: visible;
+    opacity: 1;
+}
+
+.toggle-text-container:hover .tooltip-bottom {
+    visibility: visible;
+    opacity: 1;
+}
+
+.showHistoricalSoilData-btn:hover .tooltip-left {
+    visibility: visible;
+    opacity: 1;
+}
+
+.showHistoricalSoilData-btn:hover .material-symbols-outlined {
+    color: green;
+}
+
+
+.npkreccomendation-tooltip {
+    font-size: 10px;
+}
+
+
+.canvas-container {
+    display: flex;
+    align-items: center;
+    /*width: 100px;*/
+    height: 115px;
+}
+
+.canvas-container canvas {
+    margin: 0 10px;
+    /* Add some margin if needed */
+
+}
+
+.canvas-container-2 {
+    display: flex;
+    align-items: center;
+    /*width: 100px;*/
+    height: 115px;
+}
+
+.canvas-container-2 canvas {
+    margin: 0 10px;
+    /* Add some margin if needed */
+
+}
+
+/*Language switcher*/
+.lang-switch {
+    position: relative;
+    right: 22px;
+    /*background-color: #00b97b;*/
+    background-color: #306b1b;
+    color: #ffffff;
+    border: none;
+    padding: 10px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+}
+
+/* Hover effect */
+.lang-switch:hover {
+    background-color: #009e69;
+    transform: scale(1.05);
+}
+
+.lang-switch:hover .tooltip-left {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Active state */
+.lang-switch.active {
+    background-color: #28a745;
+    color: #fff;
+}
+
+
+
+
+
+
+.farm-popup {
+    max-width: 300px;
+}
+
+.farm-popup-header {
+    position: relative;
+    height: 150px;
+    overflow: hidden;
+}
+
+.farm-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.farm-popup-header:hover .farm-image {
+    transform: scale(1.1);
+}
+
+.farm-info {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.farm-popup-content {
+    padding: 15px;
+}
+
+.farm-popup-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.view-3d-btn,
+.soil-data-btn {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.view-3d-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+
+
+
+
+.soil-data-btn {
+    background-color: #2196F3;
+    color: white;
+}
+
+.tree-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.material-icons {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+.gauge-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.canvas-container,
+.canvas-container-2 {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 10px;
+    /* Reduced gap between gauges */
+}
+
+canvas {
+    width: 160px;
+    /* Slightly reduced width to fit all gauges */
+    height: auto;
+}
+
+/* For Durian farm type */
+.gauge-wrapper[data-farm-type="durian"] .canvas-container,
+.gauge-wrapper[data-farm-type="durian"] .canvas-container-2 {
+    width: 100%;
+    gap: 20px;
+    /* Keep larger gap for Durian layout */
+}
+
+/* For Coffee farm type */
+.gauge-wrapper[data-farm-type="coffee"] .canvas-container {
+    display: none;
+}
+
+.gauge-wrapper[data-farm-type="coffee"] .canvas-container-2 {
+    width: 100%;
+    justify-content: center;
+    gap: 5px;
+    /* Even smaller gap for Coffee layout */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+
+    .canvas-container,
+    .canvas-container-2 {
+        flex-wrap: wrap;
+    }
+
+    canvas {
+        width: 140px;
+        /* Further reduced for mobile */
+    }
+
+    .gauge-wrapper[data-farm-type="coffee"] .canvas-container-2 {
+        gap: 10px;
+        /* Slightly larger gap on mobile for better touch targets */
+    }
+}
+
+
+/* Add this to your existing CSS */
+
+.durian-charts[data-farm-type="coffee"] {
+    display: none;
+}
+
+.durian-charts[data-farm-type="durian"] {
+    display: block;
+    margin-bottom: 20px;
+    /* Add some space after Durian charts */
+}
+
+/* For Coffee farm type, remove any extra space caused by hidden elements */
+body[data-farm-type="coffee"] .durian-charts,
+body[data-farm-type="coffee"] .headerNDT,
+body[data-farm-type="coffee"] .headerP205,
+body[data-farm-type="coffee"] .headerk2o {
+    display: none;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Ensure consistent spacing for both farm types */
+.headerNPK,
+.headerMoist,
+.headerpH,
+.headerTemp {
+    margin-top: 20px;
+}
+
+/* Remove any extra space above the first visible chart */
+body[data-farm-type="coffee"] .headerNPK {
+    margin-top: 0;
+}
+
+body[data-farm-type="durian"] .headerNDT {
+    margin-top: 0;
+}
+
+.zone-boxes {
+    display: flex;
+    gap: 20px;
+    margin-top: 0px;
+    align-items: center;
+    position: absolute;
+    right: 20px;
+}
+
+.zone-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.zone-box {
+    width: 10px;
+    height: 10px;
+}
+
+.zone-item p {
+    margin: 0;
+    font-size: 10px;
+    color: #555;
+    text-align: left;
+}
+
+/*Cluster Marker Count text*/
+.marker-cluster div {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    margin-top: 5px;
+    text-align: center;
+    border-radius: 15px;
+    font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.marker-cluster span {
+    line-height: 30px;
+}
+
+/*Soil Historical Data Cards*/
+#ndtChartContainer,
+#p205ChartContainer,
+#k2oChartContainer,
+#npkChartContainer,
+#moistureChartContainer,
+#pHChartContainer,
+#tempChartContainer {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    /* Adjust this value as needed */
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#ndtChartContainer::before,
+#p205ChartContainer::before,
+#k2oChartContainer::before,
+#npkChartContainer::before,
+#moistureChartContainer::before,
+#pHChartContainer::before,
+#tempChartContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    filter: blur(2px);
+    /* Adjust the blur amount as needed */
+    transform: scale(1.1);
+    /* Slightly scale up to avoid blurred edges */
+}
+
+#ndtChartContainer::after,
+#p205ChartContainer::after,
+#k2oChartContainer::after,
+#npkChartContainer::after,
+#moistureChartContainer::after,
+#pHChartContainer::after,
+#tempChartContainer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 100%);
+    border-radius: 10px;
+    pointer-events: none;
+}
+
+#ndtChart,
+#p205Chart,
+#k2oChart,
+#npkChart,
+#moistChart,
+#phChart,
+#tempChart {
+    position: relative;
+    z-index: 1;
+    margin: 10px auto;
+    width: calc(100% - 50px) !important;
+    height: calc(100% - 40px) !important;
+}
+
+
+
+
+
+.recenter-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 12px;
+    color: #555;
+    transition: all 0.3s ease;
+}
+
+.recenter-btn:hover {
+    color: #000;
+    transform: scale(1.2);
+}
+
+.recenter-btn .material-symbols-outlined {
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.recenter-btn:hover .material-symbols-outlined {
+    font-size: 15px;
+}
+
+
+
+
