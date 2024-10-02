@@ -71,6 +71,9 @@ const displayFarmList = async (farms) => {
             item.style.transition = 'opacity 0.5s ease-out,transform 0.5s ease-out';
         }, (index + 1) * 300);
     });
+
+    // Add this line to translate all elements after populating the farm list
+    translateAllElements();
 };
 
 const displaySortingMessage = () => {

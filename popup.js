@@ -27,15 +27,15 @@ var popupContent=`
                         <br><span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">grid_on</span> <b data-translate="Farm Area">${getTranslatedText("Farm Area")}</b>: ${farmDetails.farm_area} ha.`;const cultivateDetailsPromises=matchingCultivates.map(async(cultivate)=>{const cultivateDetails=await fetch(`https://api-router.enfarm.com/api/v3/cultivate/retrieve-cultivate-tree`,{method:"POST",headers:{accept:"application/json","Content-Type":"application/json",},body:JSON.stringify({cultivate_id:cultivate.cultivate_id,}),}).then((response)=>response.json()).then((data)=>data.content).catch((error)=>{console.error(`Error fetching cultivate details for cultivate_id ${cultivate.cultivate_id}:`,error);return null;});if(cultivateDetails){console.log("Cultivate details:",cultivateDetails);console.log("Tree type:",cultivateDetails.tree_type);let cultivateContent=`
             <br>
 <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;"><b>psychiatry</span> <span data-translate="Tree Type">Loại cây</span>:</b> ${cultivateDetails.tree_type === 0
-    ? '<img src="./images/icons8-coffee-beans-96.png" alt="Coffee Beans" style="width: 10px;"> <span data-translate="Coffee">Cà phê</span>'
-    : cultivateDetails.tree_type === 1
-        ? '<img src="./images/icons8-durian-96.png" alt="Durian" style="width: 10px;"> <span data-translate="Durian">Sầu riêng</span>'
-        : cultivateDetails.tree_type === 2
-            ? '<img src="./images/icons8-pepper-96.png" alt="Pepper" style="width: 10px;"> <span data-translate="Pepper">Tiêu</span>'
-            : cultivateDetails.tree_type === 3
-                ? '<img src="./images/icons8-tea-leaves-64.png" alt="Tea" style="width: 10px;"> <span data-translate="Tea">Trà</span>'
-                : "N/A"
-}<br>`;cultivateContent+=`
+                                            ? '<img src="./images/icons8-coffee-beans-96.png" alt="Coffee Beans" style="width: 10px;"> <span data-translate="Coffee">Cà phê</span>'
+                                            : cultivateDetails.tree_type === 1
+                                                ? '<img src="./images/icons8-durian-96.png" alt="Durian" style="width: 10px;"> <span data-translate="Durian">Sầu riêng</span>'
+                                                : cultivateDetails.tree_type === 2
+                                                    ? '<img src="./images/icons8-pepper-96.png" alt="Pepper" style="width: 10px;"> <span data-translate="Pepper">Tiêu</span>'
+                                                    : cultivateDetails.tree_type === 3
+                                                        ? '<img src="./images/icons8-tea-leaves-64.png" alt="Tea" style="width: 10px;"> <span data-translate="Tea">Trà</span>'
+                                                        : "N/A"
+                                        }<br>`;cultivateContent+=`
     <div>
         <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">trending_flat</span><b> <span data-translate="Current Productivity">Năng suất hiện tại</span>: <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; position: relative; top: -2px;">weight</span></b>${cultivateDetails.current_prod} tonnes<br>
         
@@ -184,38 +184,23 @@ cultivateContent+=`
                     <!--    QR String: ${softid.qr_string}<br>-->
                     <!--    <i>No nutrition data found</i><br>-->
                 `;}
-return nutritionData;});await Promise.all(nutritionDataPromises);cultivateContent+=`</div></div>`;return cultivateContent;}else{return`<br><i>Error fetching cultivate details</i>`;}});function createPopupContent(index,cultivateContents,farmDetails,location,farmThumbnail){let content=`
-                                    <div style="position: relative; padding: 0; margin: 0;">
-                                    <div style="overflow: hidden; width: 330px; height: 150px; position: relative; margin-left: -7.5%; margin-top: -15px; border-top-left-radius: 6px; border-top-right-radius: 6px;" onmouseover="this.querySelector('.parallax-img').style.transform = 'scale(1.1)'" onmouseout="this.querySelector('.parallax-img').style.transform = 'scale(1)'">
-                                        <img src="${farmThumbnail}" alt="Farm Image" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; transition: transform 0.3s ease;" class="parallax-img" />
-                                    </div>
-                            
-                                    <div style="position: absolute; top: 30px; left: 0px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
-                                        <span class="material-symbols-outlined" style="font-size: 16px; margin-right: 2px; color: white;">psychiatry</span>
-                                        <b style="font-size: 18px; color: white;">${location.farmname}</b><br>
-                                        <span class="material-symbols-outlined" style="font-size: 10px; margin-right: 4px; color: white;">location_on</span>
-                                        <span style="font-size: 12px; color: white;">${farmDetails ? farmDetails.farm_address || "N/A" : "N/A"}</span><br>
-                                    </div>
-                                </div>
-                                
-                                <div style="padding-bottom: 30px; padding-top: 10px;">
-                                    <br><span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">grid_on</span> <b data-translate="Farm Area">${getTranslatedText("Farm Area")}</b>: ${farmDetails.farm_area} ha.
-                                `;content+=cultivateContents[index];return content;}
-Promise.all(cultivateDetailsPromises).then((cultivateContents)=>{let currentCultivateIndex=0;let soilDataExpandedStates=new Array(cultivateContents.length).fill(false);let globalSoilDataExpanded=false;function createPopupContent(index,cultivateContents,farmDetails,location,farmThumbnail){let content=`
-            <div style="position: relative; padding: 0; margin: 0;">
-                <div style="overflow: hidden; width: 330px; height: 150px; position: relative; margin-left: -7.5%; margin-top: -15px; border-top-left-radius: 6px; border-top-right-radius: 6px;" onmouseover="this.querySelector('.parallax-img').style.transform = 'scale(1.1)'" onmouseout="this.querySelector('.parallax-img').style.transform = 'scale(1)'">
-                    <img src="${farmThumbnail}" alt="Farm Image" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; transition: transform 0.3s ease;" class="parallax-img" />
-                </div>
-                <div style="position: absolute; top: 30px; left: 0px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
-                    <span class="material-symbols-outlined" style="font-size: 16px; margin-right: 2px; color: white;">psychiatry</span>
-                    <b style="font-size: 18px; color: white;">${location.farmname}</b><br>
-                    <span class="material-symbols-outlined" style="font-size: 10px; margin-right: 4px; color: white;">location_on</span>
-                    <span style="font-size: 12px; color: white;">${farmDetails ? farmDetails.farm_address || "N/A" : "N/A"}</span><br>
-                </div>
-            </div>
-            <div style="padding-bottom: 30px; padding-top: 10px;">
-                <br><span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">grid_on</span> <b data-translate="Farm Area">${getTranslatedText("Farm Area")}</b>: ${farmDetails.farm_area} ha.
-            `;let cultivateContent=cultivateContents[index];if(globalSoilDataExpanded&&soilDataExpandedStates[index]!==false){cultivateContent=cultivateContent.replace('class="soil-data" style="display:none;"','class="soil-data" style="display:block;"');cultivateContent=cultivateContent.replace('data-translate="View soil data">Xem dữ liệu đất',`data-translate="Hide soil data">${getTranslatedText("Hide soil data")}`);}
+return nutritionData;});await Promise.all(nutritionDataPromises);cultivateContent+=`</div></div>`;return cultivateContent;}else{return`<br><i>Error fetching cultivate details</i>`;}});Promise.all(cultivateDetailsPromises).then((cultivateContents)=>{let currentCultivateIndex=0;let soilDataExpandedStates=new Array(cultivateContents.length).fill(false);let globalSoilDataExpanded=false;function createPopupContent(index,cultivateContents,farmDetails,location,farmThumbnail){const currentUserId=getCurrentUserId();let content=`
+    <div style="position: relative; padding: 0; margin: 0;">
+        <div style="overflow: hidden; width: 330px; height: 150px; position: relative; margin-left: -7.5%; margin-top: -15px; border-top-left-radius: 6px; border-top-right-radius: 6px;" onmouseover="this.querySelector('.parallax-img').style.transform = 'scale(1.1)'" onmouseout="this.querySelector('.parallax-img').style.transform = 'scale(1)'">
+            <img src="${farmThumbnail}" alt="Farm Image" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; transition: transform 0.3s ease;" class="parallax-img" />
+<i class="fi fi-bs-microchip microchip-icon" style="position: absolute; bottom: 10px; right: 20px; color: white; font-size: 18px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); cursor: pointer; padding-right: 5px;" data-user-id="${currentUserId}" data-farm-id="${farmDetails.farm_id}"></i>
+
+        </div>
+                                            <div style="position: absolute; top: 30px; left: 0px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                                                <span class="material-symbols-outlined" style="font-size: 16px; margin-right: 2px; color: white;">psychiatry</span>
+                                                <b style="font-size: 18px; color: white;">${location.farmname}</b><br>
+                                                <span class="material-symbols-outlined" style="font-size: 10px; margin-right: 4px; color: white;">location_on</span>
+                                                <span style="font-size: 12px; color: white;">${farmDetails ? farmDetails.farm_address || "N/A" : "N/A"}</span><br>
+                                            </div>
+                                        </div>
+                                        <div style="padding-bottom: 30px; padding-top: 10px;">
+                                            <br><span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">grid_on</span> <b data-translate="Farm Area">${getTranslatedText("Farm Area")}</b>: ${farmDetails.farm_area} ha.
+                                        `;let cultivateContent=cultivateContents[index];if(globalSoilDataExpanded&&soilDataExpandedStates[index]!==false){cultivateContent=cultivateContent.replace('class="soil-data" style="display:none;"','class="soil-data" style="display:block;"');cultivateContent=cultivateContent.replace('data-translate="View soil data">Xem dữ liệu đất',`data-translate="Hide soil data">${getTranslatedText("Hide soil data")}`);}
 content+=cultivateContent;if(cultivateContents.length>1){content+=`
                     <div id="cultivate-info" style="display: flex; align-items: center; margin-top: 10px;">
                         <div id="chevron-icons" style="display: flex; align-items: center; gap: 5px;">
@@ -236,7 +221,8 @@ content+=cultivateContent;if(cultivateContents.length>1){content+=`
                 `;}
 return content;}
 popupContent=createPopupContent(0,cultivateContents,farmDetails,location,farmThumbnail);marker.bindPopup(popupContent,{autoPan:false,closeOnClick:false,autoClose:false});marker.options.treeTypes=getTreeTypesFromPopup(popupContent);marker.on("popupopen",function(){const popup=this.getPopup();const container=popup.getElement();function updatePopupContent(){console.log('Updating popup content. Current index:',currentCultivateIndex);const newContent=createPopupContent(currentCultivateIndex,cultivateContents,farmDetails,location,farmThumbnail);popup.setContent(updatePopupTranslations(newContent));popup.update();attachEventListeners();}
-function attachEventListeners(){attachHistoricalSoilDataListeners();attachCultivateNavigationListeners();attachSoilDataToggleListener();}
+function attachEventListeners(){attachHistoricalSoilDataListeners();attachCultivateNavigationListeners();attachSoilDataToggleListener();attachMicrochipClickListener();}
+function attachMicrochipClickListener(){const microchipIcon=container.querySelector('.microchip-icon');if(microchipIcon){microchipIcon.addEventListener('click',handleMicrochipClick);}}
 function attachSoilDataToggleListener(){const soilDataPill=container.querySelector('.soildata-pill');if(soilDataPill){soilDataPill.addEventListener('click',function(e){e.stopPropagation();toggleSoilData(this);});}}
 function toggleSoilData(element){const soilDataDiv=element.closest(".leaflet-popup-content").querySelector(".soil-data");const toggleText=element.querySelector(".toggle-text");if(soilDataDiv&&toggleText){globalSoilDataExpanded=!globalSoilDataExpanded;soilDataExpandedStates[currentCultivateIndex]=globalSoilDataExpanded;if(globalSoilDataExpanded){soilDataDiv.style.display="block";toggleText.textContent=getTranslatedText("Hide soil data");}else{soilDataDiv.style.display="none";toggleText.textContent=getTranslatedText("View soil data");}
 element.setAttribute('data-expanded',globalSoilDataExpanded);}else{console.error("Soil data div or toggle text not found");}}
@@ -275,4 +261,6 @@ function updateOpenPopup(){map.eachLayer(function(layer){if(layer instanceof L.M
 function handleHistoricalSoilDataClick(event){const btn=event.currentTarget;const iconElement=btn.querySelector(".material-symbols-outlined");const cultivateId=iconElement.getAttribute("data-cultivate-id");const inDepth=iconElement.getAttribute("data-in-depth");console.log("cultivate_id:",cultivateId);console.log("in_depth:",inDepth);const soilDataEvent=new CustomEvent("soilDataRequested",{detail:{cultivateId:cultivateId,inDepth:inDepth,},});window.dispatchEvent(soilDataEvent);const popupHistoricalSoilData=document.querySelector(".popup-historicalsoildata");if(popupHistoricalSoilData){popupHistoricalSoilData.style.display="block";}}
 function zoomToMarker(lat,lng){map.flyTo([lat,lng],18,{animate:true,duration:1.5,});}
 document.addEventListener("DOMContentLoaded",function(){const recenterBtn=document.getElementById("recenterBtn");recenterBtn.addEventListener("click",function(){const popupHistoricalSoilData=document.querySelector(".popup-historicalsoildata");const lat=parseFloat(popupHistoricalSoilData.dataset.lat);const lng=parseFloat(popupHistoricalSoilData.dataset.lng);if(!isNaN(lat)&&!isNaN(lng)){zoomToMarker(lat,lng);}});});function getTreeTypesFromPopup(popupContent){const treeTypes=[];if(popupContent.includes("Tree Type:</b> Coffee")||popupContent.includes('data-translate="Coffee"'))treeTypes.push("Coffee");if(popupContent.includes("Tree Type:</b> Durian")||popupContent.includes('data-translate="Durian"'))treeTypes.push("Durian");if(popupContent.includes("Tree Type:</b> Tea")||popupContent.includes('data-translate="Tea"'))treeTypes.push("Tea");if(popupContent.includes("Tree Type:</b> Pepper")||popupContent.includes('data-translate="Pepper"'))treeTypes.push("Pepper");return treeTypes;}
+function getCurrentUserId(){const userInfo=getAuthenticatedUserInfo();if(ADMIN_PHONES.includes(userInfo.userPhone)){return'admin';}else{return userInfo.userID;}}
+function handleMicrochipClick(event){const userId=event.target.getAttribute('data-user-id');const farmId=event.target.getAttribute('data-farm-id');if(userId==='admin'){console.log(`Admin user, Farm ID: ${farmId}`);}else{console.log(`User ID: ${userId}, Farm ID: ${farmId}`);}}
 fetchFarmData(authenticatedUserIDs);
